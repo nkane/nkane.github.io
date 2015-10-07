@@ -1,0 +1,10 @@
+# Site settings
+title: "Nick Kane"
+email: nkanedev@gmail.com
+description: "Portfolio and Blog for Nick Kane"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "localhost:8000" # the base hostname & protocol for your site
+github_username:  nkane
+
+# Build settings
+markdown: kramdown
