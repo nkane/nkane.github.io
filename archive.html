@@ -1,0 +1,11 @@
+---
+layout: default
+title: "Archive"
+---
+    <h3>Archive</h3>
+        <div>
+            {% for post in site.posts %}
+                <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
+                <p>{{ post.content | truncatewords:50 }}</p>
+            {% endfor %}
+        </div>
