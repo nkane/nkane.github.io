@@ -10,7 +10,5 @@ Occasionally, I will probably blog about some other areas of interest for me. I 
 
 Thank you for reading!
 
-Nick
-
 [linkedin]:     https://www.linkedin.com/in/nkanedev
 [eventvods]:    http://github.com/eventvods/eventvods
