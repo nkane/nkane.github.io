@@ -9,6 +9,7 @@ Greetings new readers! This post more of an introduction of myself, so please fe
 Occasionally, I will probably blog about some other areas of interest for me. I am in to weight lifting, jiu-jtisu, mix martial arts, video games, craft beer, video games, and much more.
 
 Thank you for reading!
+
 Nick
 
 [linkedin]:     https://www.linkedin.com/in/nkanedev
