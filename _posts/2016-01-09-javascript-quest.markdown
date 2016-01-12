@@ -12,11 +12,13 @@ Object literals allow for quick creation of objects with declared properties ins
 
 {% highlight javascript %}
 var person = {
-    firstName: 'Timmeh',
-    lastName: 'Brass'
+    firstName: 'Greg',
+    lastName: 'McGregor'
 };
 
 console.log(person);
+
+console.log(person.constructor);
 
 /*
   Output:
@@ -24,11 +26,14 @@ console.log(person);
       firstName: "Greg",
       lastName: "McGregor"
     }
+
+    function Object() { [native code] }
 */
 {% endhighlight %}
 
-
 ###Constructor Function
+Constructor Functions are skeletons for new objects in JavaScript. They pair up with the ["new operator"][MDN - Object] in order to create new objects.
+
 Constructor Functions
 {% highlight javascript %}
 function PersonConstructor(first, last) {
@@ -36,15 +41,21 @@ function PersonConstructor(first, last) {
     this.lastName = last;
 }
 
-var anotherPerson = new PersonConstructor('Jerreh', 'Mass');
+var anotherPerson = new PersonConstructor('Greg', 'McGregor');
 
 console.log(anotherPerson);
 
+console.log(anotherPerson.constructor);
 /*
   Output:
     PersonConstructor {
       firstName: "Greg",
       lastName: "Gregory"
+    }
+
+    function PersonConstructor(first, last) {
+      this.firstName = first;
+      this.lastName = last;
     }
 */
 {% endhighlight %}
