@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "Why, Hello there Mr. Object?"
-date: 2016-01-06
+date: 2016-01-05
 categories: blog javascript
-visible: 0
+visible: 1
 ---
 After doing a bit of research on some of the details regarding JavaScript objects, I figured I would write a post about it. JavaScript has a ["new operator"][MDN - Object], and the functionality of this operation is the create an instance of a user-defined object type or one of the built-in object types that has a constructor function (more on that shortly).
 
 ###Object Literal or Initializer Notation
-Object literals allow for quick creation of objects with declared properties inside. When creating an Object this way, it does not create an Object wrapper around it. Instead, it just creates a small Object without any unnecessary functionality behind it. We will discuss what exactly Object wrappers. Below is an example of how to declare an Object Literal:
+Object literals allow for quick creation of objects with declared properties inside. When creating an Object this way, it does not create an Object wrapper around it. Instead, it just creates a small Object without any unnecessary functionality behind it. We will discuss what exactly Object wrappers. Below is an example of how to instantiate an Object Literal:
 
 {% highlight javascript %}
 var person = {
@@ -32,7 +32,7 @@ console.log(person.constructor);
 {% endhighlight %}
 
 ###Constructor Function
-Constructor Functions are skeletons for new objects in JavaScript. They pair up with the ["new operator"][MDN - Object] in order to create new objects.
+Constructor Functions are skeletons for new objects in JavaScript. They pair up with the ["new operator"][MDN - Object] in order to create new instances of objects; however, they have some key difference from creating an object using the initializer notation. When using the new key word, a prototype object is attached to the object instance. Below is an example of how to instantiate an Object using the new key word.
 
 Constructor Functions
 {% highlight javascript %}
@@ -61,13 +61,13 @@ console.log(anotherPerson.constructor);
 {% endhighlight %}
 
 
-###Object Wrappers
-{% highlight javascript %}
-
-{% endhighlight %}
+If you find anything inaccurate in my post, please send me a message. Any feedback is much appreciated!
 
 
-[Interview]:            http://www.programmerinterview.com/index.php/javascript/wrapper-objects-in-javascript/
+Other references:
+
+[YUI - Team Blog][yuiblog]
+
 [MDN - New Operator]:   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
 [MDN - Object]:         https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
 [yuiblog]:              http://yuiblog.com/blog/2006/11/13/javascript-we-hardly-new-ya/
