@@ -34,7 +34,6 @@ console.log(person.constructor);
 ###Constructor Function
 Constructor Functions are skeletons for new objects in JavaScript. They pair up with the ["new operator"][MDN - Object] in order to create new instances of objects; however, they have some key difference from creating an object using the initializer notation. When using the new key word, a prototype object is attached to the object instance. Below is an example of how to instantiate an Object using the new key word.
 
-Constructor Functions
 {% highlight javascript %}
 function PersonConstructor(first, last) {
     this.firstName = first;
