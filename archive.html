@@ -5,7 +5,9 @@ title: "Archive"
     <h3>Archive</h3>
         <div>
             {% for post in site.posts %}
+            {% if post.visible == 1 %}
                 <h4><a href="{{ post.url }}">{{ post.title }}</a></h4>
                 <p>{{ post.content | truncatewords:50 }}</p>
+            {% endif %}
             {% endfor %}
         </div>
