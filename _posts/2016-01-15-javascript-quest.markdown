@@ -7,7 +7,7 @@ visible: 1
 ---
 After doing a bit of research on some of the details regarding JavaScript objects, I figured I would write a post about it. JavaScript has a ["new operator"][MDN - Object], and the functionality of this operation is the create an instance of a user-defined object type or one of the built-in object types that has a constructor function (more on that shortly).
 
-###Object Literal or Initializer Notation
+### Object Literal or Initializer Notation ###
 Object literals allow for quick creation of objects with declared properties inside. When creating an Object this way, it does not create an Object wrapper around it. Instead, it just creates a small Object without any unnecessary functionality behind it. We will discuss what exactly Object wrappers. Below is an example of how to instantiate an Object Literal:
 
 {% highlight javascript %}
@@ -31,7 +31,7 @@ console.log(person.constructor);
 */
 {% endhighlight %}
 
-###Constructor Function
+### Constructor Function ###
 Constructor Functions are skeletons for new objects in JavaScript. They pair up with the ["new operator"][MDN - Object] in order to create new instances of objects; however, they have some key difference from creating an object using the initializer notation. When using the new key word, a prototype object is attached to the object instance. Below is an example of how to instantiate an Object using the new key word.
 
 {% highlight javascript %}
