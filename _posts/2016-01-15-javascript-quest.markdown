@@ -20,7 +20,6 @@ console.log(person);
 
 console.log(person.constructor);
 
-/*
   Output:
     Object {
       firstName: "Greg",
@@ -28,7 +27,6 @@ console.log(person.constructor);
     }
 
     function Object() { [native code] }
-*/
 {% endhighlight %}
 
 ### Constructor Function ###
@@ -45,7 +43,7 @@ var anotherPerson = new PersonConstructor('Greg', 'McGregor');
 console.log(anotherPerson);
 
 console.log(anotherPerson.constructor);
-/*
+
   Output:
     PersonConstructor {
       firstName: "Greg",
@@ -56,7 +54,6 @@ console.log(anotherPerson.constructor);
       this.firstName = first;
       this.lastName = last;
     }
-*/
 {% endhighlight %}
 
 
