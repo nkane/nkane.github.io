@@ -21,7 +21,7 @@ console.log(person.name);
 
 
 ### Bracket Notation ###
-The break notation is another way of being able to access object properties. Below is an example of how to access an object's properties using the backet notation:
+The bracket notation is another way of being able to access object properties. Below is an example of how to access an object's properties using the bracket notation:
 {% highlight javascript %}
 var person = {
   Name: ''  
@@ -49,7 +49,10 @@ Accessing properties using a numerical value that will be type casted in to a st
 {% highlight javascript %}
 var personDictionary = {  };
 
-personDictionary['1'] = { FirstName: 'Chuck', LastName: 'Noris' };
+personDictionary['1'] = {
+    FirstName: 'Chuck',
+    LastName: 'Norris'
+};
 
 console.log(personDictionary[1]);
 {% endhighlight %}
