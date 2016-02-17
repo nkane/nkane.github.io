@@ -7,7 +7,7 @@ visible: 1
 ---
 Last article we briefly went over JavaScript objects and different ways to initialize objects. In this article, we are going to touch on Object properties and the variety of ways to access them. Properties can be defined as variables that are attached to objects. Object properties can be assigned any type of value in JavaScript.
 
-###Dot Notation
+### Dot Notation ###
 The dot notation is probably the most commonly used way of accessing object properties. Below is an example of how to access an object's properties using the dot notation:
 {% highlight javascript %}
 var person = {
@@ -20,7 +20,7 @@ console.log(person.name);
 {% endhighlight %}
 
 
-###Bracket Notation
+### Bracket Notation ###
 The break notation is another way of being able to access object properties. Below is an example of how to access an object's properties using the backet notation:
 {% highlight javascript %}
 var person = {
@@ -33,7 +33,7 @@ console.log(person.Name);
 {% endhighlight %}
 
 
-###Property Names
+### Property Names ###
 Property names must be a string and non-string objects cannot be used as a key in the object. Any non-string that is passed in will be casted into a string.
 {% highlight javascript %}
 var person = { };
@@ -44,7 +44,7 @@ console.log(person[1]);
 {% endhighlight %}
 
 
-###Use Case
+### Use Case ###
 Accessing properties using a numerical value that will be type casted in to a string may not seem useful at first; however, if a dictionary is being created from some other source having properties dedicated to key value pairs could potentially eliminate the need for any looping to occur.
 {% highlight javascript %}
 var personDictionary = {  };
@@ -54,7 +54,7 @@ personDictionary['1'] = { FirstName: 'Chuck', LastName: 'Noris' };
 console.log(personDictionary[1]);
 {% endhighlight %}
 
-###Thanks
+### Thanks ###
 I wanted to say thanks to Phil DeVeau for sending me message regarding property accessors. If you feel that anything is missing or wrong, please feel free to contact me.
 
 
