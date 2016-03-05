@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Pixel Meh!"
+date: 2016-03-01
+categories: blog personal
+visible: 0
+---
+Growing up outside of Tampa in the late 1990's, I didn't have as much exposure to classic arcades; however, I knew that I loved video games when I was introduced to the id software game ["Doom"][Doom] on MS-DOS.
+
+
+
+
+
+[Doom]:     https://en.wikipedia.org/wiki/Doom_(1993_video_game)

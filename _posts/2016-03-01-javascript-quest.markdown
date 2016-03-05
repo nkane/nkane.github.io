@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "This cake is a lie!"
-date: 2016-02-17
+date: 2016-03-01
 categories: blog javascript
 visible: 0
 ---
