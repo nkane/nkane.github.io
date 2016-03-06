@@ -1,14 +1,19 @@
 ---
 layout: post
-title: "Pixel Meh!"
+title: "Insert Coin to Continue ..."
 date: 2016-03-01
-categories: blog personal
+categories: blog gaming
 visible: 0
 ---
-Growing up outside of Tampa in the late 1990's, I didn't have as much exposure to classic arcades; however, I knew that I loved video games when I was introduced to the id software game ["Doom"][Doom] on MS-DOS.
+Growing up outside of Tampa in the late 1990's / early 2000's, I didn't have as much exposure to classic arcades; however, I knew that I loved video games when I was introduced to the id software game [Doom][Doom] on my uncles computer when I was 9 years old. From that point on, I was hooked on any type of gaming.
 
+### Replay Amusement Museum ###
+Last weekend I was doing a bit of research on do it yourself arcade cabinet building and repair. One of the things that I stumbled upon was a place close to where I currently live called ["Replay Amusement Museum"][Replay] located in Tarpon Springs, Florida. After taking a look at their web page, and finding out that the machines were playable for a flat fee. I knew that I would be making a trip out there the following weekend.
 
+### One more game ... ###
+Walking in to the a dimly lit room with arcade cabinet speakers blasting, pinball machine paddles clicking, and people laughing - I instantly felt right at home.
 
 
 
 [Doom]:     https://en.wikipedia.org/wiki/Doom_(1993_video_game)
+[Replay]:   http://www.replaymuseum.org/
