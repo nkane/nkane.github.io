@@ -1,0 +1,48 @@
+---
+layout: post
+title: "Insert Coin to Continue ..."
+date: 2016-03-07
+categories: blog gaming
+visible: 1
+---
+Growing up outside of Tampa in the late 1990's / early 2000's, I didn't have as much exposure to classic arcades; however, I knew that I loved video games when I was introduced to the id software game [Doom][Doom] on my uncles computer when I was 9 years old. From that point on, I was hooked on any type of gaming.
+
+### Replay Amusement Museum ###
+Last weekend I was doing a bit of research on do it yourself arcade cabinet building and repair. I stumbled upon was a place close to where I currently live called ["Replay Amusement Museum"][Replay] located in Tarpon Springs, Florida. After taking a look at their web page, and finding out that the machines were playable for a flat fee. I knew that I would be making a trip out there the following weekend.
+
+![Replay Amusement Museum](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-Machines-View_zpsuo3qpty1.jpg)
+
+### One more game ... ###
+Walking in to the a dimly lit room with arcade cabinet speakers blasting, pinball machine paddles clicking, and people laughing - I instantly felt right at home. I started out on the pinball machines, and personally found the classic two paddle machines were a bit more entertaining. Prior to my visit to the Replay Museum, I knew very little about pinball; however, after spending the first hour on a few different machines the mechanics of the game started to click in for me. Two machines that I enjoy playing were ["Xenon"][Xenon] and ["The Machine: Bride of Pin-bot"][Machine-Bride]. Below are a few pictures of some of the pinball machines that I played while at Replay Museum.
+
+
+#### Xenon ####
+![Pinball-Xenon](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-Xenon_zpsgycoa0cq.jpg)
+This machine was one of my favorites to play during my visit, the artwork had a very science fiction feel to it as well as awesome lighting.
+
+#### The Machine: Bride of Pin-bot ####
+![Pinball-Machine-Bride](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-The-Machine-Bride_zpssaebx3ri.jpg)
+Another favorite that I play on my visit, mechanics of this game were fun.
+
+#### Terminator 2 ####
+![Pinball-Terminator-2](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-Terminator-2_zpss7c3lfio.jpg)
+A classic that I could not pass up playing, listening to Arnold's voice yell at you.
+
+#### Hercules ####
+![Pinball-Hercules](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-Hercules-1_zpsnbuqepbr.jpg)
+The worlds largest Pinball Game!
+
+
+#### The Walking Dead ####
+![Pinball-Walking-Dead](http://i1055.photobucket.com/albums/s515/nkanedevn/Replay-Amusement-Museum-Walking-Dead-1_zpsy03hqrgs.jpg)
+Replay Museum had some new machines in there as well, one of which was the Walking Dead! Who could say no to that?!
+
+
+### Replay Recap ###
+Replay Amusement Museum had a lot more to offer than pinball machines, and I did spend a good amount of time playing some classic video games. If you are interested in old school video games and around the Tampa Bay area, I would recommend to take a trip out to Tarpon Springs to play a bunch of awesome games. Keep dreaming in pixels and thanks for reading!
+
+
+[Doom]:                 https://en.wikipedia.org/wiki/Doom_(1993_video_game)
+[Machine-Bride]:        https://en.wikipedia.org/wiki/The_Machine:_Bride_of_Pin-Bot
+[Replay]:               http://www.replaymuseum.org/
+[Xenon]:                https://en.wikipedia.org/wiki/Xenon_(pinball)
