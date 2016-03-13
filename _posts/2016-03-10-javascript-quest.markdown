@@ -34,7 +34,7 @@ console.log(globalObject.document === document);
 // Logs True
 console.log(this.document === document);
 
-// Asign a variable on the Global Object
+// Assign a variable on the Global Object
 this.anotherVariable = 1;
 
 // Logs 1
@@ -44,7 +44,27 @@ console.log(this.window.anotherVariable);
 console.log(globalObject.anotherVariable);
 {% endhighlight %}
 
-In function context the value depends on how the function is called; additionally, it does have differences between strict mode and non-strict mode.
+In function context the value depends on how the function is called; additionally, it does have differences between strict mode and non-strict mode. In the first case the value of "this" is not set by the call, because in non-strict mode "this" must always be a object. In the second case, the of "this" remains at whatever it is set to when entering the execution context.
+
+{% highlight javascript %}
+function exampleOne() {
+    return this;
+}
+
+// Returns true
+console.log(exampleOne() === window);
+
+function exampleTwo() {
+    'use strict';
+    return this;
+}
+
+// Returns true
+console.log(exampleTwo() === undefined);
+{% endhighlight %}
+
+
+### "This" Object Method ###
 
 
 [MDN - Closures]:               https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
