@@ -65,8 +65,35 @@ console.log(exampleTwo() === undefined);
 
 
 ### "This" Object Method ###
+When invoking the "this" context within an object's method, the context it is set to is calling object. The example below uses both an inline function and a declared method that is separately attached to the object.
 
+{% highlight javascript %}
+var item = {
+    value: 100,
+    action: function() {
+        return this.value;
+    }
+};
+
+function testFunction(){
+    var itemTest = this;
+    console.log(itemTest);
+    return itemTest.value;
+}
+
+item.callMe = testFunction();
+
+item.action();
+item.callMe();
+{% endhighlight %}
+
+
+### "This" Object Constructors ###
+
+
+### Closures ###
 
 [MDN - Closures]:               https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+[MDN - Functions]:              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
 [MDN - JavaScript This]:        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
 [MDN - Strict Mode]:            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode

@@ -7,3 +7,6 @@ visible: 0
 ---
 
 ### Immediately-Invoked Function Expression ###
+
+
+[MDN - Closures]:               https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
