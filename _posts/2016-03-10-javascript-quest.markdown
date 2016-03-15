@@ -89,7 +89,37 @@ item.callMe();
 
 
 ### "This" Object Constructors ###
+If you are not familiar with Object Constructors or need a quick refresher, head over [here][nkane - JavaScript Object].
 
+{% highlight javascript %}
+function PersonConstructor(name, age) {
+    var person = this;
+    person.name = name;
+    person.age = age;
+}
+
+function ItemConstructor(type) {
+    var item = this;
+    item.type = type;
+
+    return {
+        type: 'Item Is Gone!'
+    };
+}
+
+var chuck = new PersonConstructor('Chuck', 100);
+
+// Logs 'Chuck'
+console.log(chuck.name);
+
+// Logs 100
+console.log(chuck.age);
+
+chuck = new ItemConstructor('nun-chucks!:D');
+
+// Logs - 'Item Is Gone!'
+console.log(chuck.type);
+{% endhighlight %}
 
 ### Closures ###
 
@@ -97,3 +127,4 @@ item.callMe();
 [MDN - Functions]:              https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions
 [MDN - JavaScript This]:        https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
 [MDN - Strict Mode]:            https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+[nkane - JavaScript Object]:    http://nkane.github.io/blog/javascript/2016/01/15/javascript-quest.html
