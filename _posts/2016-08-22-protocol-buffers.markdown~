@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Not that Buff Protocols"
+date: 2016-08-22
+categories: blog protocol buffers
+visible: 0
+---
+When someone think of serialized structure data formats usually the first two types that usually pop up are XML and JSON. These two formats have their pros and cons, but google has been making an effort to place a new format in the game called "Protocol Buffers". Just like XML and JSON, Protocol Buffers are language and platform neutral; additionally, Protocol Buffers have optimized to be fast and efficient. Protocol Buffers are not new and have been released and used since 2008.
+
+### Features  ###
+
+
+
+ 
+
+References: 
+
+[Google]: 	https://developers.google.com/protocol-buffers/
+[PluralSight]: 	https://app.pluralsight.com/library/courses/protocol-buffers-beyond-json-xml/
+[XML]:		https://www.w3.org/XML/
+[JSON]:		http://www.json.org/
