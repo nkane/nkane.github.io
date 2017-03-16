@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "This cake is a lie!"
+title: "This Cake is a Lie!"
 date: 2016-07-06
 categories: blog javascript
 visible: 1
