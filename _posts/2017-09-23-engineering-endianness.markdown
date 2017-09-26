@@ -29,18 +29,18 @@ The term "[bit]" is short for binary digit, which is the basic base-2 unit of in
 --> y = Exponent
 ---> Example: x^(y)
 ---> Example: base^(exponent)
-------------------
-Bit-1: 2^(0) =   1
-Bit-2: 2^(1) =   2
-Bit-3: 2^(2) =   4
-Bit-4: 2^(3) =   8
-Bit-5: 2^(4) =  16
-Bit-6: 2^(5) =  32
-Bit-7: 2^(6) = 	64
-Bit-8: 2^(7) = 128
-------------------
-1-Byte Total:  256
-------------------
+     ------------------
+     Bit-1: 2^(0) =   1
+     Bit-2: 2^(1) =   2
+     Bit-3: 2^(2) =   4
+     Bit-4: 2^(3) =   8
+     Bit-5: 2^(4) =  16
+     Bit-6: 2^(5) =  32
+     Bit-7: 2^(6) =  64
+     Bit-8: 2^(7) = 128
+     ------------------
+     1-Byte Total:  256
+     ------------------
 
 - BIT REPRESENTATION EXAMPLE(S):
 
@@ -69,7 +69,34 @@ Bit-8: 2^(7) = 128
     1-Byte Total: 	    137
     ---------------------------
 
-// TODO(nick): complete this example
+-> NOTE: 
+-> If you are not familiar with one's or two complement,
+   read the "Brief Review of One's and Two's Complement" section below.
+--> Signed Integer Representation (One's Complement): 
+---> Bit Representation: 1 0 0 0 1 0 0 1
+---> Table Representation:
+     ---------+-------+-------+-------+-------+-------+-------+-------
+    |  Bit-8  | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +---------+-------+-------+-------+-------+-------+-------+-------+
+    |    1    |   0   |   0   |   0   |   1   |   0   |   0   |   1   |
+    +---------+-------+-------+-------+-------+-------+-------+-------+
+    |  -127   |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+     ---------+-------+-------+-------+-------+-------+-------+------- 
+	
+    ----------------------------
+    [ ON  ]  Bit-1: 2^(0) =    1
+    [ OFF ]  Bit-1: 2^(1) =    0
+    [ OFF ]  Bit-3: 2^(2) =    0
+    [ ON  ]  Bit-4: 2^(3) =    8
+    [ OFF ]  Bit-5: 2^(4) =    0
+    [ OFF ]  Bit-6: 2^(5) =    0
+    [ OFF ]  Bit-7: 2^(6) =    0
+    [ ON  ]  Bit-8: 2^(7) = -127
+    ----------------------------
+    1-Byte Total: 	    -118
+    ----------------------------
+
+// TODO(nick): finish two's complement example
 -> NOTE: 
 -> If you are not familiar with one's or two complement,
    read the "Brief Review of One's and Two's Complement" section below.
@@ -99,45 +126,47 @@ Bit-8: 2^(7) = 128
 ```
 
 #### Brief Review of One's and Two's Complement ####
-
+In order to understand how Two's Complement works, it is helpful to review how One's Complement works. One's Complement is obtained by inverting all the bits in the binary representation of a number. Another way to thing about One's Complement, is that the largest value bit is considered the inverse value minus one (e.g., in a byte the 8th bit would be equivalent to -127)
 
 ### Hexadecimal ###
 [Hexadecimal], base-16, in computers is an easy way of representing large bit patterns. A single hexadecimal value can represent 15 values, meaning that a single hexadecimal value is 4-bits (i.e., a [nibble]); therefore, in order to represent 1-byte (8-bits) of data two hexadecimal values are needed.
 
 ```plain
-+--------+-------------+--------+
-| Denary | Hexadecmial | Binary |
-+--------+-------------+--------+
-|    1   |     0x1     |  0001  |
-+--------+-------------+--------+
-|    2   |     0x2     |  0010  |
-+--------+-------------+--------+
-|    3   |     0x3     |  0011  |
-+--------+-------------+--------+
-|    4   |     0x4     |  0100  |
-+--------+-------------+--------+
-|    5   |     0x5     |  0101  |
-+--------+-------------+--------+
-|    6   |     0x6     |  0110  |
-+--------+-------------+--------+
-|    7   |     0x7     |  0111  |
-+--------+-------------+--------+
-|    8   |     0x8     |  1000  |
-+--------+-------------+--------+
-|    9   |     0x9     |  1001  |
-+--------+-------------+--------+
-|   10   |     0xA     |  1010  |
-+--------+-------------+--------+
-|   11   |     0xB     |  1011  |
-+--------+-------------+--------+
-|   12   |     0xC     |  1100  |
-+--------+-------------+--------+
-|   13   |     0xD     |  1101  |
-+--------+-------------+--------+
-|   14   |     0xE     |  1110  |
-+--------+-------------+--------+
-|   15   |     0xF     |  1111  |
-+--------+-------------+--------+
+- NOTE:
+--> Hexadecimal values are usually represented with a "0x".
+    +--------+-------------+--------+
+    | Denary | Hexadecmial | Binary |
+    +--------+-------------+--------+
+    |    1   |     0x1     |  0001  |
+    +--------+-------------+--------+
+    |    2   |     0x2     |  0010  |
+    +--------+-------------+--------+
+    |    3   |     0x3     |  0011  |
+    +--------+-------------+--------+
+    |    4   |     0x4     |  0100  |
+    +--------+-------------+--------+
+    |    5   |     0x5     |  0101  |
+    +--------+-------------+--------+
+    |    6   |     0x6     |  0110  |
+    +--------+-------------+--------+
+    |    7   |     0x7     |  0111  |
+    +--------+-------------+--------+
+    |    8   |     0x8     |  1000  |
+    +--------+-------------+--------+
+    |    9   |     0x9     |  1001  |
+    +--------+-------------+--------+
+    |   10   |     0xA     |  1010  |
+    +--------+-------------+--------+
+    |   11   |     0xB     |  1011  |
+    +--------+-------------+--------+
+    |   12   |     0xC     |  1100  |
+    +--------+-------------+--------+
+    |   13   |     0xD     |  1101  |
+    +--------+-------------+--------+
+    |   14   |     0xE     |  1110  |
+    +--------+-------------+--------+
+    |   15   |     0xF     |  1111  |
+    +--------+-------------+--------+
 ```
 
 ### Computer Memory ###
