@@ -14,36 +14,46 @@ The term "[bit]" is short for binary digit, which is the basic base-2 unit of in
 - NOTE:
 --> Bit-8: Most Significant Bit  (MSB)
 --> Bit-1: Least Significant Bit (LSB)
---> This byte order is consider Big Endian:
 ---> 1-Byte Table:
-    + ---------------+-------+-------+-------+-------+-------+-------
+    +---------------+-------+-------+-------+-------+-------+-------+
     | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
     +-------+-------+-------+-------+-------+-------+-------+-------+
     |   0   |   0   |   0   |   0   |   0   |   0   |   0   |   0   |
     +-------+-------+-------+-------+-------+-------+-------+-------+
     |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
-    +-------+-------+-------+-------+-------+-------+-------+------- 
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+--> Bit-1: Most Significant Bit  (MSB)
+--> Bit-8: Least Significant Bit (LSB)
+---> 1-Byte Table:
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   0   |   0   |   0   |   0   |   0   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   1   |   2   |   4   |   8   |   16  |   32  |   64  |  128  |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
 
 - NOTATION:
 --> x = Base
 --> y = Exponent
 ---> Example: x^(y)
 ---> Example: base^(exponent)
-     ------------------
-     Bit-1: 2^(0) =   1
-     Bit-2: 2^(1) =   2
-     Bit-3: 2^(2) =   4
-     Bit-4: 2^(3) =   8
-     Bit-5: 2^(4) =  16
-     Bit-6: 2^(5) =  32
-     Bit-7: 2^(6) =  64
-     Bit-8: 2^(7) = 128
-     ------------------
-     1-Byte Total:  256
-     ------------------
+     ------------------		------------------
+   	   MSB: 8th		      MSB: 1st
+     ------------------		------------------
+     Bit-1: 2^(0) =   1		Bit-1: 2^(7) = 128
+     Bit-2: 2^(1) =   2		Bit-2: 2^(6) =  64
+     Bit-3: 2^(2) =   4		Bit-3: 2^(5) =  32
+     Bit-4: 2^(3) =   8		Bit-4: 2^(4) =  16
+     Bit-5: 2^(4) =  16		Bit-5: 2^(3) =   8
+     Bit-6: 2^(5) =  32		Bit-6: 2^(2) =   4
+     Bit-7: 2^(6) =  64 	Bit-7: 2^(1) =   2
+     Bit-8: 2^(7) = 128		Bit-8: 2^(0) =   1
+     ------------------		------------------
+     1-Byte Total:  256		1-Byte Total:  256
+     ------------------		------------------
 
 - BIT REPRESENTATION EXAMPLE(S):
-
 -> NOTE:
 --> Unsigned Integer Representation: 
 ---> Unsigned Integer: 137
@@ -204,23 +214,23 @@ In order to understand how Two's Complement works, it is helpful to review how O
     +--------+-------------+---------------------+
 ```
 
-### Bit / Byte Data Interpretation ##
-In the previous two sections, I have given basic examples of numerical byte interpretations.
+### Bit / Byte Data Interpretation ###
+In the previous two sections, I have given basic examples of unsigned and signed integer byte(s) interpretations; however, data stored in binary in a computer has no inherent meaning unless given a particular way to intrepreted the data. This translation of raw binary to a meaningful value is an abstract concept. It is important to acknowledge that computers store data (i.e., computers store bits - 1s and 0s), and that any intrepretation of the binary data is an abstract concept that (e.g., an unsigned or signed integer).
 
-### Computer Memory ###
-
-
+### Computer Memory  Addressing ###
+Besides CPU registers, a temporary holding place for data (a topic we will cover in another article), a general purpose computer typically has three general primary types of memory that can be used to store data: cache memory, primary memory / main memory, and secondary memory. For the purposes of this article, we are just going to lump these together when talking about computer memory addressing; additionally, we are not going to concern ourselves with memory virtualization (i.e., logical addresses) and just consider all the memory addresses that we are using in examples as physical memory addresses.
 
 ### Most and Least Significant Bits/Bytes ###
-
+TODO(nick):
 
 ### Big-Endian  ###
-
+TODO(nick):
 
 ### Little Endian ###
-
+TODO(nick):
 
 ### Examples of Endianness ###
+TODO(nick):
 
 [bit]:				https://en.wikipedia.org/wiki/Bit
 [byte]:				https://en.wikipedia.org/wiki/Byte
@@ -236,3 +246,5 @@ In the previous two sections, I have given basic examples of numerical byte inte
 [Endian-Calculator]:		http://www.scadacore.com/tools/programming-calculators/online-hex-converter/
 [Byte-Order-Tutorial]:		http://www.yolinux.com/TUTORIALS/Endian-Byte-Order.html
 [Understanding-Byte-Order]: 	https://betterexplained.com/articles/understanding-big-and-little-endian-byte-order/
+[Memory-Address]:		https://en.wikipedia.org/wiki/Memory_address
+[Computer-Memory]:		https://www.tutorialspoint.com/computer_fundamentals/computer_memory.htm
