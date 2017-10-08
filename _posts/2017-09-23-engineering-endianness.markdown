@@ -14,7 +14,7 @@ The term "[bit]" is short for binary digit, which is the basic base-2 unit of in
 - NOTE:
 --> Bit-8: Most Significant Bit  (MSB)
 --> Bit-1: Least Significant Bit (LSB)
---> This byte order is consider big endian:
+--> This byte order is consider Big Endian:
 ---> 1-Byte Table:
     + ---------------+-------+-------+-------+-------+-------+-------
     | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
@@ -171,20 +171,47 @@ In order to understand how Two's Complement works, it is helpful to review how O
     |   15   |     0xF     |  1111  |
     +--------+-------------+--------+
 
-
---> Hexadecimal Representation of 1-byte Unsigned Integer:
-    +--------+-------------+------------+
-    | Denary | Hexadecmial |   Binary   |
-    +--------+-------------+------------+
-    |   47   |    0x2F     |  0010 1111 |
-    +--------+-------------+------------+
+--> Hexadecimal Representation of 2-byte(16-bit) Unsigned Integer:
+--> Big Endian (2-bytes) Unsigned Integer:
+--> Most Significant Byte:  (0x2F)  - Storage Address: 0x00
+--> Least Significant Byte: (0x11)  - Storage Address: 0x20
+    +--------+-------------+---------------------+
+    | Denary | Hexadecmial |        Binary       |
+    +--------+-------------+---------------------+
+    | 12049  |    0x2F11   | 0010 1111 0001 0001 |
+    +--------+-------------+---------------------+
+--> Little Endian (2-bytes) Unsigned Integer:
+--> Most Significant Byte:  (0x2F)  - Storage Address: 0x20
+--> Least Significant Byte: (0x11)  - Storage Address: 0x00
+    +--------+-------------+---------------------+
+    | Denary | Hexadecmial |        Binary       |
+    +--------+-------------+---------------------+
+    |  4399  |    0x112F   | 0001 0001 0010 1111 |
+    +--------+-------------+---------------------+
+--> 2-byte Unsigned Integer Denary Conversion
+--> Unsigned Integer: 1025
+--> Big Endian (2-bytes) Unsigned Integer
+    +--------+-------------+---------------------+
+    | Denary | Hexadecmial |        Binary       |
+    +--------+-------------+---------------------+
+    |  1025  |    0x0401   | 0000 0100 0000 0001 |
+    +--------+-------------+---------------------+
+--> Little Endian (2-bytes) Unsigned Integer:
+    +--------+-------------+---------------------+
+    | Denary | Hexadecmial |        Binary       |
+    +--------+-------------+---------------------+
+    |  1025  |    0x0104   | 0000 0001 0000 0100 |
+    +--------+-------------+---------------------+
 ```
+
+### Bit / Byte Data Interpretation ##
+In the previous two sections, I have given basic examples of numerical byte interpretations.
 
 ### Computer Memory ###
 
 
 
-### Most and Least Significant Bits ###
+### Most and Least Significant Bits/Bytes ###
 
 
 ### Big-Endian  ###
@@ -194,7 +221,6 @@ In order to understand how Two's Complement works, it is helpful to review how O
 
 
 ### Examples of Endianness ###
-
 
 [bit]:				https://en.wikipedia.org/wiki/Bit
 [byte]:				https://en.wikipedia.org/wiki/Byte
@@ -207,4 +233,6 @@ In order to understand how Two's Complement works, it is helpful to review how O
 [GeeksForGeeks-Complements]:	https://www.geeksforgeeks.org/1s-2s-complement-binary-number/
 [signed zero]: 			https://en.wikipedia.org/wiki/Signed_zero
 [IEEE 754]:			https://en.wikipedia.org/wiki/Signed_zero
-
+[Endian-Calculator]:		http://www.scadacore.com/tools/programming-calculators/online-hex-converter/
+[Byte-Order-Tutorial]:		http://www.yolinux.com/TUTORIALS/Endian-Byte-Order.html
+[Understanding-Byte-Order]: 	https://betterexplained.com/articles/understanding-big-and-little-endian-byte-order/
