@@ -239,10 +239,44 @@ Modern general purpose computer memory is typically byte-addressable. Meaning, e
 ```
 
 ### Most and Least Significant Bits/Bytes ###
-The term Most Significant Bit First and Least Significant Bit First are indications on the bit ordering sequence in a bit stream; additionally, the Most Signficant Byte and Least Signification Byte are similiar in meaning to the previous, but it is the ordering is done at the byte sequence instead of the bits.
+The term Most Significant Bit First and Least Significant Bit First are indications on the bit ordering sequence in a bit stream; additionally, the Most Signficant Byte First and Least Signification Byte First are similiar in meaning to the previous, but the ordering is done at the byte sequence instead of the bit sequence.
+
+The Most Significant Bit First indicates that the bit stream will begins with the largest valued bit first. The Least Significant Bit first indicates that the bit stream will begin with the smallest valued bit first.
 
 ```plain
+Most Significant Bit
+--> Value:
+---> Dec: 18
+---> Hex: 0x0012
 
+--> Bit-8: Most Significant Bit  (MSB) - Front
+--> Bit-1: Least Significant Bit (LSB) - End
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   0   |   0   |   0   |   0   |   0   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   1   |   2   |   4   |   8   |   16  |   32  |   64  |  128  |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+
+Least Significant Bit
+--> Value: 
+---> Dec: 18
+---> Hex: 0x0012
+
+--> Bit-8: Most Significant Bit  (MSB) - End
+--> Bit-1: Least Significant Bit (LSB) - Front
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   0   |   1   |   0   |   0   |   1   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+
+Most Significant Byte (Big Endian) 
+
+Least Significant Byte (Little Endian)
 ```
 
 
