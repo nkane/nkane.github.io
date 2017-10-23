@@ -22,6 +22,7 @@ The term "[bit]" is short for binary digit, which is the basic base-2 unit of in
     +-------+-------+-------+-------+-------+-------+-------+-------+
     |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
     +-------+-------+-------+-------+-------+-------+-------+-------+
+
 --> Bit-1: Most Significant Bit  (MSB)
 --> Bit-8: Least Significant Bit (LSB)
 ---> 1-Byte Table:
@@ -182,31 +183,20 @@ In order to understand how Two's Complement works, it is helpful to review how O
     +--------+-------------+--------+
 
 --> Hexadecimal Representation of 2-byte(16-bit) Unsigned Integer:
---> Big Endian (2-bytes) Unsigned Integer:
---> Most Significant Byte:  (0x2F)  - Storage Address: 0x00
---> Least Significant Byte: (0x11)  - Storage Address: 0x20
-    +--------+-------------+---------------------+
-    | Denary | Hexadecmial |        Binary       |
-    +--------+-------------+---------------------+
-    | 12049  |    0x2F11   | 0010 1111 0001 0001 |
-    +--------+-------------+---------------------+
---> Little Endian (2-bytes) Unsigned Integer:
---> Most Significant Byte:  (0x2F)  - Storage Address: 0x20
---> Least Significant Byte: (0x11)  - Storage Address: 0x00
-    +--------+-------------+---------------------+
-    | Denary | Hexadecmial |        Binary       |
-    +--------+-------------+---------------------+
-    |  4399  |    0x112F   | 0001 0001 0010 1111 |
-    +--------+-------------+---------------------+
---> 2-byte Unsigned Integer Denary Conversion
 --> Unsigned Integer: 1025
---> Big Endian (2-bytes) Unsigned Integer
+
+--> Big Endian (2-bytes) Unsigned Integer:
+--> Most Significant Byte:  (0x04)  - Storage Address: 0x00
+--> Least Significant Byte: (0x01)  - Storage Address: 0x20
     +--------+-------------+---------------------+
     | Denary | Hexadecmial |        Binary       |
     +--------+-------------+---------------------+
     |  1025  |    0x0401   | 0000 0100 0000 0001 |
     +--------+-------------+---------------------+
+
 --> Little Endian (2-bytes) Unsigned Integer:
+--> Most Significant Byte:  (0x01)  - Storage Address: 0x00
+--> Least Significant Byte: (0x04)  - Storage Address: 0x20
     +--------+-------------+---------------------+
     | Denary | Hexadecmial |        Binary       |
     +--------+-------------+---------------------+
@@ -217,11 +207,44 @@ In order to understand how Two's Complement works, it is helpful to review how O
 ### Bit / Byte Data Interpretation ###
 In the previous two sections, I have given basic examples of unsigned and signed integer byte(s) interpretations; however, data stored in binary in a computer has no inherent meaning unless given a particular way to intrepreted the data. This translation of raw binary to a meaningful value is an abstract concept. It is important to acknowledge that computers store data (i.e., computers store bits - 1s and 0s), and that any intrepretation of the binary data is an abstract concept that (e.g., an unsigned or signed integer).
 
-### Computer Memory  Addressing ###
-Besides CPU registers, a temporary holding place for data (a topic we will cover in another article), a general purpose computer typically has three general primary types of memory that can be used to store data: cache memory, primary memory / main memory, and secondary memory. For the purposes of this article, we are just going to lump these together when talking about computer memory addressing; additionally, we are not going to concern ourselves with memory virtualization (i.e., logical addresses) and just consider all the memory addresses that we are using in examples as physical memory addresses.
+### Computer Memory Addressing ###
+Besides CPU registers, a temporary holding place for data (a topic we will cover in another article), a general purpose computer typically has three general primary types of memory that can be used to store data: cache memory, primary memory / main memory, and secondary memory. For the purposes of this article, we are just going to lump these together when talking about computer memory addressing; additionally, we are not going to concern ourselves with memory virtualization (i.e., virtual addresses) and just consider all the memory addresses that we are using in examples as physical memory addresses.
+
+Modern general purpose computer memory is typically byte-addressable. Meaning, each 1-byte location inside of memory has a numerical value that is associated with that locations address.
+
+```plain
+-> Memory Layout Example:
+   -------	---------------
+    Block	  Hex Address
+   -------	---------------
+    . . .
+   +-----+
+   |     |    <-    0x0000
+   +-----+
+   |     |    <-    0x0001
+   +-----+
+   |     |    <-    0x0002
+   +-----+
+   |     |    <-    0x0003
+   +-----+
+    . . .
+   +-----+
+   |     |    <-    0x00F2
+   +-----+
+   |     |    <-    0x00F3
+   +-----+
+   |     |    <-    0x00F4
+   +-----+
+    . . .
+```
 
 ### Most and Least Significant Bits/Bytes ###
-TODO(nick):
+The term Most Significant Bit First and Least Significant Bit First are indications on the bit ordering sequence in a bit stream; additionally, the Most Signficant Byte and Least Signification Byte are similiar in meaning to the previous, but it is the ordering is done at the byte sequence instead of the bits.
+
+```plain
+
+```
+
 
 ### Big-Endian  ###
 TODO(nick):
