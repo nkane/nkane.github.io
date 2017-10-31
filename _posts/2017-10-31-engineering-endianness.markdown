@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Endianness"
-date: 2017-11-02
+date: 2017-10-31
 categories: blog engineering
-visible: 0
+visible: 1
 ---
-What is endianness in regard to computers? I am going to attempt to give an indepth explaination of of computer endianness, but before we get started a few basic concepts need to be covered.
+What is endianness in regard to computers? I am going to give an explaination of computer endianness, but before we get started a few basic concepts need to be covered.
 
 ### Bits / Bytes ###
 The term "[bit]" is short for binary digit, which is the basic base-2 unit of information used in computers. A binary digit can represent one of two values, and in computers typically these values are 0 or 1. When collections of bits are stored together, they can be interpreted to represent characters, integer values, decimal values, and much more. Typicaly, a collection a 8-bits is referred to as a "[byte]" - there is a caveat to that previous statement. As stated in the wiki page, a byte is actually consider the number of bits used to encode a single character on a particular computer platform; however, for the purpopse of this article we are going to say that 8-bits is equivalent to 1-byte. A byte of data can represent 256 (2 to the power of 7) values.
@@ -187,7 +187,7 @@ In order to understand how Two's Complement works, it is helpful to review how O
 
 --> Big Endian (2-bytes) Unsigned Integer:
 --> Most Significant Byte:  (0x04)  - Storage Address: 0x00
---> Least Significant Byte: (0x01)  - Storage Address: 0x20
+--> Least Significant Byte: (0x01)  - Storage Address: 0x08
     +--------+-------------+---------------------+
     | Denary | Hexadecmial |        Binary       |
     +--------+-------------+---------------------+
@@ -196,7 +196,7 @@ In order to understand how Two's Complement works, it is helpful to review how O
 
 --> Little Endian (2-bytes) Unsigned Integer:
 --> Most Significant Byte:  (0x01)  - Storage Address: 0x00
---> Least Significant Byte: (0x04)  - Storage Address: 0x20
+--> Least Significant Byte: (0x04)  - Storage Address: 0x08
     +--------+-------------+---------------------+
     | Denary | Hexadecmial |        Binary       |
     +--------+-------------+---------------------+
@@ -279,26 +279,98 @@ Most Significant Byte (Big-Endian)
 ---> Dec: 11,280
 ---> Hex: 0x2C10
 
---> Byte-1: 0x10
---> Byte-2: 0x2C
+--> Byte-1: 0x2C
+--> Byte-2: 0x10
 
 Least Significant Byte (Little-Endian)
 --> Value (two bytes):
 ---> Dec: 11,280
 ---> Hex: 0x102C
 
---> Byte-1: 0x2C
---> Byte-2: 0x10
+--> Byte-1: 0x10
+--> Byte-2: 0x2C
 ```
 
 ### Big-Endian ###
-Big-Endian refers to the byte order starting with the Most Significant Byte
+Big-Endian refers to the byte order starting with the Most Significant Byte first. For example the 16-bit integer value 11,280 consist of the following two byte values 0x10 and 0x2C. In Big-Endian order, these bytes are stored as 0x2C10.
+
+```plain
+Most Significant Byte (Big-Endian) 
+--> Value (two bytes):
+---> Dec: 11,280
+---> Hex: 0x2C10
+
+--> Address: 0x00
+--> Byte-1: 0x2C
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   0   |   1   |   0   |   0   |   0   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+
+--> Address: 0x08
+--> Byte-2: 0x10
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   1   |   0   |   1   |   0   |   1   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+```
 
 ### Little Endian ###
-Little-Endian refers to the byte order starting with the Least Significant Byte
+Little-Endian refers to the byte order starting with the Least Significant Byte first. For example the 16-bit integer value 11,280 consist of the following two byte values 0x10 and 0x2C. In Little-Endian order, these bytes are stored as 0x102C.
 
-### Examples of Endianness ###
-TODO(nick):
+```plain
+Least Significant Byte (Little-Endian)
+--> Value (two bytes):
+---> Dec: 11,280
+---> Hex: 0x102C
+
+--> Address: 0x00
+--> Byte-1: 0x10
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   0   |   1   |   0   |   0   |   0   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+
+--> Address: 0x08
+--> Byte-2: 0x2C
+    +---------------+-------+-------+-------+-------+-------+-------+
+    | Bit-8 | Bit-7 | Bit-6 | Bit-5 | Bit-4 | Bit-3 | Bit-2 | Bit-1 |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |   0   |   0   |   1   |   0   |   1   |   0   |   1   |   0   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+    |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
+    +-------+-------+-------+-------+-------+-------+-------+-------+
+```
+
+### End of Endianness ###
+If any issues or errors are in this article, please feel free to contact me. Below is a list of references that I used to help me write this article.
+
+**References**
+- [bit]
+- [byte]
+- [nibble]
+- [Hexadecimal]
+- [MSB]
+- [LSB]
+- [Endianness]
+- [GeeksForGeeks-Endianness]
+- [GeeksForGeeks-Complements]
+- [signed zero]
+- [IEEE 754]
+- [Endian-Calculator]
+- [Byte-Order-Tutorial]
+- [Understanding-Byte-Order]
+- [Memory-Address]
+- [Computer-Memory]
 
 [bit]:				https://en.wikipedia.org/wiki/Bit
 [byte]:				https://en.wikipedia.org/wiki/Byte
