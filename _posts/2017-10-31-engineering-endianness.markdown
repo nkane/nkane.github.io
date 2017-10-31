@@ -321,7 +321,7 @@ Most Significant Byte (Big-Endian)
     +-------+-------+-------+-------+-------+-------+-------+-------+
 ```
 
-### Little Endian ###
+### Little-Endian ###
 Little-Endian refers to the byte order starting with the Least Significant Byte first. For example the 16-bit integer value 11,280 consist of the following two byte values 0x10 and 0x2C. In Little-Endian order, these bytes are stored as 0x102C.
 
 ```plain
