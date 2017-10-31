@@ -1,11 +1,11 @@
 ---
 layout: post
 title: "Endianness"
-date: 2017-09-23
+date: 2017-11-02
 categories: blog engineering
 visible: 0
 ---
-What is endianness in regard to computers? I am going to attempt to give an indepth explaination of of computer endianness, but before we start getting in to we need to cover a few basic concepts.
+What is endianness in regard to computers? I am going to attempt to give an indepth explaination of of computer endianness, but before we get started a few basic concepts need to be covered.
 
 ### Bits / Bytes ###
 The term "[bit]" is short for binary digit, which is the basic base-2 unit of information used in computers. A binary digit can represent one of two values, and in computers typically these values are 0 or 1. When collections of bits are stored together, they can be interpreted to represent characters, integer values, decimal values, and much more. Typicaly, a collection a 8-bits is referred to as a "[byte]" - there is a caveat to that previous statement. As stated in the wiki page, a byte is actually consider the number of bits used to encode a single character on a particular computer platform; however, for the purpopse of this article we are going to say that 8-bits is equivalent to 1-byte. A byte of data can represent 256 (2 to the power of 7) values.
@@ -274,17 +274,28 @@ Least Significant Bit
     |  128  |   64  |   32  |   16  |   8   |   4   |   2   |   1   |
     +-------+-------+-------+-------+-------+-------+-------+-------+
 
-Most Significant Byte (Big Endian) 
+Most Significant Byte (Big-Endian) 
+--> Value (two bytes):
+---> Dec: 11,280
+---> Hex: 0x2C10
 
-Least Significant Byte (Little Endian)
+--> Byte-1: 0x10
+--> Byte-2: 0x2C
+
+Least Significant Byte (Little-Endian)
+--> Value (two bytes):
+---> Dec: 11,280
+---> Hex: 0x102C
+
+--> Byte-1: 0x2C
+--> Byte-2: 0x10
 ```
 
-
-### Big-Endian  ###
-TODO(nick):
+### Big-Endian ###
+Big-Endian refers to the byte order starting with the Most Significant Byte
 
 ### Little Endian ###
-TODO(nick):
+Little-Endian refers to the byte order starting with the Least Significant Byte
 
 ### Examples of Endianness ###
 TODO(nick):
