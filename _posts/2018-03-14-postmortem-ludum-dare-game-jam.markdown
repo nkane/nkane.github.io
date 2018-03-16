@@ -1,20 +1,33 @@
 ---
 layout: post
 Title: "Postmortem Ludum Dare Game Jam"
-date: 2018-03-14
+date: 2018-03-15
 categories: blog gamedev gaming
 visible: 0
 ---
-If the reader is not aware of what a game jam is, it is a time constraint event that typically provides a theme for game developers
-to create a game within the allotted time.
+If the reader is not aware of what a game jam is, it is a time constraint event that typically provides a theme for game developers to create a game within the allotted time.
 
-A about a month ago, I was told about a game jam event called "Ludum Dare" by a co-worker. In the past, I had been interested in participating
-in a game jam; however, I had never fully committed to the idea of participating in one of these events. When I found out that Ludum Dare
-is one of the largest and longest running game jams, I did not want to make any excuses for not participating in a game jam event in 2017. 
+A about a month ago, I was told about a game jam event called ["Ludum Dare"][ld-jam] by a co-worker. In the past, I had been
+interested in participating in a game jam; however, I had never fully committed to the idea of participating in one of these
+events. When I found out that Ludum Dare is one of the largest and longest running game jams, I did not want to make any excuse for not participating in a game jam event in 2017. 
 
-Participants of Ludum Dare are giving two different categories, the "Jam" or the "Compo". The main differnece between the two is time allotted
-and the ability to work with or without a team. The "Jam" has an allotted time of 72 hours, and allows teams and solo projects. The "Compo"
-has an alotted time of 48 hours, and only allows solo projects and all assets are made by the participant as well. 
+Participants of Ludum Dare are giving two different categories, the "Jam" or the "Compo". The main differnece between the two
+is time allotted and the ability to work with or without a team. The "Jam" has an allotted time of 72 hours, and allows teams
+and solo projects. The "Compo" has an alotted time of 48 hours, and only allows solo projects and all assets are made by the
+participant as well. 
+
+For this jam, we decided to team up with another co-work and an artist for a total of 4 team members. We all worked together on 
+a daily basis at a web development shop, and we all enjoy the process of developing video games. We definitely had a significant
+of lack of preparation leading up to the jam, but all in all it was a expectional learning experience for myself.
+
+### Choosing a Toolset to Work With
+In the world of development and especially web development, there always seems to be an overwhelming amount of opinions or
+biases towards particular languages or toolsets. Personally, I do not favor web development languages or toolsets. It took a
+little bit of myself convincing my fellow teammates to use the language C paired with a library that none of us were familiar
+with called [raylib][raylib-web]. It took me about two evening to setup a [starter-kit][raylib-starter-kit] for the library.
+One of the major selling points of library it came with examples of how to setup a project to compile with
+[emscripten][emscripten-compiler]. That allowed us to provide a binary build and an html5 build that was capable of being
+deployed on [itch.io][depth-crawler-web].
 
 ![original-tiles-picture-0][original-tiles-0]
 ![original-tiles-picture-1][original-tiles-1]
@@ -49,3 +62,8 @@ has an alotted time of 48 hours, and only allows solo projects and all assets ar
 [start-screen]:			http://i1055.photobucket.com/albums/s515/nkanedevn/start_zpsqvly4lhd.gif
 [items-0]:  			http://i1055.photobucket.com/albums/s515/nkanedevn/items_zps6r3ndnpv.gif
 [end-game]:			http://i1055.photobucket.com/albums/s515/nkanedevn/depth-crawler_zpsuc3vf3hb.gif
+[emscripten-compiler]: 		http://kripken.github.io/emscripten-site/
+[ld-jam]:			https://ldjam.com/
+[raylib-web]:			http://www.raylib.com/
+[raylib-starter-kit]:		https://github.com/Hidden-Pixel/raylib-starter-kit
+[depth-cralwer-web]:		https://nkanedev.itch.io/depth-crawler
