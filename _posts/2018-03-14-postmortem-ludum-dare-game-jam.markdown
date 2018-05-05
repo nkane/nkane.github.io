@@ -1,6 +1,6 @@
 ---
 layout: post
-Title: "Postmortem Ludum Dare Game Jam"
+Title: "Postmortem Ludum Dare 40 Game Jam"
 date: 2018-03-15
 categories: blog gamedev gaming
 visible: 0
@@ -43,19 +43,32 @@ on the screen to see it would work out.
 ![original-tiles-picture-0][original-tiles-0]
 ![original-tiles-picture-1][original-tiles-1]
 
+
 Next we standardized a basic tile map size and had it render out basic static rooms with corridors between the room. We then
-added another player rectangle that would be controlled by they player's input with no physics calculations. After we got that
-working we started to work on rectangluar collision for "walls".
+added another player rectangle that would be controlled by they player's input with no physics calculations. After player input
+was working correctly, we started to work on rectangluar collision for walls. The small blue rectangle in these screen shots
+represented the collision region for the player and the red rectangles were the walls that were passed the collision check.
+As seen in the second screen shot, collision was originally designed to be on the lower portion of the player, because we
+intended to have the game art be isometric.
 
 ![title-map-collision-picture-0][tile-map-collision-0]
 ![title-map-collision-picture-1][tile-map-collision-1]
+
+
+### On the Move
 
 ![movement-picture-0][movement-0]
 
 ![entity-collision-picture-0][entity-collision-0]
 
+
+### Finding a Path
+
 ![enemy-follow-picture-0][enemy-follow-0]
 ![enemy-follow-picture-1][enemy-follow-1]
+
+
+### Let there be Bullets!
 
 ![shooting-picture-0][shooting-0]
 
