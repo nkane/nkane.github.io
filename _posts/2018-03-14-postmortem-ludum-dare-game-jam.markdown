@@ -43,40 +43,58 @@ on the screen to see it would work out.
 ![original-tiles-picture-0][original-tiles-0]
 ![original-tiles-picture-1][original-tiles-1]
 
+Next, we standardized a basic tile map size and had it render out basic static rooms with corridors between the room. We then
+added another player rectangle that would be controlled by they player's input with no physics calculations and no collision
+detection.
 
-Next we standardized a basic tile map size and had it render out basic static rooms with corridors between the room. We then
-added another player rectangle that would be controlled by they player's input with no physics calculations. After player input
-was working correctly, we started to work on rectangluar collision for walls. The small blue rectangle in these screen shots
-represented the collision region for the player and the red rectangles were the walls that were passed the collision check.
-As seen in the second screen shot, collision was originally designed to be on the lower portion of the player, because we
-intended to have the game art be isometric.
+
+### Basic Procedural World Generation
+TODO(nick):
+
+
+### Entity-Wall Collision
+After player input was working correctly, we started to work on rectangluar collision for walls. The small blue rectangle in
+these screen shots represented the collision region for the player and the red rectangles were the walls that were passed the
+collision check. As seen in the second screen shot, collision was originally designed to be on the lower portion of the player,
+because we intended to have the game art be isometric.
 
 ![title-map-collision-picture-0][tile-map-collision-0]
 ![title-map-collision-picture-1][tile-map-collision-1]
 
 
 ### On the Move
+After we had a functional procedurally generated tile map, basic player input, and rectangular collision working properly.
+We needed to start making the player's movement start to feel more physics base. Personally, this was my first exposure to
+using vector based math to do physics calculations; however, one of our team memebers was incredibly familiar with doing
+these calculations. After a few whiteboarding session and reading a handful of game development articles on vector based
+movement.
 
 ![movement-picture-0][movement-0]
+
+
+### Entity-Entity Collision
 
 ![entity-collision-picture-0][entity-collision-0]
 
 
 ### Finding a Path
+TODO(nick):
+
 
 ![enemy-follow-picture-0][enemy-follow-0]
 ![enemy-follow-picture-1][enemy-follow-1]
 
 
 ### Let there be Bullets!
+TODO(nick):
 
 ![shooting-picture-0][shooting-0]
-
 ![start-screen-picture-0][start-screen]
-
 ![items-picture-0][items-0]
-
 ![end-game-picture-0][end-game]
+
+
+
 
 [original-tiles-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile_zpspxkhw4wm.png
 [original-tiles-1]:		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile-map-1_zpskuusbsdr.png
