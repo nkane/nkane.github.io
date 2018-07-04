@@ -1,7 +1,7 @@
 ---
 layout: post
 Title: "Postmortem Ludum Dare 40 Game Jam"
-date: 2018-03-15
+date: 2018-07-04
 categories: blog gamedev gaming
 visible: 0
 ---
@@ -49,7 +49,10 @@ detection.
 
 
 ### Basic Procedural World Generation
-TODO(nick):
+The most experienced game developer on the team took on the challenging task of creating a basic tile based procedural world 
+generation algorithm that would create small "islands" with "bridges" connecting them. The next few GIFs below this section
+show of the code; however, it is probably difficult to tell. Unfortunately, we didn't take any gifs during this stage nor
+screen shots to show off progress or funny bugs.
 
 
 ### Entity-Wall Collision
@@ -67,23 +70,32 @@ After we had a functional procedurally generated tile map, basic player input, a
 We needed to start making the player's movement start to feel more physics base. Personally, this was my first exposure to
 using vector based math to do physics calculations; however, one of our team memebers was incredibly familiar with doing
 these calculations. After a few whiteboarding session and reading a handful of game development articles on vector based
-movement.
+movement, a basic movement system for the player entity was created and used. The "wrapping" affect seen in the GIF below
+was due to a miscalculation of the increase speed toggling from maximum to minimium on the player's velocity vector.
 
 ![movement-picture-0][movement-0]
 
 
-### Entity-Entity Collision
-
-![entity-collision-picture-0][entity-collision-0]
-
-
 ### Finding a Path
-TODO(nick):
-
+Initially we dropped another entity into the world as a way to testing out a simple method for path finding; however, time
+was running short for us at this particular moment. Instead of implementing an actual path finding algorithm, we opted to
+just implement a simple "line-of-sight" vector pathing that created a "follow" mechanic for the enemy to chase the player
+whenever the player was within a particular range or "line-of-sight". We later decided to test this with multiple enemies,
+and we found that the enemies would just idly stand in their particular position. Instead of the enemies boringly standing
+still, a "random" wander mechanic was added for the enemy position whenever an enemy is standing idle.
 
 ![enemy-follow-picture-0][enemy-follow-0]
 ![enemy-follow-picture-1][enemy-follow-1]
 
+
+### Entity-Entity Collision
+In order to get other "enemy" entities in the world, we resorted to creating an entity array that contained the player entity
+in combination with the rest of the "enemies" in the world at a fixed size. These were updated over every game update cycle.
+Once we had our global entity array created, we hacked together a different function that would test for collisions between 
+entities. Looking back at it now, we could have definitely re-used our tile collision code; however, two out of the three of
+us are new at game development. Needless to say, mistakes were made and fun was had.
+
+![entity-collision-picture-0][entity-collision-0]
 
 ### Let there be Bullets!
 TODO(nick):
@@ -95,22 +107,21 @@ TODO(nick):
 
 
 
-
 [original-tiles-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile_zpspxkhw4wm.png
-[original-tiles-1]:		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile-map-1_zpskuusbsdr.png
+[original-tiles-1]:			http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile-map-1_zpskuusbsdr.png
 [tile-map-collision-0]: 	http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection-0_zpsiqawp5ha.png
-[tile-map-collision-1]:         http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection-1_zpsbpcrwl2t.png
-[movement-0]:  			http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection_zps8zibtv7h.gif
+[tile-map-collision-1]:     http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection-1_zpsbpcrwl2t.png
+[movement-0]:  				http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection_zps8zibtv7h.gif
 [entity-collision-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/enemy-collision_zpsyfy1ib12.png
-[enemy-follow-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/enemy-follow_zpspadiz6dq.gif
-[enemy-follow-1]:		http://i1055.photobucket.com/albums/s515/nkanedevn/enemy-follow-and-random-state_zps4fhysakr.gif
-[shooting-0]:			http://i1055.photobucket.com/albums/s515/nkanedevn/shooting-temp_zpsnshot0tq.gif
-[start-screen]:			http://i1055.photobucket.com/albums/s515/nkanedevn/start_zpsqvly4lhd.gif
-[items-0]:  			http://i1055.photobucket.com/albums/s515/nkanedevn/items_zps6r3ndnpv.gif
-[end-game]:			http://i1055.photobucket.com/albums/s515/nkanedevn/depth-crawler_zpsuc3vf3hb.gif
+[enemy-follow-0]: 			http://i1055.photobucket.com/albums/s515/nkanedevn/enemy-follow_zpspadiz6dq.gif
+[enemy-follow-1]:			http://i1055.photobucket.com/albums/s515/nkanedevn/enemy-follow-and-random-state_zps4fhysakr.gif
+[shooting-0]:				http://i1055.photobucket.com/albums/s515/nkanedevn/shooting-temp_zpsnshot0tq.gif
+[start-screen]:				http://i1055.photobucket.com/albums/s515/nkanedevn/start_zpsqvly4lhd.gif
+[items-0]:  				http://i1055.photobucket.com/albums/s515/nkanedevn/items_zps6r3ndnpv.gif
+[end-game]:					http://i1055.photobucket.com/albums/s515/nkanedevn/depth-crawler_zpsuc3vf3hb.gif
 [emscripten-compiler]: 		http://kripken.github.io/emscripten-site/
-[ld-jam]:			https://ldjam.com/
-[raylib-web]:			http://www.raylib.com/
+[ld-jam]:					https://ldjam.com/
+[raylib-web]:				http://www.raylib.com/
 [raylib-starter-kit]:		https://github.com/Hidden-Pixel/raylib-starter-kit
 [depth-crawler-web]:		https://nkanedev.itch.io/depth-crawler
-[binding-of-isaac]:		http://bindingofisaac.com/		
+[binding-of-isaac]:			http://bindingofisaac.com/		
