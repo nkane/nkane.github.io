@@ -3,7 +3,7 @@ layout: post
 Title: "Postmortem Ludum Dare 40 Game Jam"
 date: 2018-07-04
 categories: blog gamedev gaming
-visible: 0
+visible: 1
 ---
 If the reader is not aware of what a game jam is, it is a time constraint event that typically provides a theme for game
 developers to create a game within the allotted time.
@@ -131,6 +131,15 @@ I worked with during this game jam: [Mikhail Swift][ms], [Nathan Shirley][ns], a
 Axel made awesome art work for us to use; unfortunately, we did not have enough time to use the assets he created. I figured
 that I might as well show them off here.
 
+![hero-0][hero-0]
+![hero-1][hero-1]
+![hero-2][hero-2]
+![hero-3][hero-3]
+![gun-0][gun-0]
+![whip-0][whip-0]
+![sword-0][sword-0]
+![mon-0][mon-0]
+
 [original-tiles-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile_zpspxkhw4wm.png
 [original-tiles-1]:			http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile-map-1_zpskuusbsdr.png
 [tile-map-collision-0]: 	http://i1055.photobucket.com/albums/s515/nkanedevn/collision-detection-0_zpsiqawp5ha.png
@@ -143,6 +152,15 @@ that I might as well show them off here.
 [start-screen]:				http://i1055.photobucket.com/albums/s515/nkanedevn/start_zpsqvly4lhd.gif
 [items-0]:  				http://i1055.photobucket.com/albums/s515/nkanedevn/items_zps6r3ndnpv.gif
 [end-game]:					http://i1055.photobucket.com/albums/s515/nkanedevn/depth-crawler_zpsuc3vf3hb.gif
+[hero-0]:					https://raw.githubusercontent.com/Hidden-Pixel/ludum-dare-40/textures/game/assets/hero/hero-walking/Hero%20Standing%20w%20Cape%20and%20Helmet.png
+[hero-1]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/hero/hero-walking/Hero%20Walk%201.png?raw=true
+[hero-2]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/hero/Hero%20Firing%20Weapons/Hero%20Firing%202%20w%20Cape%20.png?raw=true
+[hero-3]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/hero/Hero%20Firing%20Weapons/Hero%20Firing%204.png?raw=true
+[gun-0]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/items/Auto%20Gun%20Icon.png?raw=true
+[whip-0]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/items/Whip%20Icon.png?raw=true
+[sword-0]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/items/Sword%20Icon.png?raw=true
+[mon-0]:					https://github.com/Hidden-Pixel/ludum-dare-40/blob/textures/game/assets/monsters/Monster%20Wallking%201%20copy%202.png?raw=true
+
 [emscripten-compiler]: 		http://kripken.github.io/emscripten-site/
 [ld-jam]:					https://ldjam.com/
 [raylib-web]:				http://www.raylib.com/
