@@ -20,7 +20,8 @@ participant as well.
 
 For this jam, we decided to team up with another co-work and an artist for a total of 4 team members. We all worked together on 
 a daily basis at a web development shop, and we all enjoy the process of developing video games. We definitely had a significant
-of lack of preparation leading up to the jam, but all in all it was a expectional learning experience for myself.
+of lack of preparation leading up to the jam, but all in all it was a expectional learning experience for myself. The theme
+for the game was "the more you have the worse it gets".
 
 
 ### Choosing a Toolset to Work With
@@ -71,7 +72,7 @@ We needed to start making the player's movement start to feel more physics base.
 using vector based math to do physics calculations; however, one of our team memebers was incredibly familiar with doing
 these calculations. After a few whiteboarding session and reading a handful of game development articles on vector based
 movement, a basic movement system for the player entity was created and used. The "wrapping" affect seen in the GIF below
-was due to a miscalculation of the increase speed toggling from maximum to minimium on the player's velocity vector.
+was due to a miscalculation of the increased speed toggling from maximum to minimium on the player's velocity vector.
 
 ![movement-picture-0][movement-0]
 
@@ -98,14 +99,37 @@ us are new at game development. Needless to say, mistakes were made and fun was 
 ![entity-collision-picture-0][entity-collision-0]
 
 ### Let there be Bullets!
-TODO(nick):
+While being chased by enemies can be exciting, we wanted to add at least a shooting mechanic for the player that would give
+them a fighting chance. I will not go in depth with how we implemented this, but it was a funny hack that we added to the
+game toward the end of the jam. Once the player killed an enemy, another three enemies would spawn on the map following the
+guidelines of the jam's theme, "the more you have the worse it gets".
 
 ![shooting-picture-0][shooting-0]
+
+### A HUD, Start/End Screens, and Items?
+One of the last things that we were able to actually get working properly was the in game HUD that displayed the player's
+health, score, high score, start screen, and game over screen. We wanted to at least provide a minimal amount of information
+to the player; however, the health system wasn't worked out properly at the end which is why in the GIF of the HUD reads
+"Health: 100", but the player dies on the first hit from an enemy. On another note, enemies did not actually have health in
+the version we released for the jam. It was basically, a one in ten chance that a particular bullet hitting an enemy would
+"kill" it. This was due to the fact that we did not have a proper health system set up initially. We attempted to try to
+squeeze in items for the player prior to release, and we got player's ability to pick up items working; however, we did
+not have enough time to set up a trigger for functionality or increase an increase to the score thus we decided to leave it
+out of the final version.
+
 ![start-screen-picture-0][start-screen]
-![items-picture-0][items-0]
 ![end-game-picture-0][end-game]
+![items-picture-0][items-0]
+
+### Thank you!
+If you made it this far, I appreciate you reading this article. If you are interested in viewing the source code to this
+engine it is located here [source code][source-code]. On another note, I wanted to thank all three the team memebers that
+I worked with during this game jam: [Mikhail Swift][ms], [Nathan Shirley][ns], and Axel!
 
 
+### In-Game Art
+Axel made awesome art work for us to use; unfortunately, we did not have enough time to use the assets he created. I figured
+that I might as well show them off here.
 
 [original-tiles-0]: 		http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile_zpspxkhw4wm.png
 [original-tiles-1]:			http://i1055.photobucket.com/albums/s515/nkanedevn/original-tile-map-1_zpskuusbsdr.png
@@ -125,3 +149,6 @@ TODO(nick):
 [raylib-starter-kit]:		https://github.com/Hidden-Pixel/raylib-starter-kit
 [depth-crawler-web]:		https://nkanedev.itch.io/depth-crawler
 [binding-of-isaac]:			http://bindingofisaac.com/		
+[source-code]:				https://github.com/Hidden-Pixel/ludum-dare-40$a
+[ms]:						https://github.com/mikhailswift
+[ns]:						https://github.com/natethegreat2525
