@@ -17,22 +17,30 @@ like to explore my own particular interest using a language and toolset that I a
 The language that I will be using throughout this series is the [C programming language][c-lang]. If you are not familiar with computer programming, a good
 place to start would be learning C by picking up a book called ["A First Book of ANSI C"][first-book-of-c], or by watching a course on the web. The book that
 I have recommended is the book that I used to initially learn C, so I recommend reading it from cover to cover and completing all of the exercises within it.
-In addition to that book here are a few other options of books:
+In addition to the above book here are a few other options that will complement your skills after completing the other book:
 - [Learn C The Hard way][learn-c-the-hard-way]
 - [C Programming Language][k&r]
 
-
-
 ### Window Command Line Interface (CLI)
+At this particular point in time, I am using the Microsoft Windows 10 operating system. Windows has a "command prompt" or "CLI" that we will be using to run
+particular commands or scripts. The Windows CLI can be accessed by launching the Windows "run" program and typing in "cmd". Find a course on the web, or a tutorial
+online to help familiarize yourself with the Windows CLI; additionally, we are going to want to "pin" to the task bar or create a desktop shortcut to the command prompt
+for future use. We will be setting up some the shortcut or pinned command prompt to feed in arguments to the CLI program ([cmd.exe][cmd]).
+
+### Visual Studio
 
 
 ### Microsoft Visual C++ (MSVC)
 
 
-### Win32
+### Batch Script Files (.bat)
 
 
 ### The Project Setup
+
+
+### Win32
+
 
 
 ### Win32 Handles
@@ -41,10 +49,17 @@ In addition to that book here are a few other options of books:
 ### Win32 WinMain Explained
 
 
+### Win32 PeekMessage, TranslateMessage, and DispatchMessage Explained
+
+
 ### Win32 Window Class Callback Explained
 
 
-[c-lang]:						https://en.wikipedia.org/wiki/C_(programming_language)
-[first-book-of-c]:  			https://www.amazon.com/First-Book-Fourth-Introduction-Programming/dp/1418835560
-[learn-c-the-hard-way]:			https://www.amazon.com/Learn-Hard-Way-Practical-Computational/dp/0321884922
-[k&r]:							https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628
+### Win32 WM_PAINT Explained
+
+
+[c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
+[first-book-of-c]:  					https://www.amazon.com/First-Book-Fourth-Introduction-Programming/dp/1418835560
+[learn-c-the-hard-way]:					https://www.amazon.com/Learn-Hard-Way-Practical-Computational/dp/0321884922
+[k&r]:									https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628
+[cmd]:									https://en.wikipedia.org/wiki/Cmd.exe
