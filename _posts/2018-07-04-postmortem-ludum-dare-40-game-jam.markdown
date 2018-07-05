@@ -167,6 +167,6 @@ that I might as well show them off here.
 [raylib-starter-kit]:		https://github.com/Hidden-Pixel/raylib-starter-kit
 [depth-crawler-web]:		https://nkanedev.itch.io/depth-crawler
 [binding-of-isaac]:			http://bindingofisaac.com/		
-[source-code]:				https://github.com/Hidden-Pixel/ludum-dare-40$a
+[source-code]:				https://github.com/Hidden-Pixel/ludum-dare-40
 [ms]:						https://github.com/mikhailswift
 [ns]:						https://github.com/natethegreat2525
