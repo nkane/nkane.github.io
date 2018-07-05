@@ -17,7 +17,7 @@ explore my own particular interest using a programming language and toolset that
 The language that I will be using throughout this series is the [C programming language][c-lang]. If you are not familiar with computer programming, a good
 place to start would be learning C by picking up a book called ["A First Book of ANSI C"][first-book-of-c], or by watching a course on the web. The book that
 I have recommended is the book that I used to initially learn C, so I recommend reading it from cover to cover and completing all of the exercises within it.
-In addition to the above book here are a few other options that will complement your skills after completing the other book:
+In addition here are a few other options that will complement your skills after completing the above:
 - [Learn C The Hard way][learn-c-the-hard-way]
 - [C Programming Language][k&r]
 
@@ -25,7 +25,7 @@ In addition to the above book here are a few other options that will complement 
 At this particular point in time, I am using the Microsoft Windows 10 operating system. Windows has a "command prompt" or "CLI" that we will be using to run
 particular commands or scripts. The Windows CLI can be accessed by launching the Windows "run" program and typing in "cmd". Find a course on the web, or a tutorial
 online to help familiarize yourself with the Windows CLI; additionally, we are going to want to "pin" to the task bar or create a desktop shortcut to the command prompt
-for future use. We will be setting up some the shortcut or pinned command prompt to feed in arguments to the CLI program ([cmd.exe][cmd]).
+for future use. We will be setting up this shortcut to feed in arguments to the CLI program ([cmd.exe][cmd]).
 
 ### Visual Studio
 
