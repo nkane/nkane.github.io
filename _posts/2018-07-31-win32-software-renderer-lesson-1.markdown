@@ -10,8 +10,8 @@ As a prerequisite in to computer graphics, it is assumed that the individual see
 an intuitive understanding of higher level mathematics and at least a bit of lower level computer programming knowledge (i.e., "lower level" - meaning
 understading how the code that is written is used by the particular set of computer hardware that the individual is working with). Although certain people would
 argue that you can program graphics without the having a lower level understanding of the computer programming, I will not be using a higher level language in 
-this series. It is not my goal with this series to convince anyone not use a higher level programming language for computer graphics. Instead, I want would
-like to explore my own particular interest using a language and toolset that I am confortable with.
+this series. It is not my goal with this series to convince anyone not use a higher level programming language for computer graphics. Instead, I would like to
+explore my own particular interest using a programming language and toolset that I am confortable with.
 
 ### The C Programming Language
 The language that I will be using throughout this series is the [C programming language][c-lang]. If you are not familiar with computer programming, a good
