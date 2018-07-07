@@ -65,7 +65,7 @@ start setting up our basic batch file that will be executed on our shortcut to o
 
 First, we need to find a batch file script named ["vsdevcmd.bat"][vsdevcmd] that is shipped with the installation of Visual Studio / MSVC. For the installation of Visual
 Studio that I am using, the file is located at "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat". Next, pick a spot on your hard
-drive to store the batch file, typically I like to store my file users directory in Windows (C:\Users\\{username}) and name it "win32_shell.bat" or whatever else that
+drive to store the batch file, typically I like to store my file under my users directory in Windows (C:\Users\\{username}) and name it "win32_shell.bat" or whatever else that
 you would perfer. Once that batch file has been created, we should have the following inside:
 
 ``` bat
@@ -73,10 +73,22 @@ you would perfer. Once that batch file has been created, we should have the foll
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
 ```
 
+Just to be explicit about why we call this batch files that is shipped with Visual Studio's, the "vsdevcmd.bat" file sets up our CLI instance to be able to use the Microsoft
+C/C++ compiler and other development tools.
 
 ### The Project Setup
+We will be setting up a project folder(s) for each tutorial in order have individualized pieces that we will be building upon each lesson. I usually have a particular place
+on my hard drive that I stored all of my code. Just pick a spot on your hard drive to store the source code for these projects. In order to maintain consistency throughout
+the entire project, I recommend setting up each lesson's folder hierarchy as the following:
 
-
+``` plain
+-> hp-engine 			(main folder)
+--> lesson 1 			(sub folder 1 of main folder)
+----> code 				(sub solder of sub folder 1)
+------> build.bat 		(build batch script)
+------> win32_hp.c 		(c source code file)
+--> lesson 2 			...
+```
 
 ### Win32 API
 
@@ -85,12 +97,12 @@ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tool
 
 
 ### Win32 WinMain
-{% highlight c %}
+``` c
 int main()
 {
 	return 0;
 }
-{% endhighlight %}
+```
 
 
 ### Win32 PeekMessage, TranslateMessage, and DispatchMessage
