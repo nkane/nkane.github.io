@@ -70,7 +70,7 @@ you would perfer. Once that batch file has been created, we should have the foll
 
 ``` bat
 :: win32_shell.bat
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
+CALL "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
 ```
 
 Just to be explicit about why we call this batch files that is shipped with Visual Studio's, the "vsdevcmd.bat" file sets up our CLI instance to be able to use the Microsoft
@@ -90,13 +90,35 @@ the entire project, I recommend setting up each lesson's folder hierarchy as the
 --> lesson 2 			...
 ```
 
-### Win32 API
+Next, let's just put a few lines of code inside of the "build.bat" file that will allow us to build our C source code. Place the following code inside of the build.bat file
+
+``` bat
+:: build.bat
+IF NOT EXIST ..\build MKDIR ..\build
+PUSHD ..\build
+cl /Od /MTd /Zi /nologo ..\code\win32_hp.c /link user32.lib
+POPD
+```
+
+The above batch file code will create a directory named "build" one relative directory back from the "code" directory, go inside of the "build" directory, build the C source
+code inside of the "build" directory using the Microsoft C/C++ compiler (cl.exe), and go back to the "code" directory. If you are wondering what all of those symbols are 
+on the "cl" line, those are [compiler options][cl-options] or arguments passed into the cl.exe. The /Od flag disables any compiler optimizations, the /MTd flag creates a
+multithreaded executable file using [LIBCMTD.lib][libcmtd] which is a debugging version of the multithreaded standard C library, and .lib files are [static libraries][libvsdll],
+the /Zi flag generates complete debugging information, the /nologo ignores a text logo and compiler information that is produced by the compiler, and the /link option allows
+use to pass options to the [linker][linker] options that we use to pass in the static libraries that we need to link with. If you are not familiar with the process of linking,
+it is a part of the executable compiliation process that takes all of the ["object files"][objectfile] and combines them into a single executable file, library, or another
+"object file".
 
 
-### Win32 Handles
+### Windows API (WinAPI or Win32)
 
 
-### Win32 WinMain
+
+
+### Windows API Handles
+
+
+### Windows API WinMain
 ``` c
 int main()
 {
@@ -105,13 +127,13 @@ int main()
 ```
 
 
-### Win32 PeekMessage, TranslateMessage, and DispatchMessage
+### Windows API PeekMessage, TranslateMessage, and DispatchMessage
 
 
-### Win32 Window Class Callback
+### Windows API Window Class Callback
 
 
-### Win32 WM_PAINT
+### Windows API WM_PAINT
 
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
@@ -124,6 +146,12 @@ int main()
 [vim]:									https://www.vim.org/download.php
 [msvc]:									https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B
 [cl]:									https://msdn.microsoft.com/en-us/library/wk21sfcf.aspx
+[cl-options]:				 			https://msdn.microsoft.com/en-us/library/fwkeyyhe.aspx
 [bat]: 									https://en.wikipedia.org/wiki/Batch_file
 [vcvarsall]:							https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017
 [vsdevcmd]:								https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/how-to-set-environment-variables-for-the-visual-studio-command-line
+[win32]:								https://en.wikipedia.org/wiki/Windows_API
+[libcmtd]:								https://support.microsoft.com/en-us/help/154753/description-of-the-default-c-and-c-libraries-that-a-program-will-link
+[libvsdll]:								https://stackoverflow.com/questions/913691/dll-and-lib-files-what-and-why
+[linker]:								https://en.wikipedia.org/wiki/Linker_(computing)
+[objectfiles]:							https://en.wikipedia.org/wiki/Object_file
