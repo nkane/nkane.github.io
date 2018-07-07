@@ -1,6 +1,6 @@
 ---
 layout: post
-Title: "Win32 Software Renderer Lesson 1"
+Title: "Win32 Software Renderer Lesson 1: Getting Started"
 date: 2018-07-04
 categories: blog gamedev gaming graphics
 visible: 0
@@ -19,6 +19,7 @@ The language that I will be using throughout this series is the [C programming l
 place to start would be learning C by picking up a book called ["A First Book of ANSI C"][first-book-of-c], or by watching a course on the web. The book that
 I have recommended is the book that I used to initially learn C, so I recommend reading it from cover to cover and completing all of the exercises within it.
 In addition here are a few other options that will complement your skills after completing the above:
+
 - [Learn C The Hard way][learn-c-the-hard-way]
 - [C Programming Language][k&r]
 
@@ -44,16 +45,22 @@ that was installed with Visual Studio, and Visual Studio as a debugger for the b
 
 
 ### Microsoft Visual C/C++ (MSVC) and cl.exe
-After Visual Studio has been installed with the C/C++ packages, [Microsoft Visual C++][msvc] (MSVC) with all of the libraries and tools will now be accessible to us to use.
-In particular, we need to set up our Windows CLI to be able to use all of these new tools that we have installed.
+After Visual Studio has been installed with the C/C++ packages, [Microsoft Visual C++][msvc] (MSVC) with all of the libraries and tools will now be accessible for usage.
+In particular, we need to set up our Windows CLI to be able to use all of these new tools that were installed with Visual Studio / MSVC. We need to be able to execute
+the [Microsoft C/C++ compiler][cl] (cl.exe). In order to make our Window's CLI a Win32 C development CLI envirnoment, we are going to be setup a few batch script files
+to run when the Windows shortcut to the CLI is executed. In other words, we are going to be passing in command line arguments to the Windows CLI program (cmd.exe).
 
 
-### Batch Script Files (.bat)
-
+### Batch Files (.bat)
+[Batch files][bat] are script files for Windows. These script files contain a series of commands to be executed by the CLI. We will not be exploring deeply in to batch
+file scripting, so just understanding what we are trying to accomplish and how we use the script files to assist us is the only requirement.
 
 
 ### Setting Up Windows CLI to Build With MSVC
-
+Finally, we get to setup our Windows CLI to be able to use the Microsoft C/C++ compiler; however, before we get started with setting up our CLI to use these tools I wanted
+to take a moment to reiterate the following, if you are using a different version of Visual Studio / MSVC it is possible the location, naming conventions, or existance of
+the scripts that will be referenced in the next section have changed based on past packaging changes that Microsoft has done. Just to be explicit about what I am referring
+to, in the past the location of a file named ["vcvarsall.bat"][vcvarsall] has changed within the last few versions of Visual Studio. 
 
 
 ### The Project Setup
@@ -89,3 +96,5 @@ In particular, we need to set up our Windows CLI to be able to use all of these 
 [vim]:									https://www.vim.org/download.php
 [msvc]:									https://en.wikipedia.org/wiki/Microsoft_Visual_C%2B%2B
 [cl]:									https://msdn.microsoft.com/en-us/library/wk21sfcf.aspx
+[bat]: 									https://en.wikipedia.org/wiki/Batch_file
+[vcvarsall]:							https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017
