@@ -60,30 +60,46 @@ file scripting, so just understanding what we are trying to accomplish and how w
 Finally, we get to setup our Windows CLI to be able to use the Microsoft C/C++ compiler; however, before we get started with setting up our CLI to use these tools I wanted
 to take a moment to reiterate the following, if you are using a different version of Visual Studio / MSVC it is possible the location, naming conventions, or existance of
 the scripts that will be referenced in the next section have changed based on past packaging changes that Microsoft has done. Just to be explicit about what I am referring
-to, in the past the location of a file named ["vcvarsall.bat"][vcvarsall] has changed within the last few versions of Visual Studio. 
+to, in the past the location of a file named ["vcvarsall.bat"][vcvarsall] has changed within the last few versions of Visual Studio. Now that we have that cleared up, let's
+start setting up our basic batch file that will be executed on our shortcut to our Windows CLI.
+
+First, we need to find a batch file script named ["vsdevcmd.bat"][vsdevcmd] that is shipped with the installation of Visual Studio / MSVC. For the installation of Visual
+Studio that I am using, the file is located at "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat". Next, pick a spot on your hard
+drive to store the batch file, typically I like to store my file users directory in Windows (C:\Users\\{username}) and name it "win32_shell.bat" or whatever else that
+you would perfer. Once that batch file has been created, we should have the following inside:
+
+``` bat
+:: win32_shell.bat
+call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"
+```
 
 
 ### The Project Setup
 
 
 
-### Win32
-
+### Win32 API
 
 
 ### Win32 Handles
 
 
-### Win32 WinMain Explained
+### Win32 WinMain
+{% highlight c %}
+int main()
+{
+	return 0;
+}
+{% endhighlight %}
 
 
-### Win32 PeekMessage, TranslateMessage, and DispatchMessage Explained
+### Win32 PeekMessage, TranslateMessage, and DispatchMessage
 
 
-### Win32 Window Class Callback Explained
+### Win32 Window Class Callback
 
 
-### Win32 WM_PAINT Explained
+### Win32 WM_PAINT
 
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
@@ -98,3 +114,4 @@ to, in the past the location of a file named ["vcvarsall.bat"][vcvarsall] has ch
 [cl]:									https://msdn.microsoft.com/en-us/library/wk21sfcf.aspx
 [bat]: 									https://en.wikipedia.org/wiki/Batch_file
 [vcvarsall]:							https://stackoverflow.com/questions/43372235/vcvarsall-bat-for-visual-studio-2017
+[vsdevcmd]:								https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/how-to-set-environment-variables-for-the-visual-studio-command-line
