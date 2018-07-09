@@ -106,7 +106,7 @@ on the "cl" line, those are [compiler options][cl-options] or arguments passed i
 multithreaded executable file using [LIBCMTD.lib][libcmtd] which is a debugging version of the multithreaded standard C library, and .lib files are [static libraries][libvsdll],
 the /Zi flag generates complete debugging information, the /nologo ignores a text logo and compiler information that is produced by the compiler, and the /link option allows
 use to pass options to the [linker][linker] options that we use to pass in the static libraries that we need to link with. If you are not familiar with the process of linking,
-it is a part of the executable compiliation process that takes all of the ["object files"][objectfile] and combines them into a single executable file, library, or another
+it is a part of the executable compiliation process that takes all of the ["object files"][objectfiles] and combines them into a single executable file, library, or another
 "object file".
 
 

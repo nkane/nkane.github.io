@@ -38,8 +38,8 @@ deployed on [itch.io][depth-crawler-web].
 For this particular event, Ludum Dare, they do not release the theme information until 9:00 PM on the first day. The theme
 for Ludum Dare 40 was "the more you have, the worst it is". On the first evening, we needed to figure out what we wanted to
 create. Originally, we had the idea of creating a 2D tile based dungeon crawl drawing inspiration from games like the
-[Binding of Issac][binding-of-isaac]. We started to create a basic layout for a tile-map that by just drawing some rectangles
-on the screen to see it would work out.
+[Binding of Issac][binding-of-isaac]. We started by attempting to create a basic layout for a tile-map that by drawing
+some rectangles on the screen.
 
 ![original-tiles-picture-0][original-tiles-0]
 ![original-tiles-picture-1][original-tiles-1]
@@ -68,17 +68,17 @@ because we intended to have the game art be isometric.
 
 ### On the Move
 After we had a functional procedurally generated tile map, basic player input, and rectangular collision working properly.
-We needed to start making the player's movement start to feel more physics base. Personally, this was my first exposure to
+We needed to start making the player's movement start to feel physics base. Personally, this was my first exposure to
 using vector based math to do physics calculations; however, one of our team memebers was incredibly familiar with doing
 these calculations. After a few whiteboarding session and reading a handful of game development articles on vector based
-movement, a basic movement system for the player entity was created and used. The "wrapping" affect seen in the GIF below
+movement, a basic movement system for the player entity was created and used. The "warping" affect seen in the GIF below
 was due to a miscalculation of the increased speed toggling from maximum to minimium on the player's velocity vector.
 
 ![movement-picture-0][movement-0]
 
 
 ### Finding a Path
-Initially we dropped another entity into the world as a way to testing out a simple method for path finding; however, time
+Initially, we dropped another entity into the world as a way to testing out a simple method for path finding; however, time
 was running short for us at this particular moment. Instead of implementing an actual path finding algorithm, we opted to
 just implement a simple "line-of-sight" vector pathing that created a "follow" mechanic for the enemy to chase the player
 whenever the player was within a particular range or "line-of-sight". We later decided to test this with multiple enemies,
