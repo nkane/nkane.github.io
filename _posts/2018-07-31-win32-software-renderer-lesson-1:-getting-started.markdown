@@ -29,7 +29,7 @@ At this particular point in time, I am using the Microsoft Windows 10 operating 
 particular commands or scripts. The Windows CLI can be accessed by launching the Windows "run" program and typing in "cmd". Find a course on the web, or a tutorial
 online to help familiarize yourself with the Windows CLI; additionally, we are going to want to "pin" to the task bar or create a desktop shortcut to the command prompt
 for future use with command line arguments fed to the CLI program ([cmd.exe][cmd]). In order to set up our CLI to be Windows C Development friendly, we are going to 
-need to install Visual Studio. Just a quick side n ote, using Visual Studio is not necessary if you like to use other compilers or debuggers; however, for this tutorial
+need to install Visual Studio. Just a quick side note, using Visual Studio is not necessary if you like to use other compilers or debuggers; however, for this tutorial
 I will be using the [Microsoft C/C++ compiler][cl].
 
 
@@ -37,13 +37,13 @@ I will be using the [Microsoft C/C++ compiler][cl].
 [Visual Studio][vs] is an "integrated development envirnoment" (IDE). Currently, I am using Visual Studio 2017 Community Edition x86 on my development computer. In case
 the reader is not familiar with the what x86 is, it just means that the program is a 32-bit binary instead of a 64-bit binary; however, the x64 or 64-bit version can be
 downloaded instead of the 32-bit version. If you are concerned with what that [means][binary-x86-x64], it just boils down to accessible memory address space of the binary.
-This information is particularly important due to the way that Visual Studio was packaged in older versions. Since packaging has not remain consistent throughout
-the different versions of Visual Studio, I would not count on specific information being accurate regarding Visual Studio script names, script locations, and script
-behaviors for different version other than Visual Studio 2017 Community Edition (e.g., you may have to do research on the differences); however, if you stick with the same
-version I am using you should be up and running by the end of this article. You will need to make sure to install the C/C++ development envirnoments whenever options are
-listed during the installation, and it would not hurt to have the Windows 10 SDK installed as well. Even though Visual Studio provides a text editor, and a bunch of other
-features that I do not use. I typically use the text editor program called [Vim][vim] to edit my source code files, the Windows CLI to compile the code using a compiler
-that was installed with Visual Studio, and Visual Studio as a debugger for the built binary that is produce through the Windows CLI.
+The following version information is particularly important due to the way that Visual Studio was packaged in older versions. Since packaging has not remain consistent
+throughout the different versions of Visual Studio, I would not count on specific information being accurate regarding Visual Studio script names, script locations, and
+script behaviors for different version other than Visual Studio 2017 Community Edition (e.g., you may have to do research on the differences); however, if you stick with
+the same version I am using you should be up and running by the end of this article. You will need to make sure to install the C/C++ development envirnoments whenever
+options are listed during the installation, and it would not hurt to have the Windows 10 SDK installed as well. Even though Visual Studio provides a text editor, and a
+bunch of other features that I do not use. I typically use the text editor program called [Vim][vim] to edit my source code files, the Windows CLI to compile the code
+using a compiler that was installed with Visual Studio, and Visual Studio as a debugger for the built binary that is produce through the Windows CLI.
 
 
 ### Microsoft Visual C/C++ (MSVC) and cl.exe
@@ -103,7 +103,7 @@ the entire project, I recommend setting up each lesson's folder hierarchy as the
 --> lesson 2 			...
 ```
 
-Next, let's just put a few lines of code inside of the "build.bat" file that will allow us to build our C source code. Place the following code inside of the *build.bat* file
+Next, let's just put a few lines of code inside of the "*build.bat*" file that will allow us to build our C source code. Place the following code inside of the *build.bat* file
 
 ``` bat
 :: build.bat
@@ -127,11 +127,15 @@ file, library, or another "object file".
 
 
 ### Windows API (WinAPI or Win32)
+[Win32][win32] or any of the other names the Windows API ([Application Programming Interface][api-def]) may have is the platform layer that we are going to be working with for this
+tutorial. We will attempt to limit the amount of C standard library calls that we are going to make in hopes of eventually replace any C standard library usage entirely later
+on down the road. There are a ton of different components to the Win32 API, so whenever we start using a new .lib file for linking I will make a section of the tutorial dedicated to
+updating the .bat build file with the proper linking static file and expliciting tell what function calls we will be using are defined in the new library we will be linking with.
 
 
+### Windows API Handles and Objects
 
 
-### Windows API Handles
 
 
 ### Windows API WinMain
@@ -171,3 +175,5 @@ int main()
 [libvsdll]:								https://stackoverflow.com/questions/913691/dll-and-lib-files-what-and-why
 [linker]:								https://en.wikipedia.org/wiki/Linker_(computing)
 [objectfiles]:							https://en.wikipedia.org/wiki/Object_file
+[api-def]:								https://en.wikipedia.org/wiki/Application_programming_interface
+[win32-handles-obj]:					https://msdn.microsoft.com/en-us/library/windows/desktop/ms724457(v=vs.85).aspx
