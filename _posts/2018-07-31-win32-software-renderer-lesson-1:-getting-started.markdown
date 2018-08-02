@@ -34,7 +34,7 @@ I will be using the [Microsoft C/C++ compiler][cl].
 
 
 ### Visual Studio
-[Visual Studio][vs] is an "integrated development envirnoment" (IDE). Currently, I am using Visual Studio 2017 Community Edition x86 on my development computer. In case
+[Visual Studio][vs] is an "integrated development environment" (IDE). Currently, I am using Visual Studio 2017 Community Edition x86 on my development computer. In case
 the reader is not familiar with the what x86 is, it just means that the program is a 32-bit binary instead of a 64-bit binary; however, the x64 or 64-bit version can be
 downloaded instead of the 32-bit version. If you are concerned with what that [means][binary-x86-x64], it just boils down to accessible memory address space of the binary.
 The following version information is particularly important due to the way that Visual Studio was packaged in older versions. Since packaging has not remain consistent
@@ -130,11 +130,15 @@ file, library, or another "object file".
 [Win32][win32] or any of the other names the Windows API ([Application Programming Interface][api-def]) may have is the platform layer that we are going to be working with for this
 tutorial. We will attempt to limit the amount of C standard library calls that we are going to make in hopes of eventually replace any C standard library usage entirely later
 on down the road. There are a ton of different components to the Win32 API, so whenever we start using a new .lib file for linking I will make a section of the tutorial dedicated to
-updating the .bat build file with the proper linking static file and expliciting tell what function calls we will be using are defined in the new library we will be linking with.
+updating the .bat build file with the proper linking static file and expliciting stating what function calls we will be using are defined in the new library we will be linking with.
 
 
 ### Windows API Handles and Objects
+In computer programming, handles are an abstract reference to a [resource][handles-wiki]. In Windows API handles are treated as [opaque types][opaque-types], meaning that the data
+structures members are not publicly accessible; additionally, there are several different kinds of defined Windows API [handles and types][win32-types]. Whenever we introduce a new
+data type, I write a short section describing what that data type is and it's members.
 
+Windows API Objects are the defined data structures that have a particular interface that remain consistent to ensure compatiability for older systems.
 
 
 
@@ -177,3 +181,6 @@ int main()
 [objectfiles]:							https://en.wikipedia.org/wiki/Object_file
 [api-def]:								https://en.wikipedia.org/wiki/Application_programming_interface
 [win32-handles-obj]:					https://msdn.microsoft.com/en-us/library/windows/desktop/ms724457(v=vs.85).aspx
+[handles-wiki]:							https://en.wikipedia.org/wiki/Handle_(computing)
+[opaque-types]:							https://en.wikipedia.org/wiki/Opaque_data_type
+[win32-types]:							https://docs.microsoft.com/en-us/windows/desktop/winprog/windows-data-types
