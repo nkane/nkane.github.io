@@ -135,20 +135,77 @@ updating the .bat build file with the proper linking static file and expliciting
 
 ### Windows API Handles and Objects
 In computer programming, handles are an abstract reference to a [resource][handles-wiki]. In Windows API handles are treated as [opaque types][opaque-types], meaning that the data
-structures members are not publicly accessible; additionally, there are several different kinds of defined Windows API [handles and types][win32-types]. Whenever we introduce a new
-data type, I write a short section describing what that data type is and it's members.
+structures members are not publicly accessible; additionallty, handles can be thought of as a number that Windows uses for internal reference to an object. There are several different
+kinds of defined Windows API [handles and types][win32-types]. Whenever we introduce a new data type, I will write a short section describing what that data type is.
 
-Windows API Objects are the defined data structures that have a particular interface that remain consistent to ensure compatiability for older systems.
-
+Windows API Objects are the defined data structures that have a particular interface that remain consistent to ensure compatiability across system updates.
 
 
 ### Windows API WinMain
+In Windows API, the standard graphical user interface application entry point function is named ["WinMain"][winmain]
 ``` c
-int main()
+int WINAPI
+WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	return 0;
 }
 ```
+
+* **CALLBACK**, **WINAPI**, and **APIENTRY** are all used to define functions with the __stdcall calling convention. Most functions in the Windows API are declared using **WINAPI**.
+* **WINAPI**, is the [calling convention][calling-convention] for system functions. A calling convention is an implementation-level (low-level) scheme for how subroutines receive paramaters
+from their caller and how they return a result. This type is defined in the WinDef.h as follows:
+``` c
+#define WINAPI __stdcall
+```
+
+* Parameter: **hInstance**, a handle to the current instance of the application.
+* Parameter: **hPrevInstance**, a handle to the previous instance of the application. This parameter is always NULL.
+* Type: **HINSTANCE**, is a handle to an instance - the base address of the module in memory. This type is declared in WinDef.h as follows:
+``` c
+typedef HANDLE INSTANCE;
+```
+	* Type: **HANDLE**, is a handle to an object. This type is declared in WinNT.h as follows:
+	``` c
+	typedef PVOID HANDLE;
+	```
+	* Type: **PVOID**, is a pointer to any type or a void pointer. This type is declared in WinNT.h as follows:
+	``` c
+	typedef voido *PVOID;
+	```
+
+* Paramter: **lpCmdLine**, the command line for the application, excluding the program name.
+* Type: **LPSTR**, is a pointer to a null-terminated string of 8-bit Windows (ANSI) characters. This type is declared in WinNT.h as follows:
+``` c
+typedef CHAR *LPSTR;
+```
+
+* Parameter: **nCmdShow**, controls how the window is to be shown.
+* Type: int
+* Values:
+	* 0 - SW_HIDE, hides the window and activates another window.
+	* 3 - SW_MAXIMIZE, maximizes the specified window.
+	* 6 - SW_MINIMIZE, minimizes the specificed window and activates the next top-level window in the Z order.
+	* 9 - SW_RESTORE, activates and displays the window. If the window is minimized or maximized, the system stores it to its original size and position. An application should specify this
+		  flag when restoring a minimized window.
+	* 5 - SW_SHOW, activates the window and displays it in its current size and position.
+	* 3 - SW_SHOWMAXIMIZED, activates the window and displays it as a maximized window.
+	* 2 - SW_SHOWMINIMIZED, activates the window and displays it as a minimized window.
+	* 7 - SW_SHOWMINNOACTIVE, displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
+	* 8 - SW_SHOWNA, displays the window in its current size and position. This value is similar to SW_SHOW, except the window is not activated.
+	* 4 - SW_SHOWNOACTIVATE, displays a window in its most recent size and position. This value is similar to SW_SHOWNORMAL, except the window is not activated.
+	* 1 - SW_SHOWNORMAL, activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this
+		  flag when displaying the window for the first time.
+* Return Type: int
+* Value: if the function succeeds, terminating when it receives a [WM_QUIT][wm-quit] message, it should return the exit value contained in that message's wParam parameter. If the funciton terminates before
+  entering the message loop, it should return zero.
+
+* Additional Information:
+	* The WinMain function should initialize the application, display its main window, and enter a message retrieval-and-dispatch loop that is the top-level control structure for the remainder
+	  of the application's execution. Terminate the message loop when it recieves a WM_QUIT message. At that point, your WinMain should exit the application, returning the value passed in the
+	  WM_QUIT message's wParam parameter. If WM_QUIT was received as a result of calling [PostQuitMessage][post-quit-function], the value of wParam is the value of the PostQuitMessage function's nExitCode
+	  parameter.
+
+
 
 
 ### Windows API PeekMessage, TranslateMessage, and DispatchMessage
@@ -184,3 +241,8 @@ int main()
 [handles-wiki]:							https://en.wikipedia.org/wiki/Handle_(computing)
 [opaque-types]:							https://en.wikipedia.org/wiki/Opaque_data_type
 [win32-types]:							https://docs.microsoft.com/en-us/windows/desktop/winprog/windows-data-types
+[winmain]:								https://msdn.microsoft.com/en-us/library/windows/desktop/ms633559(v=vs.85).aspx
+[calling-convention]:					https://en.wikipedia.org/wiki/Calling_convention
+[wm-quit]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-quit
+[post-quit-function]:					https://msdn.microsoft.com/en-us/library/windows/desktop/ms644945(v=vs.85).aspx
+[message-loop]:							https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-messages-and-message-queues#creating_loop
