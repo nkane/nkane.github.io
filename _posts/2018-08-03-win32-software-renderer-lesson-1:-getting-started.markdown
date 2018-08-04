@@ -95,11 +95,12 @@ on my hard drive that I stored all of my code. Just pick a spot on your hard dri
 the entire project, I recommend setting up each lesson's folder hierarchy as the following:
 
 ``` plain
--> hp-engine 			(main folder)
---> lesson 1 			(sub folder 1 of main folder)
-----> code 				(sub solder of sub folder 1)
-------> build.bat 		(build batch script)
-------> win32_hp.c 		(c source code file)
+-> hp-engine 				(main folder)
+--> lesson 1 				(sub folder 1 of main folder)
+----> win32-example			(sub folder for lesson 1.1, potentially more lessons 1.x)
+------> code 				(sub solder of sub folder 1.1)
+--------> build.bat 		(build batch script)
+--------> win32_hp.c 		(c source code file)
 --> lesson 2 			...
 ```
 
@@ -205,6 +206,12 @@ typedef CHAR *LPSTR;
 	  WM_QUIT message's wParam parameter. If WM_QUIT was received as a result of calling [PostQuitMessage][post-quit-function], the value of wParam is the value of the PostQuitMessage function's nExitCode
 	  parameter.
 
+
+### Windows API Hello World
+Now that we have been introduced to the Windows API entry point, let's start out with creating a basic program to use as an
+example of our basic file structure and getting use to compiling using the Windows CLI. Before we begin, try to keep the 
+folder and file structure the same as we discussed in a prior section of this tutorial. I will be storing these collections of
+files.
 
 
 
