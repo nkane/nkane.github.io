@@ -238,9 +238,15 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 }
 ```
 
-After both files have been created, navigate to the folder that contains both files from your CLI and type "build". Below is a screen shot of the output that should be received when building:
+After both files have been created, navigate to the folder that contains both files from your CLI and type "build". Below is a screenshot of the output that should be received when building:
 
 ![Build Output](/assets/software-renderer/lesson-1/lesson-1.0-build.png)
+
+
+Once the build has completed successfully, an executable should have been produced in the build directory created by the build script named win32_main or whatever you named the c file. If you
+call the executable on the CLI or double click on the executable in file explorer the following should be displayed:
+
+![Executable Result](/assets/software-renderer/lesson-1/lesson-1.0-executable-result.png)
 
 
 ### Windows API PeekMessage, TranslateMessage, and DispatchMessage
@@ -250,6 +256,9 @@ After both files have been created, navigate to the folder that contains both fi
 
 
 ### Windows API WM_PAINT
+
+
+### Windows API WM_QUIT
 
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
