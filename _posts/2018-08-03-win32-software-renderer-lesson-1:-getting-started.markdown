@@ -1,7 +1,7 @@
 ---
 layout: post
 Title: "Win32 Software Renderer Lesson 1: Getting Started"
-date: 2018-07-04
+date: 2018-08-04
 categories: blog gamedev gaming graphics
 visible: 0
 ---
@@ -86,8 +86,8 @@ order to have that executed after the CLI has been loaded that way our CLI insta
 is an example of what our "Target" field should look with the CLI argument passed to it: *%windir%\system32\cmd.exe /K "C:\Users\\{user}\win32_shell.bat"*. Just for a frame
 of refernce, this is exactly what my "Target" field is set to: *%windir%\system32\cmd.exe /K "C:\Users\nkane\win32_shell.bat"*.
 
+![Cmd Properties](/assets/software-renderer/lesson-1/lesson-1.0-cmd-properties.png)
 
-#### TODO(nick): insert image of cmd properties here
 
 ### The Project Setup
 We will be setting up a project folder(s) for each tutorial in order have individualized pieces that we will be building upon each lesson. I usually have a particular place
@@ -123,8 +123,7 @@ and the /link option allows use to pass options to the [linker][linker] options 
 with the process of linking, it is a part of the executable compiliation process that takes all of the ["object files"][objectfiles] and combines them into a single executable
 file, library, or another "object file".
 
-
-#### TODO(nick): insert image of project folder layout
+![Project Folder Strucuture](/assets/software-renderer/lesson-1/lesson-1.0-folder-structure.png)
 
 
 ### Windows API (WinAPI or Win32)
@@ -239,7 +238,9 @@ WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdS
 }
 ```
 
-After both files have been created, navigate to the folder that contains both files from your CLI and type "build".
+After both files have been created, navigate to the folder that contains both files from your CLI and type "build". Below is a screen shot of the output that should be received when building:
+
+![Build Output](/assets/software-renderer/lesson-1/lesson-1.0-build.png)
 
 
 ### Windows API PeekMessage, TranslateMessage, and DispatchMessage
