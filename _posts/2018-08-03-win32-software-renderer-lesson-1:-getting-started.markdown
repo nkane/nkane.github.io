@@ -97,8 +97,8 @@ the entire project, I recommend setting up each lesson's folder hierarchy as the
 ``` plain
 -> hp-engine 				(main folder)
 --> lesson 1 				(sub folder 1 of main folder)
-----> win32-example			(sub folder for lesson 1.1, potentially more lessons 1.x)
-------> code 				(sub solder of sub folder 1.1)
+----> win32-example			(sub folder for lesson 1.0, potentially more lessons 1.x)
+------> code 				(sub solder of sub folder 1.0)
 --------> build.bat 		(build batch script)
 --------> win32_hp.c 		(c source code file)
 --> lesson 2 			...
@@ -201,18 +201,45 @@ typedef CHAR *LPSTR;
   entering the message loop, it should return zero.
 
 * Additional Information:
-	* The WinMain function should initialize the application, display its main window, and enter a message retrieval-and-dispatch loop that is the top-level control structure for the remainder
-	  of the application's execution. Terminate the message loop when it recieves a WM_QUIT message. At that point, your WinMain should exit the application, returning the value passed in the
-	  WM_QUIT message's wParam parameter. If WM_QUIT was received as a result of calling [PostQuitMessage][post-quit-function], the value of wParam is the value of the PostQuitMessage function's nExitCode
-	  parameter.
+	* The WinMain function should initialize the application, display its main window, and enter a message retrieval-and-dispatch loop that is the top-level control structure for the remainder of the
+	  application's execution. Terminate the message loop when it recieves a WM_QUIT message. At that point, your WinMain should exit the application, returning the value passed in the WM_QUIT message's
+ 	  wParam parameter. If WM_QUIT was received as a result of calling [PostQuitMessage][post-quit-function], the value of wParam is the value of the PostQuitMessage function's nExitCode parameter.
 
 
 ### Windows API Hello World
-Now that we have been introduced to the Windows API entry point, let's start out with creating a basic program to use as an
-example of our basic file structure and getting use to compiling using the Windows CLI. Before we begin, try to keep the 
-folder and file structure the same as we discussed in a prior section of this tutorial. I will be storing these collections of
-files.
+Now that we have been introduced to the Windows API entry point, let's start out with creating a basic program to use as an example of our basic file structure and getting use to compiling using the Windows
+CLI. Before we begin, try to keep the folder and file structure the same as we discussed in a prior section of this tutorial. Let's start out with creating our build.bat batch file:
 
+``` batch
+:: Lesson: 1.0
+:: File: build.bat
+IF NOT EXIST ..\build MKDIR ..\build
+PUSHD ..\build
+
+cl /Od /MTd /Zi /nologo ..\code\win32_main.c /link user32.lib
+
+POPD
+```
+
+In the above code we are linking with the user32.lib file, because the below code that uses the function call [MessageBox][messagebox-function]. The particular details of this function are not important,
+because we are just using it to get started; however, the actual function definition is in the user32.lib or user32.dll file, so this requires us to link with either the dll or lib file. 
+
+Next, inside of the same folder that the build.bat file above was created we need to create a win32_main.c file:
+
+``` c
+// Lesson: 1.0
+// File: win32_main.c
+#include <windows.h>
+
+int WINAPI
+WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+{
+	MessageBox(NULL, "Hello, World!", "Hello, World", 0);
+	return 0;
+}
+```
+
+After both files have been created, navigate to the folder that contains both files from your CLI and type "build".
 
 
 ### Windows API PeekMessage, TranslateMessage, and DispatchMessage
@@ -252,4 +279,5 @@ files.
 [calling-convention]:					https://en.wikipedia.org/wiki/Calling_convention
 [wm-quit]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-quit
 [post-quit-function]:					https://msdn.microsoft.com/en-us/library/windows/desktop/ms644945(v=vs.85).aspx
+[messagebox-function]:					https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-messagebox
 [message-loop]:							https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-messages-and-message-queues#creating_loop
