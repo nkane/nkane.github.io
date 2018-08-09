@@ -244,12 +244,22 @@ After both files have been created, navigate to the folder that contains both fi
 
 
 Once the build has completed successfully, an executable should have been produced in the build directory created by the build script named win32_main or whatever you named the c file. If you
-call the executable on the CLI or double click on the executable in file explorer the following should be displayed:
+call the executable on the CLI or double click on the executable in file explorer the following should be displayed on your desktop:
 
 ![Executable Result](/assets/software-renderer/lesson-1/lesson-1.0-executable-result.png)
 
+If you are having issues setting up or building the project and you have ensured to follow all of the directions above, shoot me an email and we can try to work it out together.
 
-### Windows API PeekMessage, TranslateMessage, and DispatchMessage
+
+### Windows API Messages and Message Queues
+Windows API applications are event-driven, meaning the applications waits for the system to pass input to them. This means the system has the responsibility of passing all input to the various
+windows in an application. Each individual window has a function associated with it called a ["Windows Procedure"][winproc].
+
+
+In Windows API only creates messages queues for programs that create one or more windows.
+
+
+### Windows API Message Loop, PeekMessage, TranslateMessage, and DispatchMessage
 
 
 ### Windows API Window Class Callback
@@ -290,4 +300,6 @@ call the executable on the CLI or double click on the executable in file explore
 [wm-quit]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-quit
 [post-quit-function]:					https://msdn.microsoft.com/en-us/library/windows/desktop/ms644945(v=vs.85).aspx
 [messagebox-function]:					https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-messagebox
+[message-queue]:						https://docs.microsoft.com/en-us/windows/desktop/winmsg/about-messages-and-message-queues
 [message-loop]:							https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-messages-and-message-queues#creating_loop
+[winproc]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/window-procedures
