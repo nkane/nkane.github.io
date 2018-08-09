@@ -159,45 +159,48 @@ from their caller and how they return a result. This type is defined in the WinD
 ```
 
 * Parameter: **hInstance**, a handle to the current instance of the application.
+	* Type: **HINSTANCE**, is a handle to an instance - the base address of the module in memory. This type is declared in WinDef.h as follows:
+	``` c
+	typedef HANDLE HINSTANCE;
+	```
+		* Type: **HANDLE**, is a handle to an object. This type is declared in WinNT.h as follows:
+		``` c
+		typedef PVOID HANDLE;
+		```
+		* Type: **PVOID**, is a pointer to any type or a void pointer. This type is declared in WinNT.h as follows:
+		``` c
+		typedef voido *PVOID;
+		```
+
 * Parameter: **hPrevInstance**, a handle to the previous instance of the application. This parameter is always NULL.
-* Type: **HINSTANCE**, is a handle to an instance - the base address of the module in memory. This type is declared in WinDef.h as follows:
-``` c
-typedef HANDLE INSTANCE;
-```
-	* Type: **HANDLE**, is a handle to an object. This type is declared in WinNT.h as follows:
-	``` c
-	typedef PVOID HANDLE;
-	```
-	* Type: **PVOID**, is a pointer to any type or a void pointer. This type is declared in WinNT.h as follows:
-	``` c
-	typedef voido *PVOID;
-	```
+	* Type: **HINSTANCE**
 
 * Paramter: **lpCmdLine**, the command line for the application, excluding the program name.
-* Type: **LPSTR**, is a pointer to a null-terminated string of 8-bit Windows (ANSI) characters. This type is declared in WinNT.h as follows:
-``` c
-typedef CHAR *LPSTR;
-```
+	* Type: **LPSTR**, is a pointer to a null-terminated string of 8-bit Windows (ANSI) characters. This type is declared in WinNT.h as follows:
+	``` c
+	typedef CHAR *LPSTR;
+	```
 
 * Parameter: **nCmdShow**, controls how the window is to be shown.
-* Type: int
-* Values:
-	* 0 - SW_HIDE, hides the window and activates another window.
-	* 3 - SW_MAXIMIZE, maximizes the specified window.
-	* 6 - SW_MINIMIZE, minimizes the specificed window and activates the next top-level window in the Z order.
-	* 9 - SW_RESTORE, activates and displays the window. If the window is minimized or maximized, the system stores it to its original size and position. An application should specify this
-		  flag when restoring a minimized window.
-	* 5 - SW_SHOW, activates the window and displays it in its current size and position.
-	* 3 - SW_SHOWMAXIMIZED, activates the window and displays it as a maximized window.
-	* 2 - SW_SHOWMINIMIZED, activates the window and displays it as a minimized window.
-	* 7 - SW_SHOWMINNOACTIVE, displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
-	* 8 - SW_SHOWNA, displays the window in its current size and position. This value is similar to SW_SHOW, except the window is not activated.
-	* 4 - SW_SHOWNOACTIVATE, displays a window in its most recent size and position. This value is similar to SW_SHOWNORMAL, except the window is not activated.
-	* 1 - SW_SHOWNORMAL, activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this
-		  flag when displaying the window for the first time.
-* Return Type: int
-* Value: if the function succeeds, terminating when it receives a [WM_QUIT][wm-quit] message, it should return the exit value contained in that message's wParam parameter. If the funciton terminates before
-  entering the message loop, it should return zero.
+	* Type: int
+	* Values:
+		* 0 - SW_HIDE, hides the window and activates another window.
+		* 3 - SW_MAXIMIZE, maximizes the specified window.
+		* 6 - SW_MINIMIZE, minimizes the specificed window and activates the next top-level window in the Z order.
+		* 9 - SW_RESTORE, activates and displays the window. If the window is minimized or maximized, the system stores it to its original size and position. An application should specify this
+			  flag when restoring a minimized window.
+		* 5 - SW_SHOW, activates the window and displays it in its current size and position.
+		* 3 - SW_SHOWMAXIMIZED, activates the window and displays it as a maximized window.
+		* 2 - SW_SHOWMINIMIZED, activates the window and displays it as a minimized window.
+		* 7 - SW_SHOWMINNOACTIVE, displays the window as a minimized window. This value is similar to SW_SHOWMINIMIZED, except the window is not activated.
+		* 8 - SW_SHOWNA, displays the window in its current size and position. This value is similar to SW_SHOW, except the window is not activated.
+		* 4 - SW_SHOWNOACTIVATE, displays a window in its most recent size and position. This value is similar to SW_SHOWNORMAL, except the window is not activated.
+		* 1 - SW_SHOWNORMAL, activates and displays a window. If the window is minimized or maximized, the system restores it to its original size and position. An application should specify this
+			  flag when displaying the window for the first time.
+
+* Return Type: **int**
+	* Value: if the function succeeds, terminating when it receives a [WM_QUIT][wm-quit] message, it should return the exit value contained in that message's wParam parameter. If the funciton terminates before
+	  entering the message loop, it should return zero.
 
 * Additional Information:
 	* The WinMain function should initialize the application, display its main window, and enter a message retrieval-and-dispatch loop that is the top-level control structure for the remainder of the
@@ -251,12 +254,58 @@ call the executable on the CLI or double click on the executable in file explore
 If you are having issues setting up or building the project and you have ensured to follow all of the directions above, shoot me an email and we can try to work it out together.
 
 
-### Windows API Messages and Message Queues
+### Windows Windows API Procedure, Messages, and Message Queues
 Windows API applications are event-driven, meaning the applications waits for the system to pass input to them. This means the system has the responsibility of passing all input to the various
-windows in an application. Each individual window has a function associated with it called a ["Windows Procedure"][winproc].
+windows in an application. Each individual window has a function associated with it called a ["Window Procedure"][winproc] that the system calls whenever it has input for a particular window.
+The window procedure processes the input and returns control to the system. The "Window Procedure" has a defined [function signature][windprocdefine] that has implemented when creating a Window
+Procedure. The following is the definition for a "Window Procedure" or "WNDPROC":
 
+``` c
+LRESULT CALLBACK WindowProc
+(
+	HWND hwnd,
+	UINT uMsg,
+	WPARAM wParam,
+	LPARAM lParam
+);
+```
+* Parameter: **hwnd**, a handle to the window
+	* Type: HWND, a handle to a window. This type is declared in WinDef.h as follow:
+	``` c
+	typedef HANDLE HWND;
+	```
 
-In Windows API only creates messages queues for programs that create one or more windows.
+* Parameter: **uMsg**, the messages.
+	* Type: UINT, an unsigned INT in the range 0 through 4294967295. This type is declared in WinDef.h as follows:
+	``` c
+	typedef unsigned int UINT;
+	```
+
+* Parameter: **wParam**, additional message information. The contents of this parameter depends on the value of the uMsg parameter.
+	* Type: **WPARAM**, a message parameter. This type is declared in WinDef.h as follows:
+	``` c
+	typedef UINT_PTR WPARAM;
+	```
+
+* Parameter: **lParam**, additional message information. The contents of this parameter depends on the value of the uMsg parameter.
+	* Type: **LPARAM**, a message parameter. This type is declared in WinDef.h as follows:
+	``` c
+	typedef LONG_PTR LPARAM;
+	```
+
+* Return Type: **LRESULT** defines a signed result of message processing. This type is declared in WinDef.h as follows:
+``` c
+typedef LONG_PTR LRESULT;
+```
+	* **LONG_PTR**, a signed long type for pointer percision. Use when casting a pointer to a long to perform point arithmetic. This type is declared in BaseTsd.h as follows:
+	``` c
+	#if defined (_WIN64)
+		typedef __int64 LONG_PTR;
+	#else
+		typedef long LONG_PTR;
+	#endif
+	```
+	* Value: the return value is the result of the message processing and depends on the message sent.
 
 
 ### Windows API Message Loop, PeekMessage, TranslateMessage, and DispatchMessage
@@ -303,3 +352,5 @@ In Windows API only creates messages queues for programs that create one or more
 [message-queue]:						https://docs.microsoft.com/en-us/windows/desktop/winmsg/about-messages-and-message-queues
 [message-loop]:							https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-messages-and-message-queues#creating_loop
 [winproc]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/window-procedures
+[winprocdefine]:						https://msdn.microsoft.com/en-us/library/ms633573(v=VS.85).aspx
+[win-messages]:							https://wiki.winehq.org/List_Of_Windows_Messages
