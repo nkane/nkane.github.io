@@ -95,7 +95,7 @@ on my hard drive that I stored all of my code. Just pick a spot on your hard dri
 the entire project, I recommend setting up each lesson's folder hierarchy as the following:
 
 ``` plain
--> hp-engine 				(main folder)
+-> SoftwareRenderer 		(main folder)
 --> lesson 1 				(sub folder 1 of main folder)
 ----> win32-example			(sub folder for lesson 1.0, potentially more lessons 1.x)
 ------> code 				(sub solder of sub folder 1.0)
