@@ -95,13 +95,13 @@ on my hard drive that I stored all of my code. Just pick a spot on your hard dri
 the entire project, I recommend setting up each lesson's folder hierarchy as the following:
 
 ``` plain
--> SoftwareRenderer 		(main folder)
---> lesson 1 				(sub folder 1 of main folder)
-----> win32-example			(sub folder for lesson 1.0, potentially more lessons 1.x)
-------> code 				(sub solder of sub folder 1.0)
+-> SoftwareRenderer		(main folder)
+--> lesson 1			(sub folder 1 of main folder)
+----> win32-example		(sub folder for lesson 1.0, potentially more lessons 1.x)
+------> code			(sub solder of sub folder 1.0)
 --------> build.bat 		(build batch script)
 --------> win32_hp.c 		(c source code file)
---> lesson 2 			...
+--> lesson 2			...
 ```
 
 Next, let's just put a few lines of code inside of the "*build.bat*" file that will allow us to build our C source code. Place the following code inside of the *build.bat* file
@@ -314,7 +314,7 @@ communicates with an application.  Application-Defined messages, are used create
 
 The system can use two different methods for routing messages to a window procedure:
 * Posting messages to a first-in, first-out queue called a message queue, a system-defined memory object that temporarily stores messages.
-	* With Queue Messages, the system can display any number of windows at a time. The system maintains a single system message queue and one thread-specific message queue for
+	* With Queue Messages, the system can display any number of windows at a time. The system maintains a single system message queue and one [thread][thread-wiki]-specific message queue for
 	  each GUI thread.
 	* Whenever the user moves the mouse, clicks the mouse buttons, or types on the keyboard, the device driver for the mouse or keyboard converts the input into messages and places
 	  them in the system message queue. The system removes the messages, one at a time, from the system message queue, examines them to determine the destination window, and then
@@ -329,19 +329,98 @@ The system can use two different methods for routing messages to a window proced
 	* Nonqueued messages are sent immediately to the destination window procedure, bypassing the system message queue and thread message queue.
 	* The system typically sends nonqueued messages to notify a window of events that affect it.
 
+
+A Win32 GUI application must remove and process messsages posted to the message queue of its threads. For a single-threaded application, WinMain is typically has a message loop to
+remove, process, and send messages to the appropriate window procedures for processing. In the next section, we will discuss the message loop in further detail.
+
 The above information was located at [MSDN - About Messages and Message Queues][message-queue].
 
 ### Windows API Message Loop, PeekMessage, TranslateMessage, and DispatchMessage
+A message queue is not automatically created for each thread in a Windows API program until the program registers and creates an instance of a window (the process of registering and creating
+a window will be discussed in the next section). As discussed in the above text, the message loop retrieves messages from the thread's message queue and dispatches them to the appropriate
+window procedures. The function [GetMessage][getmessage] or [PeekMessage][peekmessage] can be used in conjunction with a looping statement in order to pull or view messages from a particular
+thread's message queue. Here are the definitions for the functions GetMessage and PeekMessage:
+
+``` c
+BOOL WINAPI GetMessage
+(
+	LPMSG lpMsg,
+	HWND  hwnd,
+	UINT  wMsgFilterMin,
+	UINT  wMsgFilterMax
+);
+```
+* Parameter: **lpMsg** [out]
+	* Type: **LPMSG**, a pointer to a MSG structure that receives message information from the thread's message queue.
+
+* Parameter: **hWnd** [in, optional]
+	* Type: **HWND**
+
+* Parameter: **wMsgFilterMinx**, [in]
+	* Type: **UINT**
+
+* Parameter: **wMsgFilterMax**, [in]
+	* Type: **UINT**
+
+* Return Type: BOOL
+	* Value: If the function retrieves a message other than [WM_QUIT][wm-quit], the return value is nonzero. If the function retrieves the WM_QUIT message, the return value is zero. If there
+	  is an error, the return value is -1. To get extended error information the function [GetLastError][getlasterror] can be called.
+
+``` c
+BOOL WINAPI PeekMessage
+(
+	LPMSG lpMsg,
+	HWND  hWnd,
+	UINT  wMsgFilterMin,
+    UINT  wMsgFilterMax,
+    UINT  wRemoveMsg
+);
+```
+* Parameter: **lpMsg** [out]
+	* Type: **LPMSG**, a pointer to a MSG structure that receives message information from the thread's message queue.
+
+* Parameter: **hWnd** [in, optional]
+	* Type: **HWND**, a handle to the window whose messages are to be retrieved. The window must be belong to the current thread.
+	* Additinoal Information:
+		* If hWnd is NULL, PeekMessages retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose
+	  	  hWnd value is NULL; therefore, if hWnd is NULL, both window messages and thread messages are processed.
+		* If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hWnd value is NULL.
+
+* Parameter: **wMsgFilterMin** [in]
+	* Type: **UINT**, the value of the first message in the range of messages to be examined.
+
+* Parameter: **wMsgFilterMax** [in]
+	* Type: **UINT**, the value of the last message in the range of messages to be examined.
+
+* Parameter: **wRemoveMsg** [in]
+	* Type: **UINT**, specifics how messages are to be handled. This parameter can be one or more of the following values:
+		* 0x0000 - PM_NOREMOVE, messages are not removed from the queue after processing by PeekMessage.
+		* 0x0001 - PM_REMOVE, 	messages are removed from the queue after processing by PeekMessage.
+		* 0x0002 - PM_NOTIELD,	Prevents the system from releasing any thread that is waiting for the caller to go idle.
+
+* Return Type: BOOL
+	* Value: If a message is available, then return value is nonzero. If no messages are available, the return value is zero. 
 
 
-### Windows API Window Class Callback
+### Windows API Window Class and Message Queue Callback (WNDPROC)
+
+## TODO(nick):
 
 
-### Windows API WM_PAINT
+### Windows API WM_PAINT Message
+
+## TODO(nick):
 
 
-### Windows API WM_QUIT
+### Windows API WM_QUIT Message
 
+
+## TODO(nick):
+
+
+## Windows API Hello Window
+
+## TODO(nick):
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
 [first-book-of-c]:  					https://www.amazon.com/First-Book-Fourth-Introduction-Programming/dp/1418835560
@@ -383,3 +462,6 @@ The above information was located at [MSDN - About Messages and Message Queues][
 [getmessage]:							https://msdn.microsoft.com/en-us/library/ms644936(v=VS.85).aspx
 [peekmessage]:							https://msdn.microsoft.com/en-us/library/ms644943(v=vs.85).aspx
 [dispatchmessage]:						https://msdn.microsoft.com/en-us/library/ms644934(v=VS.85).aspx
+[thread-wiki]:							https://en.wikipedia.org/wiki/Thread_(computing)
+[wm_quit]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-quit
+[getlasterror]:							https://msdn.microsoft.com/en-us/library/ms679360(v=vs.85).aspx
