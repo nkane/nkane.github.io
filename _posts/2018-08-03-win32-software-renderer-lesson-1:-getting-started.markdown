@@ -554,14 +554,123 @@ HWND WINAPI CreateWindow
 * Return Type: **HWND**
 	Value: If the function succeeds, the return value is a handle to the new window. If the function fails, the return value is NULL.
 
+Finally, let's start putting the pieces of this puzzle together with an example of how to properly fill in a WNDCLASS, register the window class, create a window,
+and start polling messages from the window's thread message queue. Here is an example of how to get a simple window running with Windows API (also, make sure to
+keep the file structure the same as the previous example):
+
+``` batch
+:: Lesson: 1.1
+:: File:   build.bat
+IF NOT EXIST ..\build MKDIR ..\build
+PUSHD ..\build
+
+cl /Od /MTd /Zi /nologo ..\code\win32_hp.c /link user32.lib
+
+POPD
+```
+
+``` c
+// Lesson: 1.1
+// File: win32_main.c
+#include <windows.h>
+#include <stdint.h>
+
+#define global_variable	static
+
+typedef int8_t		int8;
+typedef int16_t		int16;
+typedef int32_t		int32;
+typedef int64_t		int64;
+
+typedef uint8_t		uint8;
+typedef uint16_t	uint16;
+typedef uint32_t	uint32;
+typedef uint64_t	uint64;
+
+global_variable uint8 GlobalRunning;
+global_variable	HWND  GlobalWindowHandle;
+
+LRESULT CALLBACK
+Win32MainWindowCallback(HWND windowHandle, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	LRESULT result = 0;
+	switch (message)
+	{
+		case WM_CLOSE:
+		{
+			GlobalRunning = 0;
+		} break;
+
+		case WM_ACTIVATEAPP:
+		{
+			OutputDebugString("WM_ACTIVEAPP\n");
+		} break;
+
+		case WM_PAINT:
+		{
+			PAINTSTRUCT paintStruct;
+			HDC deviceContext = BeginPaint(windowHandle, &paintStruct);
+			EndPaint(windowHandle, &paintStruct);
+		} break;
+
+		default:
+		{
+			result = DefWindowProcA(windowHandle, message, wParam, lParam);
+		} break;
+	}
+}
+
+int WINAPI
+WinMain(HINSTANCE, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLine, int numberCommandShow)
+{
+	WNDCLASSA windowClass 			= { 0 };
+	windowClass.style				= (CS_HREDRAW | CS_VREDRAW | CS_OWNDC);
+	windowClass.lpfnWndProc			= Win32MainWindowCallback;
+	windowClass.hInstance			= handleInstance;
+	windowClass.hCursor				= LoadCursor(NULL, IDC_ARROW);
+	windowClass.lpszClassName		= "WindowClass";
+	if (RegisterClassA(&windowClass))
+	{
+		GlobalWindowHandle = CreateWindowExA(0,
+											 windowClass.lpszClassName,
+											 "Software Renderer - Lesson 1.1",
+											 WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+											 CW_USEDEFAULT,
+											 CW_USEDEFAULT,
+											 1280,
+											 720,
+											 0,
+											 0,
+											 handleInstance,
+											 0);
+		if (GlobalWindowHandle)
+		{
+			GlobalRunning = 1;
+			while (GlobalRunning)
+			{
+				MSG message;
+				while (PeekMessage(&message, 0, 0, 0, PM_REMOVE))
+				{
+					if (message.message = WM_QUIT)
+					{
+						GlobalRunning = 0;
+					}
+					TranslateMessage(&message);
+					DispatchMessage(&message);
+				}
+			}
+		}
+	}
+	return 0;
+}
+```
 
 ### Windows API WM_PAINT Message
 
-## TODO(nick):
+## TODO(nick): 
 
 
 ### Windows API WM_QUIT Message
-
 
 ## TODO(nick):
 
@@ -569,6 +678,11 @@ HWND WINAPI CreateWindow
 ## Windows API Hello Window
 
 ## TODO(nick):
+
+
+
+
+
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
 [first-book-of-c]:  					https://www.amazon.com/First-Book-Fourth-Introduction-Programming/dp/1418835560
