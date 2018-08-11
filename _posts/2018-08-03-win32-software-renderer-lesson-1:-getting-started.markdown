@@ -335,6 +335,7 @@ remove, process, and send messages to the appropriate window procedures for proc
 
 The above information was located at [MSDN - About Messages and Message Queues][message-queue].
 
+
 ### Windows API Message Loop, PeekMessage, TranslateMessage, and DispatchMessage
 A message queue is not automatically created for each thread in a Windows API program until the program registers and creates an instance of a window (the process of registering and creating
 a window will be discussed in the next section). As discussed in the above text, the message loop retrieves messages from the thread's message queue and dispatches them to the appropriate
@@ -401,10 +402,98 @@ BOOL WINAPI PeekMessage
 * Return Type: BOOL
 	* Value: If a message is available, then return value is nonzero. If no messages are available, the return value is zero. 
 
+Once we have received a message off the message queue, we need to process this message by calling two different functions - [TranslateMessage][translatemessage] and
+[DispatchMessage][dispatchmessage]. Here are the defintions for both functions:
 
-### Windows API Window Class and Message Queue Callback (WNDPROC)
+``` c
+BOOL WINAPI TranslateMessage
+(
+	const MSG *lpMsg
+);
+```
+* Parameter: **lpMsg**, a pointer to a structure that contains information retrieved from the calling thread's message queue.
+	* Type: **MSG**
 
-## TODO(nick):
+* Return Type: BOOL
+	* Value: If the message is tranlated (that is, a character message is posted to the thread's message queue), the return value is nonzero. If the message is not
+	  translated (that is, a character message is not posted to the thread's message queue), the return value is zero.
+
+``` c
+LRESULT WINAPI DispatchMessage
+(
+	const MSG *lpMsg
+);
+```
+* Parameter: **lpMsg**, a pointer to a structure that contains the message.
+	* Type: **MSG**
+
+* Return Type: **LRESULT**
+	* Value: The return values specifies the value retuned by the window procedure. Although its meaning depends on the message being dispatched, the return value
+	  generally is ignored.
+
+Before we can show examples of how to set up a message loop, we need to discuss how to create a window class structure, register it, and create a window with it's own
+message queue. The message loop is typically part of the WinMain function that continuously attempts to pull messages off the message queue after a window has been created.
+
+
+### Windows API Creating and Registering a Window Class and Message Queue Callback (WNDPROC)
+A Win32 Application that would like to display a GUI window needs to go through the process of filling in a data structure called a [WNDCLASS][wndclass], registering the data structure
+by calling the function [RegisterClass][registerclass], and creating the window by calling the function [CreateWindow][createwindow]. Here are the definitions for the data structure
+and the functions:
+
+``` c
+typedef struct tagWNDCLASS
+{
+	UINT			style;
+	WNDPROC			lpfnWndProc;
+	int				cbClsExtra;
+	int				cbWndExtra;
+	HINSTANCE		hInstance;
+	HICON			hIcon;
+	HCURSOR			hCursor;
+	HBRUSH			hbrBackground;
+	LPCTSTR			lpszMenuName;
+	LPCTSTR			lpszClassName;
+} WNDCLASS, *PWNDCLASS;
+```
+* Members:
+	* Field: **style**, the class style(s).
+	* Type: **UINT**
+
+	* Field: **lpfnWndProc**, a pointer to the window procedure.
+	* Type: **WNDPROC**
+
+	* Field: **cbClsExtra**, the number of extra bytes to allocate following the window-class structure.
+	* Type: **int**
+
+	* Field: **cbWndExtra**, the number of extra bytes to allocate following the window instance.
+	* Type: **int**
+
+	* Field: **hInstance**, a handle to the instance that contains the window procedure for the class.
+	* Type: **HINSTANCE**
+
+	* Field: **hIcon**, a handle to the class icon.
+	* Type: **HICON**
+
+	* Field: **hCursor**, a handle to the class cursor.
+	* Type: **HCURSOR**
+
+	* Field: **hbrBackground**, a handle to the class background brush.
+	* Type: **HBRUSH**
+
+	* Field: **lpszMenuName**, the resource name of the class menu.
+	* Type: **LPCTSTR**
+
+	* Field: **lpszClassName**, a pointer to a null-terminated string or is an atom.
+	* Type: **LPCTSTR**
+
+``` c
+```
+
+
+``` c
+```
+
+
 
 
 ### Windows API WM_PAINT Message
@@ -465,3 +554,9 @@ BOOL WINAPI PeekMessage
 [thread-wiki]:							https://en.wikipedia.org/wiki/Thread_(computing)
 [wm_quit]:								https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-quit
 [getlasterror]:							https://msdn.microsoft.com/en-us/library/ms679360(v=vs.85).aspx
+[translatemessage]:						https://msdn.microsoft.com/en-us/library/ms644955(v=VS.85).aspx
+[dispatchmessage]:						https://msdn.microsoft.com/en-us/library/ms644934(v=VS.85).aspx
+[windowclass-about]:					https://docs.microsoft.com/en-us/windows/desktop/winmsg/about-window-classes
+[wndclass]:								https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx
+[registerclass]:						https://msdn.microsoft.com/en-us/library/windows/desktop/ms633586(v=vs.85).aspx
+[createwindow]:							https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx
