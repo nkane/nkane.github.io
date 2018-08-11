@@ -363,7 +363,7 @@ BOOL WINAPI GetMessage
 * Parameter: **wMsgFilterMax**, [in]
 	* Type: **UINT**
 
-* Return Type: BOOL
+* Return Type: **BOOL**
 	* Value: If the function retrieves a message other than [WM_QUIT][wm-quit], the return value is nonzero. If the function retrieves the WM_QUIT message, the return value is zero. If there
 	  is an error, the return value is -1. To get extended error information the function [GetLastError][getlasterror] can be called.
 
@@ -399,7 +399,7 @@ BOOL WINAPI PeekMessage
 		* 0x0001 - PM_REMOVE, 	messages are removed from the queue after processing by PeekMessage.
 		* 0x0002 - PM_NOTIELD,	Prevents the system from releasing any thread that is waiting for the caller to go idle.
 
-* Return Type: BOOL
+* Return Type: **BOOL**
 	* Value: If a message is available, then return value is nonzero. If no messages are available, the return value is zero. 
 
 Once we have received a message off the message queue, we need to process this message by calling two different functions - [TranslateMessage][translatemessage] and
@@ -414,7 +414,7 @@ BOOL WINAPI TranslateMessage
 * Parameter: **lpMsg**, a pointer to a structure that contains information retrieved from the calling thread's message queue.
 	* Type: **MSG**
 
-* Return Type: BOOL
+* Return Type: **BOOL**
 	* Value: If the message is tranlated (that is, a character message is posted to the thread's message queue), the return value is nonzero. If the message is not
 	  translated (that is, a character message is not posted to the thread's message queue), the return value is zero.
 
@@ -487,13 +487,72 @@ typedef struct tagWNDCLASS
 	* Type: **LPCTSTR**
 
 ``` c
-```
+ATOM WINAPI RegisterClass
+(
+	const WNDCLASS *lpWndClass
+);
 
+```
+* Parameter: **lpWndClass** [in], a pointer to a WNDCLASS structure filled with the appropriate class attributes before passing to the function.
+	* Type: const WNDCLASS *
+
+* Return Type: **ATOM**
+	* Value: If the function succeeds, the return value is a class atom that uniquely identifies the class being registered. If the function fails,
+	  the return value is zero.
 
 ``` c
+HWND WINAPI CreateWindow
+(
+	LPCTSTR 	lpClassName,
+	LPCTSTR 	lpWindowName,
+	DWORD 		dwStyle,
+	int			x,
+	int			y,
+	int			nWidth,
+	int 		nHeight,
+	HWND		hWndParent,
+	HMENU		hMenu,
+	HINSTANCE	hInstance,
+	LPVOID		lpParam
+);
 ```
+* Parameter: **lpClassName** [in, optional], a null-terminated string or a class atom created by a previous call to the RegisterClass function. The atom
+  must be in the low-order word of lpClassName; the high-order word must be zero. If lpClassName is a string, it specifies the window class name. The name
+  can be any name registered with the RegisterClass function, provided that the module that registers the class is the module that creates the window.
+	* Type: **LPCTSTR**
 
+* Parameter: **lpWindowName** [in, optional], the window name.
+	* Type: **LPCTSTR**
 
+* Parameter: **dwStyle** [in]
+	* Type: **DWORD**
+
+* Parameter: **x** [in], the initial horizontal position of the window.
+	* Type: **int**
+
+* Parameter: **y** [in], the initial vertical position of the window.
+	* Type: **int**
+
+* Parameter: **nWidth** [in], the width in device units of the window.
+	* Type: **int**
+
+* Parameter: **nHeight** [in], the height in device units of the window.
+	* Type: **int**
+
+* Parameter: **hWndParent** [in, optional], a handle to the parent or owner window of the window being created.
+	* Type: **HWND**
+
+* Parameter: **hMenu** [in, optional], a handle to a menu.
+	* Type: **HMENU**
+
+* Parameter: **hInstance** [in, optional], a handle to the instance of the module to be associated with the window.
+	* Type: **HINSTANCE**
+
+* Parameter: **lpParam** [in, optional], a pointer to a value to be passed to the window through the [CREATESTRUCTURE][createstructure]
+	* Type: **LPVOID**
+
+* Return Type: **HWND**
+	Value: If the function succeeds, the return value is a handle to the new window. If the function fails, the return value is NULL.
 
 
 ### Windows API WM_PAINT Message
@@ -560,3 +619,4 @@ typedef struct tagWNDCLASS
 [wndclass]:								https://msdn.microsoft.com/en-us/library/windows/desktop/ms633576(v=vs.85).aspx
 [registerclass]:						https://msdn.microsoft.com/en-us/library/windows/desktop/ms633586(v=vs.85).aspx
 [createwindow]:							https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx
+[createstructure]:						https://msdn.microsoft.com/en-us/library/windows/desktop/ms632603(v=vs.85).aspx
