@@ -249,7 +249,7 @@ After both files have been created, navigate to the folder that contains both fi
 Once the build has completed successfully, an executable should have been produced in the build directory created by the build script named win32_main or whatever you named the c file. If you
 call the executable on the CLI or double click on the executable in file explorer the following should be displayed on your desktop:
 
-![Executable Result](/assets/software-renderer/lesson-1/lesson-1.0-executable-result.png)
+![Hello World](/assets/software-renderer/lesson-1/lesson-1.0-hello-world.png)
 
 If you are having issues setting up or building the project and you have ensured to follow all of the directions above, shoot me an email and we can try to work it out together.
 
@@ -435,7 +435,7 @@ Before we can show examples of how to set up a message loop, we need to discuss 
 message queue. The message loop is typically part of the WinMain function that continuously attempts to pull messages off the message queue after a window has been created.
 
 
-### Windows API Creating and Registering a Window Class and Message Queue Callback (WNDPROC)
+### Windows API Creating a WNDCLASS, Registering a WNDCLASS, and Processing Messages (WNDPROC)
 A Win32 Application that would like to display a GUI window needs to go through the process of filling in a data structure called a [WNDCLASS][wndclass], registering the data structure
 by calling the function [RegisterClass][registerclass], and creating the window by calling the function [CreateWindow][createwindow]. Here are the definitions for the data structure
 and the functions:
@@ -600,49 +600,36 @@ Win32MainWindowCallback(HWND windowHandle, UINT message, WPARAM wParam, LPARAM l
 		{
 			GlobalRunning = 0;
 		} break;
-
 		case WM_ACTIVATEAPP:
 		{
 			OutputDebugString("WM_ACTIVEAPP\n");
 		} break;
-
 		case WM_PAINT:
 		{
 			PAINTSTRUCT paintStruct;
 			HDC deviceContext = BeginPaint(windowHandle, &paintStruct);
 			EndPaint(windowHandle, &paintStruct);
 		} break;
-
 		default:
 		{
 			result = DefWindowProcA(windowHandle, message, wParam, lParam);
 		} break;
 	}
+	return result;
 }
 
 int WINAPI
 WinMain(HINSTANCE, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLine, int numberCommandShow)
 {
-	WNDCLASSA windowClass 			= { 0 };
-	windowClass.style				= (CS_HREDRAW | CS_VREDRAW | CS_OWNDC);
-	windowClass.lpfnWndProc			= Win32MainWindowCallback;
-	windowClass.hInstance			= handleInstance;
-	windowClass.hCursor				= LoadCursor(NULL, IDC_ARROW);
-	windowClass.lpszClassName		= "WindowClass";
+	WNDCLASSA windowClass = { 0 };
+	windowClass.style = (CS_HREDRAW | CS_VREDRAW | CS_OWNDC);
+	windowClass.lpfnWndProc	= Win32MainWindowCallback;
+	windowClass.hInstance = handleInstance;
+	windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	windowClass.lpszClassName = "WindowClass";
 	if (RegisterClassA(&windowClass))
 	{
-		GlobalWindowHandle = CreateWindowExA(0,
-											 windowClass.lpszClassName,
-											 "Software Renderer - Lesson 1.1",
-											 WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-											 CW_USEDEFAULT,
-											 CW_USEDEFAULT,
-											 1280,
-											 720,
-											 0,
-											 0,
-											 handleInstance,
-											 0);
+		GlobalWindowHandle = CreateWindowExA(0, windowClass.lpszClassName, "Software Renderer - Lesson 1.1", WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, 800, 600, 0, 0, handleInstance, 0);
 		if (GlobalWindowHandle)
 		{
 			GlobalRunning = 1;
@@ -665,23 +652,33 @@ WinMain(HINSTANCE, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLin
 }
 ```
 
-### Windows API WM_PAINT Message
+In the above example, *WinMain* in the entry point of our application and the function *Win32MainWindowCallback* is the [callback][callback] function that will be using to process queue message for our window.
+Instead of using a WNDCLASS structure, we are using a WNDCLASSA structure which is just the [ANSI][ansi] version of the structure WNDCLASS. Next, we need to populate the necessary fields for the WNDCLASSA structure
+with the appropriate data then we register the WNDCLASS by calling the function *RegisterClassA* function (again, this is just the ANSI version of the function *RegisterClass*). Once the WNDCLASS structure has been
+successfully registered, we can proceed to attempt to create a window by calling the function *CreateWindowExA*. The last order of business, is to set up our message loop to process in coming window event messages
+using the function *PeekMessage*, *TranslateMessage*, and *DispatchMessage* in conjunction. In the above code example you will probably notice a control switch statement within the callback function, the values that
+we are switching on is the actual message that has been pulled off our window message queue and "dispatched" (e.g., WM_CLOSE, WM_ACTIVATEAPP, and WM_PAINT). In the next session, we will discuss a few important messages
+that will need to know.
 
-## TODO(nick): 
+After you get the above code example up and running, you should see the following window when the executable is launched:
+
+![Hello Window](/assets/software-renderer/lesson-1/lesson-1.1-hello-window.png)
+
+Now, in order to get an understanding on this process works I usually find it helpful to step through the code using visual studio. Here is an image of how I build and then launch Visual Studio with the debugger
+attached to the executable that we previously produced:
+
+![Build](/assets/software-renderer/lesson-1/lesson-1.1-build.png)
+
+Because we previously setup our Windows CLI to be a Windows C development friendly envirnoment, we should be able to execute the command ["devenv"][devenv] which will launch Visual Studios and attempt to attach any
+executable passed to it to the debugger. In the above example, I have added a switch case for the [WM_ACTIVATEAPP][wm_activateapp] message that is sent to a window's message queue when an application becomes "active"
+or has currently been selected to be used by the user and the callback function that processes the main window's messages handles this message by calling another function [OutputDebugString][outputdebugstring]. The
+reason of this was to show you a way to get Visual Studio console output for debugging purposes. Here is what the output looks like in Visual Studio:
+
+![Debug Message](/assets/software-renderer/lesson-1/lesson-1.1-debug-message.png)
 
 
-### Windows API WM_QUIT Message
 
-## TODO(nick):
-
-
-## Windows API Hello Window
-
-## TODO(nick):
-
-
-
-
+## Windows API Message WM_PAINT and WM_CLOSE
 
 
 [c-lang]:								https://en.wikipedia.org/wiki/C_(programming_language)
@@ -734,3 +731,8 @@ WinMain(HINSTANCE, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLin
 [registerclass]:						https://msdn.microsoft.com/en-us/library/windows/desktop/ms633586(v=vs.85).aspx
 [createwindow]:							https://msdn.microsoft.com/en-us/library/windows/desktop/ms632679(v=vs.85).aspx
 [createstructure]:						https://msdn.microsoft.com/en-us/library/windows/desktop/ms632603(v=vs.85).aspx
+[callback]:								https://en.wikipedia.org/wiki/Callback_(computer_programming)
+[ansi]:									https://www.ansi.org/
+[devenv]:								https://msdn.microsoft.com/en-us/library/xee0c8y7.aspx
+[wm_activateapp]:						https://docs.microsoft.com/en-us/windows/desktop/winmsg/wm-activateapp
+[outputdebugstring]:					https://msdn.microsoft.com/en-us/library/windows/desktop/aa363362(v=vs.85).aspx
