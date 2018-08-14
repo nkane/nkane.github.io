@@ -688,9 +688,11 @@ just using one window for our software renderer, so we don't have to worry about
 application, we accomplish that by in our example in the previous section by setting a global variable to a value that will exit out of a looping statement.
 
 
-## Final Words
+### Final Words
 There is a high probability that I missed out on details, potentially have inaccurate information, or typos / grammatical errors. If you find this tutorial hard to comprehend or anything in the previous list,
 please shoot me an email that way I can fix it. Thank you for reading!
+
+The source code for lesson one can be found [here][nkane-src-lesson-1].
 
 
 
@@ -755,3 +757,4 @@ please shoot me an email that way I can fix it. Thank you for reading!
 [beginpaint]:							https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-beginpaint
 [endpaint]:								https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-endpaint
 [close-window]: 						https://docs.microsoft.com/en-us/windows/desktop/learnwin32/closing-the-window
+[nkane-src-lesson-1]:					https://github.com/nkane/SoftwareRenderer/tree/master/lesson-1
