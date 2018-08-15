@@ -100,7 +100,7 @@ the entire project, I recommend setting up each lesson's folder hierarchy as the
 ----> win32-example		(sub folder for lesson 1.0, potentially more lessons 1.x)
 ------> code			(sub solder of sub folder 1.0)
 --------> build.bat 		(build batch script)
---------> win32_hp.c 		(c source code file)
+--------> win32_main.c 		(c source code file)
 --> lesson 2			...
 ```
 
@@ -110,7 +110,7 @@ Next, let's just put a few lines of code inside of the "*build.bat*" file that w
 :: build.bat
 IF NOT EXIST ..\build MKDIR ..\build
 PUSHD ..\build
-cl /Od /MTd /Zi /nologo ..\code\win32_hp.c /link user32.lib
+cl /Od /MTd /Zi /nologo ..\code\win32_main.c /link user32.lib
 POPD
 ```
 
@@ -564,7 +564,7 @@ keep the file structure the same as the previous example):
 IF NOT EXIST ..\build MKDIR ..\build
 PUSHD ..\build
 
-cl /Od /MTd /Zi /nologo ..\code\win32_hp.c /link user32.lib
+cl /Od /MTd /Zi /nologo ..\code\win32_main.c /link user32.lib
 
 POPD
 ```
@@ -619,7 +619,7 @@ Win32MainWindowCallback(HWND windowHandle, UINT message, WPARAM wParam, LPARAM l
 }
 
 int WINAPI
-WinMain(HINSTANCE, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLine, int numberCommandShow)
+WinMain(HINSTANCE handleInstance, HINSTANCE handlePreviousInstance, LPSTR longPointerCommandLine, int numberCommandShow)
 {
 	WNDCLASSA windowClass = { 0 };
 	windowClass.style = (CS_HREDRAW | CS_VREDRAW | CS_OWNDC);
