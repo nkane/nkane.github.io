@@ -8,10 +8,10 @@ visible: 1
 Computer graphics programming has always been an interest of mine; however, I would consider the barrier to entry in to the world of computer graphics high.
 As a prerequisite in to computer graphics, it is assumed that the individual seeking to study the topic already has a large foundation of knowledge, inclusive of
 an intuitive understanding of higher level mathematics and at least a bit of lower level computer programming knowledge (i.e., "lower level" - meaning
-understading how the code that is written is used by the particular set of computer hardware that the individual is working with). Although certain people would
+understanding how the code that is written is used by the particular set of computer hardware that the individual is working with). Although certain people would
 argue that you can program graphics without the having a lower level understanding of the computer programming, I will not be using a higher level language in 
 this series. It is not my goal with this series to convince anyone not use a higher level programming language for computer graphics. Instead, I would like to
-explore my own particular interest using a programming language and toolset that I am comfortable with.
+explore my own particular interest using a programming language and tool set that I am comfortable with.
 
 
 ### The C Programming Language
@@ -40,7 +40,7 @@ downloaded instead of the 32-bit version. If you are concerned with what that [m
 The following version information is particularly important due to the way that Visual Studio was packaged in older versions. Since packaging has not remain consistent
 throughout the different versions of Visual Studio, I would not count on specific information being accurate regarding Visual Studio script names, script locations, and
 script behaviors for different version other than Visual Studio 2017 Community Edition (e.g., you may have to do research on the differences); however, if you stick with
-the same version I am using you should be up and running by the end of this article. You will need to make sure to install the C/C++ development envirnoments whenever
+the same version I am using you should be up and running by the end of this article. You will need to make sure to install the C/C++ development environments whenever
 options are listed during the installation, and it would not hurt to have the Windows 10 SDK installed as well. Even though Visual Studio provides a text editor, and a
 bunch of other features that I do not use. I typically use the text editor program called [Vim][vim] to edit my source code files, the Windows CLI to compile the code
 using a compiler that was installed with Visual Studio, and Visual Studio as a debugger for the built binary that is produce through the Windows CLI.
@@ -49,7 +49,7 @@ using a compiler that was installed with Visual Studio, and Visual Studio as a d
 ### Microsoft Visual C/C++ (MSVC) and cl.exe
 After Visual Studio has been installed with the C/C++ packages, [Microsoft Visual C++][msvc] (MSVC) with all of the libraries and tools will now be accessible for usage.
 In particular, we need to set up our Windows CLI to be able to use all of these new tools that were installed with Visual Studio / MSVC. We need to be able to execute
-the [Microsoft C/C++ compiler][cl] (cl.exe). In order to make our Window's CLI a Win32 C development CLI envirnoment, we are going to be setup a few batch script files
+the [Microsoft C/C++ compiler][cl] (cl.exe). In order to make our Window's CLI a Win32 C development CLI environment, we are going to be setup a few batch script files
 to run when the Windows shortcut to the CLI is executed. In other words, we are going to be passing in command line arguments to the Windows CLI program (cmd.exe).
 
 
@@ -60,7 +60,7 @@ file scripting, so just understanding what we are trying to accomplish and how w
 
 ### Setting Up Windows CLI to Build With MSVC
 Finally, we get to setup our Windows CLI to be able to use the Microsoft C/C++ compiler; however, before we get started with setting up our CLI to use these tools I wanted
-to take a moment to reiterate the following, if you are using a different version of Visual Studio / MSVC it is possible the location, naming conventions, or existance of
+to take a moment to reiterate the following, if you are using a different version of Visual Studio / MSVC it is possible the location, naming conventions, or existence of
 the scripts that will be referenced in the next section have changed based on past packaging changes that Microsoft has done. Just to be explicit about what I am referring
 to, in the past the location of a file named ["vcvarsall.bat"][vcvarsall] has changed within the last few versions of Visual Studio. Now that we have that cleared up, let's
 start setting up our basic batch file that will be executed on our shortcut to our Windows CLI.
@@ -68,7 +68,7 @@ start setting up our basic batch file that will be executed on our shortcut to o
 First, we need to find a batch file script named ["vsdevcmd.bat"][vsdevcmd] that is shipped with the installation of Visual Studio / MSVC. For the installation of Visual
 Studio that I am using, the file is located at *"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tools\VsDevCmd.bat"*. Next, pick a spot on your hard
 drive to store the batch file, typically I like to store my file under my users directory in Windows (*C:\Users\\{username}*) and name it *"win32_shell.bat"* or whatever else that
-you would perfer. Once that batch file has been created, we should have the following inside:
+you would prefer. Once that batch file has been created, we should have the following inside:
 
 ``` bat
 :: win32_shell.bat
@@ -78,19 +78,19 @@ CALL "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\Tool
 Just to be explicit about why we call this batch file that is shipped with Visual Studio's, the "vsdevcmd.bat" file sets up our CLI instance to be able to use the Microsoft
 C/C++ compiler and other development tools. Great! Now, we need to hook up our shortcut to be able to execute our batch file whenever we click on our shortcut icon of the
 Windows CLI. By right clicking and selecting the properties of the icon, a field named "Target" under the "Shortcut" tab should be visible. The "Target" field should have
-a textbox as to the right of it that is filled with the following or simliar information: "%windir%\system32\cmd.exe". This basically just tells the shortcut where the
+a text box as to the right of it that is filled with the following or similar information: "%windir%\system32\cmd.exe". This basically just tells the shortcut where the
 actual executable of "cmd.exe" is located. In addition to the location of the "cmd.exe" executable, we are going to want to pass in a CLI argument that will allow us to
-have our new batch file executable on start up of the "cmd.exe" program. The "/K" flag for the executable "cmd.exe" states that it "carries out the command specificed by
+have our new batch file executable on start up of the "cmd.exe" program. The "/K" flag for the executable "cmd.exe" states that it "carries out the command specified by
 a string but remains". In other words, it will execute on the CLI whatever is passed in quotes after the /K flag. We are going pass in the location of our batch file in
-order to have that executed after the CLI has been loaded that way our CLI instance will have all of the Microsoft Visual Studio tooling avaiable to us via the CLI. Here
+order to have that executed after the CLI has been loaded that way our CLI instance will have all of the Microsoft Visual Studio tooling available to us via the CLI. Here
 is an example of what our "Target" field should look with the CLI argument passed to it: *%windir%\system32\cmd.exe /K "C:\Users\\{user}\win32_shell.bat"*. Just for a frame
-of refernce, this is exactly what my "Target" field is set to: *%windir%\system32\cmd.exe /K "C:\Users\nkane\win32_shell.bat"*.
+of reference, this is exactly what my "Target" field is set to: *%windir%\system32\cmd.exe /K "C:\Users\nkane\win32_shell.bat"*.
 
 ![Cmd Properties](/assets/software-renderer/lesson-1/lesson-1.0-cmd-properties.png)
 
 
 ### The Project Setup
-We will be setting up a project folder(s) for each tutorial in order have individualized pieces that we will be building upon each lesson. I usually have a particular place
+We will be setting up a project folder for each tutorial in order have individualized pieces that we will be building upon each lesson. I usually have a particular place
 on my hard drive that I stored all of my code. Just pick a spot on your hard drive to store the source code for these projects. In order to maintain consistency throughout
 the entire project, I recommend setting up each lesson's folder hierarchy as the following:
 
@@ -120,7 +120,7 @@ what all of those symbols are  on the "cl" line, those are [compiler options][cl
 the /MTd flag creates a multithreaded executable file using [LIBCMTD.lib][libcmtd] which is a debugging version of the multithreaded standard C library, and .lib files are
 [static libraries][libvsdll], the /Zi flag generates complete debugging information, the /nologo ignores a text logo and compiler information that is produced by the compiler,
 and the /link option allows use to pass options to the [linker][linker] options that we use to pass in the static libraries that we need to link with. If you are not familiar
-with the process of linking, it is a part of the executable compiliation process that takes all of the ["object files"][objectfiles] and combines them into a single executable
+with the process of linking, it is a part of the executable compilation process that takes all of the ["object files"][objectfiles] and combines them into a single executable
 file, library, or another "object file".
 
 ![Project Folder Strucuture](/assets/software-renderer/lesson-1/lesson-1.0-folder-structure.png)
@@ -130,15 +130,15 @@ file, library, or another "object file".
 [Win32][win32] or any of the other names the Windows API ([Application Programming Interface][api-def]) may have is the platform layer that we are going to be working with for this
 tutorial. We will attempt to limit the amount of C standard library calls that we are going to make in hopes of eventually replace any C standard library usage entirely later
 on down the road. There are a ton of different components to the Win32 API, so whenever we start using a new .lib file for linking I will make a section of the tutorial dedicated to
-updating the .bat build file with the proper linking static file and expliciting stating what function calls we will be using are defined in the new library we will be linking with.
+updating the .bat build file with the proper linking static file and explicitly stating what function calls we will be using are defined in the new library we will be linking with.
 
 
 ### Windows API Handles and Objects
 In computer programming, handles are an abstract reference to a [resource][handles-wiki]. In Windows API handles are treated as [opaque types][opaque-types], meaning that the data
-structures members are not publicly accessible; additionallty, handles can be thought of as a number that Windows uses for internal reference to an object. There are several different
+structures members are not publicly accessible; additionally, handles can be thought of as a number that Windows uses for internal reference to an object. There are several different
 kinds of defined Windows API [handles and types][win32-types]. Whenever we introduce a new data type, I will write a short section describing what that data type is.
 
-Windows API Objects are the defined data structures that have a particular interface that remain consistent to ensure compatiability across system updates.
+Windows API Objects are the defined data structures that have a particular interface that remain consistent to ensure compatibility across system updates.
 
 
 ### Windows API WinMain
@@ -175,7 +175,7 @@ from their caller and how they return a result. This type is defined in the WinD
 * Parameter: **hPrevInstance**, a handle to the previous instance of the application. This parameter is always NULL.
 	* Type: **HINSTANCE**
 
-* Paramter: **lpCmdLine**, the command line for the application, excluding the program name.
+* Parameter: **lpCmdLine**, the command line for the application, excluding the program name.
 	* Type: **LPSTR**, is a pointer to a null-terminated string of 8-bit Windows (ANSI) characters. This type is declared in WinNT.h as follows:
 	``` c
 	typedef CHAR *LPSTR;
@@ -199,7 +199,7 @@ from their caller and how they return a result. This type is defined in the WinD
 			  flag when displaying the window for the first time.
 
 * Return Type: **int**
-	* Value: if the function succeeds, terminating when it receives a [WM_QUIT][wm-quit] message, it should return the exit value contained in that message's wParam parameter. If the funciton terminates before
+	* Value: if the function succeeds, terminating when it receives a [WM_QUIT][wm-quit] message, it should return the exit value contained in that message's wParam parameter. If the function terminates before
 	  entering the message loop, it should return zero.
 
 * Additional Information:
@@ -297,7 +297,7 @@ LRESULT CALLBACK WindowProc
 ``` c
 typedef LONG_PTR LRESULT;
 ```
-	* **LONG_PTR**, a signed long type for pointer percision. Use when casting a pointer to a long to perform point arithmetic. This type is declared in BaseTsd.h as follows:
+	* **LONG_PTR**, a signed long type for pointer precision. Use when casting a pointer to a long to perform point arithmetic. This type is declared in BaseTsd.h as follows:
 	``` c
 	#if defined (_WIN64)
 		typedef __int64 LONG_PTR;
@@ -330,7 +330,7 @@ The system can use two different methods for routing messages to a window proced
 	* The system typically sends nonqueued messages to notify a window of events that affect it.
 
 
-A Win32 GUI application must remove and process messsages posted to the message queue of its threads. For a single-threaded application, WinMain is typically has a message loop to
+A Win32 GUI application must remove and process messages posted to the message queue of its threads. For a single-threaded application, WinMain is typically has a message loop to
 remove, process, and send messages to the appropriate window procedures for processing. In the next section, we will discuss the message loop in further detail.
 
 The above information was located at [MSDN - About Messages and Message Queues][message-queue].
@@ -382,7 +382,7 @@ BOOL WINAPI PeekMessage
 
 * Parameter: **hWnd** [in, optional]
 	* Type: **HWND**, a handle to the window whose messages are to be retrieved. The window must be belong to the current thread.
-	* Additinoal Information:
+	* Additional Information:
 		* If hWnd is NULL, PeekMessages retrieves messages for any window that belongs to the current thread, and any messages on the current thread's message queue whose
 	  	  hWnd value is NULL; therefore, if hWnd is NULL, both window messages and thread messages are processed.
 		* If hWnd is -1, PeekMessage retrieves only messages on the current thread's message queue whose hWnd value is NULL.
@@ -403,7 +403,7 @@ BOOL WINAPI PeekMessage
 	* Value: If a message is available, then return value is nonzero. If no messages are available, the return value is zero. 
 
 Once we have received a message off the message queue, we need to process this message by calling two different functions - [TranslateMessage][translatemessage] and
-[DispatchMessage][dispatchmessage]. Here are the defintions for both functions:
+[DispatchMessage][dispatchmessage]. Here are the definitions for both functions:
 
 ``` c
 BOOL WINAPI TranslateMessage
@@ -415,7 +415,7 @@ BOOL WINAPI TranslateMessage
 	* Type: **MSG**
 
 * Return Type: **BOOL**
-	* Value: If the message is tranlated (that is, a character message is posted to the thread's message queue), the return value is nonzero. If the message is not
+	* Value: If the message is translated (that is, a character message is posted to the thread's message queue), the return value is nonzero. If the message is not
 	  translated (that is, a character message is not posted to the thread's message queue), the return value is zero.
 
 ``` c
@@ -669,7 +669,7 @@ attached to the executable that we previously produced:
 
 ![Build](/assets/software-renderer/lesson-1/lesson-1.1-build.png)
 
-Because we previously setup our Windows CLI to be a Windows C development friendly envirnoment, we should be able to execute the command ["devenv"][devenv] which will launch Visual Studios and attempt to attach any
+Because we previously setup our Windows CLI to be a Windows C development friendly environment, we should be able to execute the command ["devenv"][devenv] which will launch Visual Studios and attempt to attach any
 executable passed to it to the debugger. In the above example, I have added a switch case for the [WM_ACTIVATEAPP][wm_activateapp] message that is sent to a window's message queue when an application becomes "active"
 or has currently been selected to be used by the user and the callback function that processes the main window's messages handles this message by calling another function [OutputDebugString][outputdebugstring]. The
 reason of this was to show you a way to get Visual Studio console output for debugging purposes. Here is what the output looks like in Visual Studio:
@@ -681,7 +681,7 @@ reason of this was to show you a way to get Visual Studio console output for deb
 Finally, let's finish up this tutorial demystifying the two messages [WM_PAINT][wm_paint] and [WM_CLOSE][wm_close]. The WM_PAINT message that is generated by the system and should not be sent by an application.
 The reason why we process this message by calling the function [BeginPaint][beginpaint] and [EndPaint][endpaint] is because the sets the clipping region of the device context to exclude any area outside the update
 region and "validates" the rectangle context display area. Since Windows generates the WM_PAINT message we need to basically just tell Window's that the update region is empty by calling BeginPaint and EndPaint. If
-you exclude this process, Windows will continously generate WM_PAINT messages attempting to update the client region essentially halting the process from handling other requesting within a reasonable amount of time.
+you exclude this process, Windows will continuously generate WM_PAINT messages attempting to update the client region essentially halting the process from handling other requesting within a reasonable amount of time.
 
 The WM_CLOSE is produced whenever the user attempts to close a window. There are a variety of different ways to handle closing out and cleaning up a process that are documented [here][close-window]; however, we are
 just using one window for our software renderer, so we don't have to worry about child windows or any resources potentially left over from menus. This message just notifies us that the user would like to exit the
