@@ -3,7 +3,7 @@ layout: post
 title: "This Cake is a Lie!"
 date: 2016-07-06
 categories: blog javascript
-visible: 1
+visible: 0 
 ---
 If you have ever worked with any type of object-oriented language, the odds are that you have encountered the ["this"][MDN - JavaScript This] keyword. In this article we will be discussing how the "this" key word operates in the context of JavaScript and briefly touching on other related topics that relate as well.
 

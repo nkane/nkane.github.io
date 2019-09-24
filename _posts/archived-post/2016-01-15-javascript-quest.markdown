@@ -3,7 +3,7 @@ layout: post
 title: "Why, Hello there Mr. Object?"
 date: 2016-01-15
 categories: blog javascript
-visible: 1
+visible: 0
 ---
 After doing a bit of research on some of the details regarding JavaScript objects, I figured I would write a post about it. JavaScript has a ["new operator"][MDN - Object], and the functionality of this operation is the create an instance of a user-defined object type or one of the built-in object types that has a constructor function (more on that shortly).
 

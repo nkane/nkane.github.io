@@ -3,7 +3,7 @@ layout: post
 title: "Here be Properties!"
 date: 2016-02-16
 categories: blog javascript
-visible: 1
+visible: 0
 ---
 Last article we briefly went over JavaScript objects and different ways to initialize objects. In this article, we are going to touch on Object properties and the variety of ways to access them. Properties can be defined as variables that are attached to objects. Object properties can be assigned any type of value in JavaScript.
 

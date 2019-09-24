@@ -3,7 +3,7 @@ layout: post
 Title: "Win32 Software Renderer Lesson 1: Getting Started"
 date: 2018-08-12
 categories: blog gamedev gaming graphics programming
-visible: 1
+visible: 0 
 ---
 Computer graphics programming has always been an interest of mine; however, I would consider the barrier to entry in to the world of computer graphics high.
 As a prerequisite in to computer graphics, it is assumed that the individual seeking to study the topic already has a large foundation of knowledge, inclusive of
