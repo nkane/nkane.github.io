@@ -3,7 +3,7 @@ layout: post
 title: "Insert Coin to Continue ..."
 date: 2016-03-07
 categories: blog gaming
-visible: 1
+visible: 0
 ---
 Growing up outside of Tampa in the late 1990's / early 2000's, I didn't have as much exposure to classic arcades; however, I knew that I loved video games when I was introduced to the id software game [Doom][Doom] on my uncles computer when I was 9 years old. From that point on, I was hooked on any type of gaming.
 

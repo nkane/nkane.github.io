@@ -1,0 +1,129 @@
+I"�/<p>If you have ever worked with any type of object-oriented language, the odds are that you have encountered the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this">“this”</a> keyword. In this article we will be discussing how the “this” key word operates in the context of JavaScript and briefly touching on other related topics that relate as well.</p>
+
+<h3 id="strictly-speaking-strict">Strictly Speaking Strict</h3>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">Strict mode</a> is a restricted variant of JavaScript. It helps eliminate some of JavaScript silent errors, fixes potential performance issues related to JavaScript engine perform optimizations, and prohibits syntax that will likely be defined in future versions of ECMAScript. Using strict mode basically boils doing to making “secure” JavaScript easier to write. Below is an example of how to invoke strict mode and what error it should throw.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="s1">'using strict'</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">mistypedVariable</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// Should throw a ReferenceError due to the misspelling of variable</span>
+<span class="nx">mistypedVaraible</span> <span class="o">=</span> <span class="mi">17</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="what-is-this">What is “this”?</h3>
+<p>The “this” keyword value is determined by how a function is called. When using “this” outside of a function, it refers to the global object. Below is an example of using “this” in a global context:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">globalObject</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="c1">// Logs true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">globalObject</span> <span class="o">===</span> <span class="k">this</span><span class="p">);</span>
+
+<span class="c1">// Logs True</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">globalObject</span><span class="p">.</span><span class="nb">document</span> <span class="o">===</span> <span class="nb">document</span><span class="p">);</span>
+
+<span class="c1">// Logs True</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nb">document</span> <span class="o">===</span> <span class="nb">document</span><span class="p">);</span>
+
+<span class="c1">// Assign a variable on the Global Object</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">anotherVariable</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">// Logs 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">anotherVariable</span><span class="p">);</span>
+
+<span class="c1">// Logs 1</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">globalObject</span><span class="p">.</span><span class="nx">anotherVariable</span><span class="p">);</span></code></pre></figure>
+
+<p>In function context the value depends on how the function is called; additionally, it does have differences between strict mode and non-strict mode. In the first case the value of “this” is not set by the call, because in non-strict mode “this” must always be a object. In the second case, the of “this” remains at whatever it is set to when entering the execution context.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">exampleOne</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Returns true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exampleOne</span><span class="p">()</span> <span class="o">===</span> <span class="nb">window</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">exampleTwo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s1">'use strict'</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Returns true</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">exampleTwo</span><span class="p">()</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">);</span></code></pre></figure>
+
+<h3 id="this-object-method">“This” Object Method</h3>
+<p>When invoking the “this” context within an object’s method, the context it is set to is calling object. The example below uses both an inline function and a declared method that is separately attached to the object.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">value</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="na">action</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">testFunction</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">itemTest</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">itemTest</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">itemTest</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">item</span><span class="p">.</span><span class="nx">callMe</span> <span class="o">=</span> <span class="nx">testFunction</span><span class="p">;</span>
+
+<span class="c1">// Logs and returns 100</span>
+<span class="nx">item</span><span class="p">.</span><span class="nx">action</span><span class="p">();</span>
+
+<span class="c1">// Logs and returns 100</span>
+<span class="nx">item</span><span class="p">.</span><span class="nx">callMe</span><span class="p">();</span></code></pre></figure>
+
+<h3 id="this-object-constructors">“This” Object Constructors</h3>
+<p>If you are not familiar with Object Constructors or need a quick refresher, head over <a href="http://nkane.github.io/blog/javascript/2016/01/15/javascript-quest.html">here</a>.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">PersonConstructor</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">age</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">person</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="nx">person</span><span class="p">.</span><span class="nx">age</span> <span class="o">=</span> <span class="nx">age</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">ItemConstructor</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="na">type</span><span class="p">:</span> <span class="s1">'Item Is Gone!'</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">chuck</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PersonConstructor</span><span class="p">(</span><span class="s1">'Chuck'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="c1">// Logs 'Chuck'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chuck</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+
+<span class="c1">// Logs 100</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chuck</span><span class="p">.</span><span class="nx">age</span><span class="p">);</span>
+
+<span class="nx">chuck</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ItemConstructor</span><span class="p">(</span><span class="s1">'nun-chucks!:D'</span><span class="p">);</span>
+
+<span class="c1">// Logs - 'Item Is Gone!'</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">chuck</span><span class="p">.</span><span class="nx">type</span><span class="p">);</span></code></pre></figure>
+
+<h3 id="closures">Closures</h3>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">Closures</a> in JavaScript is another “rabbit hole” that we will drive in to deeper in another article. Briefly, closures in JavaScript are the relation that variables have to to enclosing function(s). Below is a simple example of how closures work in JavaScript:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">outterScope</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="s2">"Joe"</span><span class="p">;</span>
+
+    <span class="kd">function</span> <span class="nx">innerScope</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Hello my name is '</span> <span class="o">+</span> <span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">innerScope</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// The innerScope function has access to outterScope function variables.</span>
+<span class="nx">outterScope</span><span class="p">();</span></code></pre></figure>
+
+<p>If you have any questions, comments, request, or concerns, please feel free to contact me.</p>
+
+:ET

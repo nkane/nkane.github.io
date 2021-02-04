@@ -1,0 +1,8 @@
+I"í<p>Letâ€™s start out the second lesson by going over a few definitions of words and/or question that may pop up in this article. From a computer science perspective, <em><a href="https://en.wikipedia.org/wiki/Rendering_(computer_graphics)">rendering</a></em>
+is the process of automatic generation of a photorealistic or non-photorealistic image from a two-dimensional or three-dimensional model by a computer program. The resulting image
+from a renderer is typically called a <em>render</em>. Next, what is <a href="https://en.wikipedia.org/wiki/Software_rendering">software rendering</a> from the context of computer graphics rendering? Software rendering is the
+process of rendering an image that is not dependent on graphics hardware ASIC (Application-Specific Integrated Curcuit). In other words, software rendering is the process of rendering
+an image using only the <em><a href="https://en.wikipedia.org/wiki/Central_processing_unit">CPU</a></em>(Central Processing Unit) without the assistance of a graphics card; however, in modern time most CPU chips come with an embedded graphics accelerators
+typically called <em>integrated graphics processors</em>, but our program that we will be writing will not be using any type of graphics acceleration.</p>
+
+:ET

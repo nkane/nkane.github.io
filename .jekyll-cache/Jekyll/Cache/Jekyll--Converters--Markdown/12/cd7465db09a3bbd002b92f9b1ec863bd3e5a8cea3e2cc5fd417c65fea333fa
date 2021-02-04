@@ -1,0 +1,57 @@
+I"R<p>Last article we briefly went over JavaScript objects and different ways to initialize objects. In this article, we are going to touch on Object properties and the variety of ways to access them. Properties can be defined as variables that are attached to objects. Object properties can be assigned any type of value in JavaScript.</p>
+
+<h3 id="dot-notation">Dot Notation</h3>
+<p>The dot notation is probably the most commonly used way of accessing object properties. Below is an example of how to access an object’s properties using the dot notation:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="s1">''</span>  
+<span class="p">};</span>
+
+<span class="nx">person</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">'Chuck'</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span></code></pre></figure>
+
+<h3 id="bracket-notation">Bracket Notation</h3>
+<p>The bracket notation is another way of being able to access object properties. Below is an example of how to access an object’s properties using the bracket notation:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">Name</span><span class="p">:</span> <span class="s1">''</span>  
+<span class="p">};</span>
+
+<span class="nx">person</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Chuck'</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">Name</span><span class="p">);</span></code></pre></figure>
+
+<h3 id="property-names">Property Names</h3>
+<p>Property names must be a string and non-string objects cannot be used as a key in the object. Any non-string that is passed in will be casted into a string.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">person</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
+
+<span class="nx">person</span><span class="p">[</span><span class="s1">'1'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Chuck'</span><span class="p">;</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">person</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span></code></pre></figure>
+
+<h3 id="use-case">Use Case</h3>
+<p>Accessing properties using a numerical value that will be type casted in to a string may not seem useful at first; however, if a dictionary is being created from some other source having properties dedicated to key value pairs could potentially eliminate the need for any looping to occur.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">personDictionary</span> <span class="o">=</span> <span class="p">{</span>  <span class="p">};</span>
+
+<span class="nx">personDictionary</span><span class="p">[</span><span class="s1">'1'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">FirstName</span><span class="p">:</span> <span class="s1">'Chuck'</span><span class="p">,</span>
+    <span class="na">LastName</span><span class="p">:</span> <span class="s1">'Norris'</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">personDictionary</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span></code></pre></figure>
+
+<h3 id="thanks">Thanks</h3>
+<p>I wanted to say thanks to Phil DeVeau for sending me message regarding property accessors. If you feel that anything is missing or wrong, please feel free to contact me.</p>
+
+<p>References:</p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_Accessors">MDN Property Accessors</a></p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">MDN Define Properties</a></p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects">MDN Working with Objects</a></p>
+
+:ET

@@ -3,7 +3,7 @@ layout: post
 title: "Initializig Life Upgrade ..."
 date: 2017-03-15
 categories: blog personal
-visible: 1
+visible: 0
 ---
 
 ### Stay Awhile and Listen ...
