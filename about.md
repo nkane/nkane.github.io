@@ -1,7 +1,8 @@
 ---
 layout: page
-title: About
+title: /about
 permalink: /about/
 ---
 
-About page in progress ..
+# About Nick Kane
+TODO ...
