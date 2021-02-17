@@ -1074,7 +1074,7 @@ address: 00000004822FF823 - 0x34
 ```
 
 There we go! A simple way to reverse bytes for a real32 or 32-bit float value using a union. In this article, I did go in to a few random
-rabbit holes with disassembling a examples. To summarize what we went over, endianness is a trivial matter of byte ordering: do we start
+rabbit holes with disassembling the examples. To summarize what we went over, endianness is a trivial matter of byte ordering: do we start
 with the most significant or least significant byte for our memory ordering? Swapping between little and big endian can be done either
 mannual using our shift code or certian CPU architectures instructions.
 
