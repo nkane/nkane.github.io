@@ -3,7 +3,7 @@ layout: post
 Title: "Postmortem Ludum Dare 40 Game Jam"
 date: 2018-07-04
 categories: blog gamedev gaming
-visible: 1
+visible: 0
 ---
 If the reader is not aware of what a game jam is, it is a time constraint event that typically provides a theme for game
 developers to create a game within the allotted time.

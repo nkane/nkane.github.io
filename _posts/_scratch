@@ -1,10 +1,4 @@
----
-layout: post
-title: "Endianness"
-date: 2017-10-31
-categories: blog engineering
-visible: 1
----
+
 What is endianness in regard to computers? I am going to give an explaination of computer endianness, but before we get started a few basic concepts need to be covered.
 
 ### Bits / Bytes ###
