@@ -32,7 +32,7 @@ header_pages:
   - index.md
   - about.md
 footer: '| <a href="https://github.com/nkane">github</a> | <a href="https://twitter.com/nkanedev">twitter</a> | <a href="https://www.youtube.com/channel/UCCG0iK4T34xo3Q4RzKShcQw">youtube</a> |'
-remote_theme: b2a3e8/jekyll-theme-console
+#remote_theme: b2a3e8/jekyll-theme-console
 theme: jekyll-theme-console
 style: dark
 markdown: kramdown
