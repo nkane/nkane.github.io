@@ -3,8 +3,9 @@ layout: post
 title: "Endianness"
 date: 2021-02-17
 categories: blog engineering
-visible: 1
+published: true
 ---
+
 What does the term "_endianness_" mean? This term, was created by a writer named _Jonathan Swift_ in a novel named "_Gulliver's Travels_", in which
 natives of a particular island used to the term to determine whether a particular person would break their boiled egg from the big end
 (Big-Endians) or from the little end (Little-Endians). A rather fitting name for such a trivial issue, but what does this have to do with
@@ -14,8 +15,7 @@ became our own reality trivial issue of, "_which way do we order bytes within a 
 For the sake of being relatively complete, I am going to tangentially cover a few basic concepts. Let's think of computer memory as a sequence
 of boxes that are addressable by a particular number, which can be referred to as it memory address. Within each box, a byte of memory (8-bits)
 is stored at that particular memory address. The endianness problem begins with this question: _In a multi-byte quantity, which byte
-starts at beginning? Do we use most significant byte (Big-Endian) or least significant byte (Little-Endian)?_ 
-
+starts at beginning? Do we use most significant byte (Big-Endian) or least significant byte (Little-Endian)?_
 
 Using an example from _Jason Gregory's_ book, _Game Engine Architecture_, if we have the integer value of 4660 which is represented by two bytes
 in hexidecmial 0x1234 and those two individual bytes are 0x12 and 0x34. We can refer to the byte 0x12 as the most significant byte (MSB) and 0x34
@@ -39,6 +39,7 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 decimal: 4660 - hex: 0x1234
 [ 0x34 0x12 ]
@@ -67,6 +68,7 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 decimal: -1412623820 - hex: 0xABCD1234
 address: 0000003638B3FA00, 0x34
@@ -76,7 +78,7 @@ address: 0000003638B3FA03, 0xAB
 ```
 
 Alright, we have written two programs to try to help us understand how our values are stored in memory on an x86-64 processor in little endian.
-Now, let's write a program that has a simple C structure and write that structure out to a file as binary and examine the byte ordering. 
+Now, let's write a program that has a simple C structure and write that structure out to a file as binary and examine the byte ordering.
 
 ```c
 #include <stdio.h>
@@ -101,7 +103,7 @@ int main(void)
     Vector3i vector_a;
     vector_a.x = 0xAB56EF12;
     vector_a.y = 0x3679FE01;
-    vector_a.z = 0xBCAF9823; 
+    vector_a.z = 0xBCAF9823;
 
     Vector3i vector_b;
     vector_b.x = 0xDEADBEEF;
@@ -137,20 +139,21 @@ little endian format. We can dump out the hexidecimal using groups of 4-bytes si
 00000000: 12EF56AB 01FE7936 2398AFBC EFBEADDE  ..V...y6#.......
 00000010: 01EEFFC0 DEADBEEF                    ........
 ```
+
 ```text
 -- 1-byte grouped --
 00000000: 12 EF 56 AB 01 FE 79 36 23 98 AF BC EF BE AD DE  ..V...y6#.......
 00000010: 01 EE FF C0 DE AD BE EF                          ........
 ```
 
-The first group of 4-bytes is _[ 0x12 0xEF 0x56 0xAB ]_, which when taking a look at our program's first structure vector_a the field x
-value was set to _0xAB56EF12_. As expected, this little endian byte ordering.
+The first group of 4-bytes is _[ 0x12 0xEF 0x56 0xAB ]_, which when taking a look at our program's first structure vector*a the field x
+value was set to \_0xAB56EF12*. As expected, this little endian byte ordering.
 
 The examples that we have done this far have just been about writing out data to either the terminal or a file in the byte order of the
 processor that the executing program is using, and in my case that is an x86_64 intel i7; therefore, the byte order has been little endian.
 Now, what if we need to swap the byte ordering to big endian? Let's start out with simple example of swapping just a single 32-bit integer.
 There are multiple ways that we can write this, but let's start out with a straightforward approach of using bitwise operations. In order
-to swap using bitwise operations. We need to move the the byte in the last position up to the first byte memory address this can be 
+to swap using bitwise operations. We need to move the the byte in the last position up to the first byte memory address this can be
 achieved by right shifting our last byte by 24-bit (3-bytes). Next, we have to right shift the second to last byte up 8-bits (1-byte). Then,
 we basically repeat that same process but left shift the beginning two bytes.
 
@@ -162,8 +165,8 @@ int main(void)
 {
     int32_t x = 0xABCD1234;
     int8_t *p = (int8_t *)&x;
- 
-    printf("little endian\n");   
+
+    printf("little endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -174,7 +177,7 @@ int main(void)
         ((x & 0x00FF0000) >> 8)  |
         ((x & 0xFF000000) >> 24);
 
-    printf("big endian\n");   
+    printf("big endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -183,7 +186,7 @@ int main(void)
 ```
 
 From the output, we can see that the byte ordering was reversed from _[ 0x34 0x12 0xCD 0xAB ]_ to _[0xAB 0xCD 0x12 0x34 ]_. This is exactly what
-we were expecting to see. If you are a bit (pun intended) confused about our shifting operations, just think of it as assigning 4 temporary 
+we were expecting to see. If you are a bit (pun intended) confused about our shifting operations, just think of it as assigning 4 temporary
 variables to the values _[ 0xAB 0x00 0x00 0x00 ]_, _[ 0xCD 0x00 0x00 0x00 ]_ , _[ 0x00 0x00 0x12 0x00 ]_, and _[ 0x00 0x00 0x00 0x34 ]_ then
 bitwise ORing those values together to produce the result that we expect: _[0xAB 0xCD 0x12 0x34 ]_. This process works for swapping between
 either endianness.
@@ -201,7 +204,7 @@ address: 0000005E488FF942 - 0x12
 address: 0000005E488FF943 - 0x34
 ```
 
-Instead of using shift operations, the standard library for MSVC does contain run-time routines for byte swapping called: _byteswap_ushort_, 
+Instead of using shift operations, the standard library for MSVC does contain run-time routines for byte swapping called: _byteswap_ushort_,
 _byteswawp_ulong_, and _byteswap_uint64_; however, these are not considered compiler instrinsics because these routines are include in the
 run-time header file _stdlib.h_. We can write a program with and without compiler optimizations turned on to see what kind of assembly code
 is being produced.
@@ -214,16 +217,16 @@ int main(void)
 {
     int32_t x = 0xABCD1234;
     int8_t *p = (int8_t *)&x;
- 
-    printf("little endian\n");   
+
+    printf("little endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
     printf("address: %p - 0x%02hhX\n", (p + 3), *(p + 3));
-        
+
     x = _byteswap_ulong(x);
 
-    printf("big endian\n");   
+    printf("big endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -234,7 +237,7 @@ int main(void)
 ```
 
 Alright, we wrote our program and compiled it with the MSVC compiler with optimizations turned off and produced debug information as well.
-Now, we can load up the program in something that provides the disassembly to see what exactly is going on our __byteswap_ulong_ function
+Now, we can load up the program in something that provides the disassembly to see what exactly is going on our \__byteswap_ulong_ function
 call. Below are segnments of the disassembly provided to paint a picture of what is going on.
 
 ```nasm
@@ -301,8 +304,8 @@ mov     [rsp+38h+var_18], eax
 ```
 
 Taking a look at the disassembly produced by the original code, we can see that it is slightly different than the standard library function call
-__byteswap_ulong_; however, there are still shift instructions which is what we expected. Now, let's turn on the highest optimizations available
-to the MSVC compiler for the __byteswap_ulong_ function call and our own shift examples to see what happens.
+**byteswap*ulong*; however, there are still shift instructions which is what we expected. Now, let's turn on the highest optimizations available
+to the MSVC compiler for the **byteswap*ulong* function call and our own shift examples to see what happens.
 
 ```nasm
 ; _byteswap_ulong function example
@@ -358,11 +361,11 @@ retn
 main endp
 ```
 
-In the above disassembly output for the optimized version of code that calls the standard library function __byteswap_ulong_, we can see that
-there is no longer a instruction to call to a jump label that then jumps to the instructions for the __byteswap_ulong_ implementation which 
+In the above disassembly output for the optimized version of code that calls the standard library function **byteswap*ulong*, we can see that
+there is no longer a instruction to call to a jump label that then jumps to the instructions for the **byteswap*ulong* implementation which
 uses _and_, _shl_, and _shr_ instructions for the swap; however, instead in place of that there is an instruction named _bswap_ that is used
 instead of all of other code that was produced in the unoptimized version of the compiled code. Let's do the same thing we just did for this
-our __byteswap_ulong_ optimized version with our hand rolled shift code example.
+our \__byteswap_ulong_ optimized version with our hand rolled shift code example.
 
 ```nasm
 ; hand rolled shift example
@@ -431,25 +434,25 @@ main endp
 
 Again, taking another high level overview of this code we can see that even with optimizations turned on there are still a bunch of shifting
 instructions followed by other bitwise operations. The MSVC compiler couldn't optimized our code out to use the _bswap_ instruction with
-the highest level of optimizations turned on. The reason I am mentioning this is because compilers typically have something called an 
+the highest level of optimizations turned on. The reason I am mentioning this is because compilers typically have something called an
 intrinsic function that are used as a way to inline assembly instructions to ensure that those will be used by the compiled program; however,
 intrinsic functions are not portable, in other words, these instrinsic functions will be compiler and platform dependent.
 
-In our particular case, we want the compiler to produce the _bswap_ assembly instruction usage instead of all that shift code in our hand 
-rolled version or the unoptimized usage of the __byteswap_ulong_. Now, as stated previously, compilers typically come with intrinsic
-functions, but for this particular case there is no available intrinsic function for __bswap_ in the MSVC compiler intrinsic headers.
-Per the MSDN documentation, it just says to use the portable __byteswap_ulong_ function. I don't know about you, but that answer doesn't
+In our particular case, we want the compiler to produce the _bswap_ assembly instruction usage instead of all that shift code in our hand
+rolled version or the unoptimized usage of the **byteswap*ulong*. Now, as stated previously, compilers typically come with intrinsic
+functions, but for this particular case there is no available intrinsic function for **bswap* in the MSVC compiler intrinsic headers.
+Per the MSDN documentation, it just says to use the portable \_\_byteswap_ulong* function. I don't know about you, but that answer doesn't
 quiet satisfy my curiosity. So let's keep diggin' deeper in ye olde rabbit hole.
 
 Let's write our own assembly subroutine that uses the _bswap_ instruction. Now, during my initial research phase of how to do this, I found
 out that the MSVC compiler doesn't support C inline assembly for 64-bit compiled programs. To be honest, that constraint seems completely
 unnecessary, but I am not a compiler write; therefore, we are stuck with what we got for this parituclar situation. Basically, what this means
-is that we cannot inline our assembly to simply just a _bswap_ instruction being produced, and there is not an actual available intrinsic 
+is that we cannot inline our assembly to simply just a _bswap_ instruction being produced, and there is not an actual available intrinsic
 function for the _bswap_ instruction, we are going to have to create an assembly file with a subroutine that we will assemble then compile
-and link our assembled code with our C code that calls our assembly subroutine. 
+and link our assembled code with our C code that calls our assembly subroutine.
 
-Let's start out with creating an assembly subroutine that just uses one argument stored in the register _ecx_, use _bswap_ on _ecx_, then 
-move that result to the output register _eax_. We will call this subroutine __bswap_.
+Let's start out with creating an assembly subroutine that just uses one argument stored in the register _ecx_, use _bswap_ on _ecx_, then
+move that result to the output register _eax_. We will call this subroutine \__bswap_.
 
 ```nasm
 ; PUBLIC  _bswap
@@ -459,7 +462,7 @@ _TEXT  SEGMENT
 _bswap PROC
     push  rbp
     mov   rbp, rsp
-    
+
     bswap ecx
     mov   eax, ecx
 
@@ -473,8 +476,8 @@ END          ; END directive required at end of file
 ```
 
 Using the MASM x64 compiler, we can produce an object file from our assembly file. Next on our list, we are going write our same example
-program that we have been using, but this time we are going to give a function prototype for our assembly function __bswap_ and call that
-function within our program to do the byte swap. When we are going to compile and link our C program, we need to pass in our assembled 
+program that we have been using, but this time we are going to give a function prototype for our assembly function \__bswap_ and call that
+function within our program to do the byte swap. When we are going to compile and link our C program, we need to pass in our assembled
 object file that we produced for our C program to link against.
 
 ```c
@@ -487,8 +490,8 @@ int main(void)
 {
     int32_t x = 0xABCD1234;
     int8_t *p = (int8_t *)&x;
- 
-    printf("little endian\n");   
+
+    printf("little endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -496,7 +499,7 @@ int main(void)
 
     x = _bswap(x);
 
-    printf("big endian\n");   
+    printf("big endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -505,6 +508,7 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 little endian
 address: 000000D64D91F890 - 0x34
@@ -699,11 +703,13 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 -- little endian --
 -- 1-byte group --
 00000000: 12 ab 00 00 ef be ad de 01 ee ff c0 de ad be ef  ................
 ```
+
 ```text
 -- big endian --
 -- 1-byte group --
@@ -850,7 +856,7 @@ The assembly output does for what we are interested in doesn't look much differe
 implementation of just a single integer. It's just expanded out a bit, because we are doing it a few times. This was compiled with MSVC
 with optimizations turned on and debug information turn on as well.
 
-Let's do the same thing byte swapping, but this time use the portable standard library functions __byteswap__ functions.
+Let's do the same thing byte swapping, but this time use the portable standard library functions **byteswap** functions.
 
 ```c
 #include <stdio.h>
@@ -904,18 +910,20 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 -- little endian --
 -- 1-byte group --
 00000000: 12 ab 00 00 ef be ad de 01 ee ff c0 de ad be ef  ................
 ```
+
 ```text
 -- big endian --
 -- 1-byte group --
 00000000: ab 12 00 00 de ad be ef c0 ff ee 01 ef be ad de  ................
 ```
 
-Alright, we were able to achieve the same results using the standard library __byteswap_ functions. Now, let's create a disassembly dump
+Alright, we were able to achieve the same results using the standard library \__byteswap_ functions. Now, let's create a disassembly dump
 that we can take a look at to make sure the MSVC compiler with the highest optimization setting is producing our bswap instructions again.
 
 ```nasm
@@ -1042,16 +1050,16 @@ int main(void)
     Real32_Int32 x;
     x.as_uint32 = 0xABCD1234;
     int8_t *p = (int8_t *)&x;
- 
-    printf("little endian\n");   
+
+    printf("little endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
     printf("address: %p - 0x%02hhX\n", (p + 3), *(p + 3));
-        
+
     x.as_real32 = swap_real32(x.as_real32);
 
-    printf("big endian\n");   
+    printf("big endian\n");
     printf("address: %p - 0x%02hhX\n", (p + 0), *(p + 0));
     printf("address: %p - 0x%02hhX\n", (p + 1), *(p + 1));
     printf("address: %p - 0x%02hhX\n", (p + 2), *(p + 2));
@@ -1060,6 +1068,7 @@ int main(void)
     return 0;
 }
 ```
+
 ```text
 little endian
 address: 00000004822FF820 - 0x34
@@ -1079,9 +1088,10 @@ with the most significant or least significant byte for our memory ordering? Swa
 mannual using our shift code or certian CPU architectures instructions.
 
 #### References
+
 - [intel-intrinstics](https://software.intel.com/sites/landingpage/IntrinsicsGuide/#expand=4152,3483,3484,596&text=bswap)
 - [agnor-tables](https://www.agner.org/optimize/instruction_tables.pdf)
-- [_byteswap](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/byteswap-uint64-byteswap-ulong-byteswap-ushort?view=msvc-160)
+- [\_byteswap](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/byteswap-uint64-byteswap-ulong-byteswap-ushort?view=msvc-160)
 - [x86-instructions](https://www.felixcloutier.com/x86/)
 - [x64-calling-conventions](https://docs.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-160)
 - [masm-example](https://renenyffenegger.ch/notes/Windows/development/Visual-Studio/masm/functions/add_3/index)
