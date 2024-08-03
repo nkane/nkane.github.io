@@ -25,4 +25,11 @@ collecting dust and I've never cracked it open. This is my commitment to myself 
 years ago when I was first learning, but hopefully be able to give back to the community in some meaningful way in this
 series of articles I'll be writing. Anyways, time to get go'in! :)
 
-## TBD
+## Go Go Gadget Go?
+
+Well, I know that this next sentence might horrify a least half of you out there, but one of my favorite qualities of
+Go is the syntax similarities to C. Now, I know the other half of you might be screaming that I'm an idiot for even
+comparing the two. Chill out, step away from the keyboard, and just touch some grass. Despite the simplicity of the
+language syntax, Go is a powerful language and especially good at writing web servers. The standard library is what
+most other languages strive to be and provide just the right amount of abstractions to not overwhelm you with
+unnecessary complexity.
