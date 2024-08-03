@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Go: Prelude"
-date: 2024-08-03
+date: 2024-08-02
 categories: blog engineering go
 visible: 0
 ---
@@ -25,4 +25,4 @@ collecting dust and I've never cracked it open. This is my commitment to myself 
 years ago when I was first learning, but hopefully be able to give back to the community in some meaningful way in this
 series of articles I'll be writing. Anyways, time to get go'in! :)
 
-##
+## TBD
