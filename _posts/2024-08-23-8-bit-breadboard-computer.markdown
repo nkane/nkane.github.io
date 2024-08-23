@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "8-Bit Breadboard Computer"
-date: 2024-08-21
+date: 2024-08-23
 categories: blog engineering hardware cpu architecture
 published: true
 ---
