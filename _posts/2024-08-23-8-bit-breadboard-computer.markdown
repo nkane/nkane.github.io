@@ -376,7 +376,6 @@ void printContents() {
   }
 }
 
-
 void setup() {
   pinMode(SHIFT_DATA, OUTPUT);
   pinMode(SHIFT_CLK, OUTPUT);
