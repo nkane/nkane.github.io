@@ -14,12 +14,12 @@ that programmers don't necessarily need to be bogged down with all of these deta
 you have to necessarily learn about hardware as a programmer; however, I do think that learning about it can provide
 different ways of thinking about how to write code.
 
-It seems like at one point in time, it was almost necessary to understand some of these things in order to even be a
-programmer; however, as hardware speed increased there was a decrease with the concern of how hardware works among the
-majority of programmers. Making it almost kind of a lost art for the majority of programmers.
+It seems like at one point in time, it was almost necessary to understand these things in order to even be a programmer
+however, as hardware speed increased there was a decrease with the concern of how hardware works among the majority of
+programmers. Making it almost kind of a lost art for the majority of programmers.
 
 This project was my commitment to continous learning, self-improvement, and the dedication to myself to always remain
-curious and resilient.
+curious.
 
 ## The Journey to Complete
 
@@ -46,7 +46,7 @@ starting the project and expanding my knowledge on computer architecture.
 I took my time with each module watching the tutorial videos that Ben created, watching videos on basic electricity
 concepts like the differences between voltage, current, amperage, and wattage, learning how to use a multimeter,
 learning how to use an oscilloscope, learning different basic logic gates, learning about latches and flip-flops,
-learning how to create schmatics, and a lot more. The breadth of knowledge that I accquired during my initial attempt
+learning how to read schmatics, and a lot more. The breadth of knowledge that I accquired during my initial attempt
 at building the 8-bit breadboard computer was amazing.
 
 Something that was stated in that last sentence is really important, I said "... during my initial attempt ...". Life
@@ -807,11 +807,11 @@ void loop() {}
 
 ## Fin
 
-I learned a ton of new information and gain a huge apprecication for hardware doing this project. My plan in to
-try to do at least one of these hardware project every year from now on, with the hope of eventually being able to
-create my own from start to finish. The final program that was written manually to the RAM was the following assembly,
-it continously adds the value stored at memory address fifteen until it the carry flag is set on the flags register.
-Then, it continously subtracts the value store at memory address fiften until the zero flag is set. The value at memory
+I learned a ton of new information and gain a huge apprecication for hardware doing this project. My plan is to try to
+do at least one of these hardware project every year from now on, with the hope of eventually being able to create my
+own from start to finish. The final program that was written manually to the RAM was the following assembly, it
+continously adds the value stored at memory address fifteen until it the carry flag is set on the flags register. Then,
+it continously subtracts the value store at memory address fiften until the zero flag is set. The value at memory
 address fiften was set to the value of one.
 
 | Memory Address | Assembly | Binary (Instruction & Data) |
