@@ -84,10 +84,12 @@ after it was hooked up to a capacitor and a few resistors.
 We'll see in later portions of that other components might require their own clock to run independently of the main
 computer's clock.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3U5J6h4vF8s?si=DTO_HOzBq92EZ-RW"
-title="YouTube video player" frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/3U5J6h4vF8s?si=DTO_HOzBq92EZ-RW"
+  title="YouTube video player" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## Registers and ALU
 
@@ -118,10 +120,12 @@ consequently causing the ALU to update with a new value.
 
 <img src="/assets/8-bit-breadboard-computer/registers-and-alu-03.jpg" class="center-small-img" />
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sNEgF5TcPd4?si=rANwqhkL0d-pMQ27"
-title="YouTube video player" frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/sNEgF5TcPd4?si=rANwqhkL0d-pMQ27"
+  title="YouTube video player" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## RAM and Address Register
 
@@ -140,10 +144,12 @@ connected to the ram. This piece allowed for direct memory writes with the setti
 button when the manual memory address register mode was set to enabled.
 <img src="/assets/8-bit-breadboard-computer/ram-and-address-register-03.jpg" class="center-small-img" />
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8PXATgbGn2g" 
-title="YouTube video player" frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/8PXATgbGn2g" 
+  title="YouTube video player" frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## Program Counter
 
@@ -153,10 +159,12 @@ as another transceiver. To test out the counter, I wired up to the main computer
 expected.
 <img src="/assets/8-bit-breadboard-computer/program-counter.jpg" class="center-small-img" />
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/MnxidszulFk?si=OC5vG-kt-wtIKdth" 
-title="YouTube video player" frameborder="0" 
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/MnxidszulFk?si=OC5vG-kt-wtIKdth" 
+  title="YouTube video player" frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## EEPROM Programmer
 
@@ -445,10 +453,12 @@ with debugging before adding in the control unit.
 <img src="/assets/8-bit-breadboard-computer/bus-controls-01.jpg" class="center-small-img" />
 <img src="/assets/8-bit-breadboard-computer/bus-controls-02.jpg" class="center-small-img" />
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6UziCotoKlI" 
-title="YouTube video player" frameborder="0"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/6UziCotoKlI" 
+  title="YouTube video player" frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## Control Logic
 
@@ -828,12 +838,14 @@ address fiften was set to the value of one, and this loops continue forever.
 
 <img src="/assets/8-bit-breadboard-computer/8-bit-breadboard-computer-finished.jpg" class="center-small-img" />
 
-<iframe width="560" height="315" 
-  src="https://www.youtube.com/embed/dCtfIkUM_sI?si=VOOLmvGz-fXqo6pU"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div class="video-container">
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/dCtfIkUM_sI?si=VOOLmvGz-fXqo6pU"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 [ben-eater]: https://eater.net/
 [Learning-Computer-Architecture-with-Rasp-Pi]: https://www.amazon.com/Learning-Computer-Architecture-Raspberry-Pi/dp/1119183936
