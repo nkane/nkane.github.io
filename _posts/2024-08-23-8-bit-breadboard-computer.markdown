@@ -14,9 +14,9 @@ that programmers don't necessarily need to be bogged down with all of these deta
 you have to necessarily learn about hardware as a programmer; however, I do think that learning about it can provide
 different ways of thinking about how to write code.
 
-It seems like at one point in time, it was almost necessary to understand these things in order to even be a programmer
-however, as hardware speed increased there was a decrease with the concern of how hardware works among the majority of
-programmers. Making it almost kind of a lost art for the majority of programmers.
+It seems like at one point in time, it was almost necessary to understand these things in order to even be a
+programmer; however, as hardware speed increased there was a decrease with the concern of how hardware works among the
+majority of programmers. Making it almost kind of a lost art for the majority of programmers.
 
 This project was my commitment to continous learning, self-improvement, and the dedication to myself to always remain
 curious.
