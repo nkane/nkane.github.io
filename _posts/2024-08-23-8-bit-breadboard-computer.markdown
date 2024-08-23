@@ -81,7 +81,7 @@ For fun, just like in Ben's videos, I hook up the clock to an oscilloscope to se
 after it was hooked up to a capacitor and a few resistors.
 <img src="/assets/8-bit-breadboard-computer/clock-module-02.jpg" class="center-small-img" />
 
-We'll see in later portions of that other components might require their own clock to run independently of the main
+We'll see in later portions that other components might require their own clock to run independently of the main
 computer's clock.
 
 <div class="video-container">
