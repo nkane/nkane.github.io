@@ -39,9 +39,8 @@ it.
 Fast forward a few years later around November 2020, I decided that I was going to purchse the 8-bit breadboard
 computer kit as a birthday present to myself. The kit came with three modules, the **Clock Module**,
 **Register and ALU Module**, **The Ram and Program Counter Module**, and the **Output and Control Logic Module**. I
-didn't have a few other things that I thought would either be neat to have on hand or felt essential to the project, so
-needless to say I picked up more than what was necessary just to be able to have it on hand. I was excited about
-starting the project and expanding my knowledge on computer architecture.
+didn't have a few other things that Ben had, so needless to say I picked up more than what was necessary just to be
+able to have it on hand. I was excited about starting the project and expanding my knowledge on computer architecture.
 
 I took my time with each module watching the tutorial videos that Ben created, watching videos on basic electricity
 concepts like the differences between voltage, current, amperage, and wattage, learning how to use a multimeter,
@@ -54,8 +53,8 @@ happens, and we all know it. I started the project in late 2020 and got to the t
 personal life was a wreck. I had to put a lot of my hobbies and learning on pause in order to fix things in my daily
 life. So, here I am, it's August 2024 and I've finally completed the project. I ended up picking it back up in July of
 2024 with the goal of putting in as many hours required of freetime to complete the project. I actually took apart all
-of the modules that I previously built in order to rebuild the entire kit to make sure that everything that I learned
-previously still stuck around in some neurons in my brain.
+of the modules that I previously built in order to rebuild the entire kit to make sure that everything that I
+previously learned still stuck around in some neurons in my brain.
 
 It took me a long time from start to finish, but I got it done using a lot of willpower and dedication. There were a
 lot of instances where I had to debug hardware issues due to bad wires, bad chips, or countless other things. There
@@ -63,10 +62,11 @@ were times when I was working on the project, that I legitimately just thought I
 to work on something software related instead; however, I wanted to see it through to the end as a commitment to
 myself and the journey.
 
-If there is anything to take away from this portion of the article, besides the fact that I might be insane, it's
-imporant to see projects through to the end whatever the end may mean to you. Get far enough in a project to where
-you can call it completed or done, it feels rewarding and fulfilling. Also, putting something down for the time being
-doesn't have to always mean you're never going to pick it back up to finish it.
+If there is anything to take away from this portion of the article, besides the fact that I might have been driven
+to the brink of insanity, is that it is imporant to see projects through to the end whatever the end may mean to you.
+Getting far enough in a project to where you can call it completed or done, feels rewarding and fulfilling. Also,
+putting something down for the time being doesn't have to always mean that you are never going to pick it back up
+to finish it.
 
 ## Clock Module
 
@@ -105,16 +105,15 @@ or as a way to just test particular signals or pieces.
 After hooking up and testing out each of the registers, the ALU was next on the list of components to build. Instead
 of manually building out an adder, the kit just utilizied another 4-bit binary adder integrated circuit. All that was
 needed to be done was wiring up the carry pin of the first 4-bit adder to the input of the second 4-bit adder, then
-wiring up all of the inputs to the adders to the A and B registers. In order to also allow subtraction, xor gates
+wiring up all of the inputs to the adders to the A and B registers. In order to also allow subtraction, XOR gates
 were wired up to do two-complement addition and subtraction. In order to place values on the bus another octal bus
 transceiver was hooked up to the ALU.
 <img src="/assets/8-bit-breadboard-computer/registers-and-alu-01.jpg" class="center-small-img" />
 
 For these components, a common test that I preformed was hooking up the both registers to a temporary bus breadboard,
-setting one register to the binary value of 1, setting the other register transceiver to read off the bus, and setting
-the ALU register to output to the bus. This would continously add the value 1 a single register consequently causing
-the ALU to update with a new value.
-
+setting one register to the binary value of b00000001, setting the other register transceiver to read off the bus, and
+setting the ALU register to output to the bus. This would continously add the value b00000001 a single register
+consequently causing the ALU to update with a new value.
 <img src="/assets/8-bit-breadboard-computer/registers-and-alu-02.jpg" class="center-small-img" />
 
 <img src="/assets/8-bit-breadboard-computer/registers-and-alu-03.jpg" class="center-small-img" />
@@ -126,9 +125,9 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## RAM and Address Register
 
-Every computer needs some form of memory or temporary storage and a way to figure out which memory address the computer
-needs to fetch data from. The basic build for this component was using a two 64-bit RAM integrated circuits, inverts
-to invert the output the RAM chips, and octal bus transceiver.
+Every computer needs some form of memory or temporary storage, and mechanism to figure out which memory address the
+computer needs to fetch data from. The basic build for this component was using a two 64-bit RAM integrated circuit
+inverts to invert the output the RAM chips, and octal bus transceiver.
 <img src="/assets/8-bit-breadboard-computer/ram-and-address-register-01.jpg" class="center-small-img" />
 
 Once the RAM module was built out, another register was needed in order to be able to address our RAM. So another
@@ -149,8 +148,9 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 ## Program Counter
 
 A program counter is another important piece of a computer, it will keep track of where we are supposed to be in our
-programs that we'll be manually writing to memory later. For this piece, a basic 4-bit chip was used as well as another
-transceiver. To test out the counter, I wired up to the main computer clock to ensure that it was working as expected.
+programs that we'll be manually writing to memory later. For this piece, a basic 4-bit counter chip was used as well
+as another transceiver. To test out the counter, I wired up to the main computer clock to ensure that it was working as
+expected.
 <img src="/assets/8-bit-breadboard-computer/program-counter.jpg" class="center-small-img" />
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MnxidszulFk?si=OC5vG-kt-wtIKdth" 
@@ -276,8 +276,8 @@ void loop() {}
 
 ## Hex Display
 
-To avoid going blind from reading random LEDs on the board and translating them to their binary value to decimal value.
-Seven segment hex displays were added to the computer to be able to get some form of different visual feedback.
+To avoid going insane from reading random LEDs on the board and translating them to their binary value to decimal
+value. Seven segment hex displays were added to the computer to be able to get some form of different visual feedback.
 Cleverly, EEPROMs were used as a decoder to be able to take in an address and output the appropriate binary value to
 light up the hex displays. The decoder tables looked like the following:
 
@@ -421,27 +421,26 @@ void setup() {
   printContents();
 }
 
-void loop() {
-
-}
+void loop() {}
 ```
 
 ## The Bus
 
-In order to have the modules be able to communicate with each other a bus needs to be created to be able to write to or
+In order to have the modules be able to communicate with each other, a bus needs to be created to be able to write to or
 read from the bus from one component to other. In other words, a pathway was needed in which data can be transfered
 from one module to another. This would also support control signals that will be our microcode. For this project, what
 that means in reusing some of the power rails that were removed from breadboards, linking them together, and hooking
-up the transceivers to the bus.
+up the transceivers to the bus as a means to output data or input data from a particular module.
 
 <img src="/assets/8-bit-breadboard-computer/bus-01.jpg" class="center-small-img" />
 <img src="/assets/8-bit-breadboard-computer/bus-02.jpg" class="center-small-img" />
 <img src="/assets/8-bit-breadboard-computer/bus-03.jpg" class="center-small-img" />
 
 After all of the individual components that had transceivers were hooked up to the bus, relocation of all of the
-control signals for each of the individual chips where relocated to the bottom right of the computer. Since I was still
-manually testing out the computer all of the jumps wires were relocated down to the bottom with LEDs to show which
-signals were enabled. Inverter chips were also used for chips that required an inverted input signal.
+control signals for each of the individual chips where moved to the bottom right of the computer. Since I was still
+manually testing out the computer, all of the jumps wires were relocated down to the bottom with LEDs to show which
+signals were enabled. Inverter chips were also used for chips that required an inverted input signal. This helped me
+with debugging before adding in the control unit.
 
 <img src="/assets/8-bit-breadboard-computer/bus-controls-01.jpg" class="center-small-img" />
 <img src="/assets/8-bit-breadboard-computer/bus-controls-02.jpg" class="center-small-img" />
@@ -468,7 +467,7 @@ the project.
 
 Prior to completing this part of the project, I'd had previously read and heard about microcode; however, I had no idea
 what it actually meant. The amount of clarity that this provided on the topic during this portion of the project was
-worth all of the struggling and debugging alone. What is microcode? If you're taking a look at the
+worth all of the struggling and debugging alone. What is microcode? If you take a look at the
 [wiki article on microcode][microcode-wiki], and you're like me the explaination of what microcode is on this article
 was lackluster at best. The way that Ben describe microcode and how it's related to assembly is one of the best
 explainations that I've ever seen.
@@ -629,10 +628,10 @@ making a computer Turing complete. The famous paper, which states the following:
 
 > It is possible to invent a single machine which can be used to compute any computable sequence.
 
-This machine reads it's input from a infinitely long tape that divided in to segments. Each of these segments contains
-a symbol, a read-head can move back and forth looking at a decode table instructing the machine what to do based on
-the state it is in. The definition of **any computable sequence** is a bit vague and Turing admits this in the paper.
-Ben also shares that this problem was later solved by both Turing and Church in two separate papers.
+A Turning complete machine reads it's input from a infinitely long tape that divided in to segments. Each of these
+segments contains a symbol, a read-head can move back and forth looking at a decode table instructing the machine what
+to do based on the state it is in. The definition of **any computable sequence** is a bit vague and Turing admits this
+in the paper. Ben also shares that this problem was later solved by both Turing and Church in two separate papers.
 
 At this particular moment, the computer that's being built doesn't have the ability to do any type of conditional jump.
 There are instructions for a non-conditional jump that can effectively loop our programs; however, to make this
