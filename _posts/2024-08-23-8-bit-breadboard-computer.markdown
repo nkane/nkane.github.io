@@ -809,9 +809,9 @@ void loop() {}
 I learned a ton of new information and gain a huge apprecication for hardware doing this project. My plan is to try to
 do at least one of these hardware project every year from now on, with the hope of eventually being able to create my
 own from start to finish. The final program that was written manually to the RAM was the following assembly, it
-continously adds the value stored at memory address fifteen until it the carry flag is set on the flags register. Then,
+continously adds the value stored at memory address fifteen until the carry flag is set on the flags register. Then,
 it continously subtracts the value store at memory address fiften until the zero flag is set. The value at memory
-address fiften was set to the value of one.
+address fiften was set to the value of one, and this loops continue forever.
 
 | Memory Address | Assembly | Binary (Instruction & Data) |
 | -------------- | -------- | --------------------------- |
