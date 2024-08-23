@@ -33,6 +33,7 @@ header_pages:
   - about.md
 footer: '| <a href="https://github.com/nkane">github</a> | <a href="https://twitter.com/nkanedev">twitter</a> | <a href="https://www.youtube.com/channel/UCCG0iK4T34xo3Q4RzKShcQw">youtube</a> |'
 style: dark
+google_analytics: G-9Z1LSKQL11
 
 markdown: kramdown
 remote_theme: nkane/jekyll-theme-console
