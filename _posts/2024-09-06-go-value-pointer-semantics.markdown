@@ -24,7 +24,7 @@ temporary storage mechanism, often you'll hear that the _Stack_ grows from top d
 of starting at a higher address and growing to a lower address. On the other hand, you'll hear that the _Heap_ grows
 from the bottom up, meaning the address range starts lower and gets higher.
 
-In go and in C, the address-of operator `&` and the dereference operator `*` are provided. Obviously, there are some
+In Go and in C, the address-of operator `&` and the dereference operator `*` are provided. Obviously, there are some
 differences with particular, but in general the `&` operator will give us the address of the variable and the `*`
 operator will get the value of a pointer variable and it can be used to denote that a variable is a pointer.
 
@@ -80,7 +80,7 @@ func main() {
 ```
 
 In order to demonstrate _Heap_ growth, I'll just provide an example in C, keep in mind depending on the architecture
-and operating system the behavior or these program could differ.
+and operating system the behavior of these program could differ.
 
 ```c
 #include <stdio.h>
