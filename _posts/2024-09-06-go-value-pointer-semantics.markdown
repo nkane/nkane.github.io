@@ -116,7 +116,7 @@ To avoid getting too deep in to the these topics, we'll just leave it at this hi
 
 ## Understanding Allocations
 
-A [goroutine][Goroutines] a lightweight thread managed by the _Go runtime_. In computer science terminology a
+A [goroutine][Goroutines] is a lightweight thread managed by the _Go runtime_. In computer science terminology a
 _goroutine_ is considered a [green thread][Green Thread], and in Go each _goroutine_ will have it's own stack that is
 allocated and managed by the Go runtime. During compilation of a Go program, the compiler will ultimately determine
 whether or not a variable needs to be placed on the _Stack_ or the _Heap_. Typically, this is done by a process called
