@@ -254,8 +254,8 @@ The following curl request can be submitted to test out the host name functional
 
 ## Middleware
 
-Out of the box, the Go standard library doesn't provide a way to attach middleware to our routers; however, we easily
-implement middleware handling with a little bit of code.
+Out of the box, the Go standard library doesn't provide a way to attach middleware to our routers; however, we can
+easily implement middleware handling with a little bit of code.
 
 ```go
 package main
