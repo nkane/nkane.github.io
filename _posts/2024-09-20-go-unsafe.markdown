@@ -433,6 +433,7 @@ int main() {
 
   return 0;
 }
+
 ```
 
 ```go
@@ -481,8 +482,9 @@ func main() {
 
 ## SIGTERM
 
-Well, at the least I hope that this demystified a little bit of one of the odd parts of the Go and gave you some
-insight in to C. I will leave you with one fun program that does some pointer arithmetic in Go. Stay curious, friends.
+Well, at the least I hope that this demystified a little bit of one of the odd parts of the Go ecosystem and gave you
+some insight in to C. I will leave you with one fun program that does some pointer arithmetic in Go. Stay curious,
+friends.
 
 ```go
 package main
