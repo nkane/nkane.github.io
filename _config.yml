@@ -31,7 +31,7 @@ github_username: nkane
 header_pages:
   - index.md
   - about.md
-footer: '| <a href="https://github.com/nkane">github</a> | <a href="https://twitter.com/nkanedev">twitter</a> | <a href="https://www.youtube.com/channel/UCCG0iK4T34xo3Q4RzKShcQw">youtube</a> | <a href="/feed.xml">rss</a> |'
+footer: '| <a href="https://github.com/nkane">github</a> | <a href="https://twitter.com/nkanedev">twitter</a> | <a href="https://www.youtube.com/@nickkane-dev">youtube</a> | <a href="/feed.xml">rss</a> |'
 style: dark
 google_analytics: G-9Z1LSKQL11
 
