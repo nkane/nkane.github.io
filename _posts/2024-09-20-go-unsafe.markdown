@@ -356,7 +356,7 @@ Because the `unsafe.Pointer` value gives us the equivalent of a `void *` in C, w
 how you might expect it to behave in C. In the example below, when we do a type version between a `float64` and a
 `uint64` the decimal value is truncated and the whole number is stored in the `uint64` variable; however, when we do
 our pointer conversion and then cast to a `*uint64` we keep the `float64` binary representation and dump it out as a
-`uint64`. Technically, there Go doesn't have type casting, but I'm just going to go with this terminology for now when
+`uint64`. Technically, Go doesn't have type casting, but I'm just going to go with this terminology for now when
 we've converting from our `unsafe.Pointer` to another type.
 
 ```go
