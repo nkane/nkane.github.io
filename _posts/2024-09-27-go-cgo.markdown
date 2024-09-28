@@ -12,7 +12,7 @@ Last week, we talked about the [Go's unsafe package](/blog/engineering/go/2024/0
 some low level functionality out of Go. In that same vein, this week we're going to discuss Go's interoperability with
 C. What does it mean for a language to be interoperable with another language? This just means the two languages have
 some form of tooling around them in order to bridge the gap between the languages. In our scenario, we'll specifically
-be talking about [Cgo][cgo], which let's us call C code in Go code.j
+be talking about [Cgo][cgo], which let's us call C code in Go code.
 
 ## A Simple C Shared Library
 
