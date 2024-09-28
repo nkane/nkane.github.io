@@ -1,9 +1,271 @@
 ---
 layout: post
-title: "Go: CGO"
-date: 2024-09-27
+title: "Go: Cgo"
+date: 2024-09-28
 categories: blog engineering go
-published: false
+published: true
 ---
 
-# Go: CGO
+# Go: Cgo
+
+Last week, we talked about the [Go's unsafe package](/blog/engineering/go/2024/09/20/go-unsafe) and how it can expose
+some low level functionality out of Go. In that same vein, this week we're going to discuss Go's interoperability with
+C. What does it mean for a language to be interoperable with another language? This just means the two languages have
+some form of tooling around them in order to bridge the gap between the languages. In our scenario, we'll specifically
+be talking about [Cgo][cgo], which let's us call C code in Go code.j
+
+## A Simple C Shared Library
+
+Because I like to sneak in a bit of extras in to some of these articles, we're first going to build a simple
+[shared library][shared-library] in C. If you don't know what it means to build a library, check out
+[this video][nkane-creating-and-linking-libs] I created for a more in-depth explanation of the topic; however, if
+you're just looking for the TLDR, we've got two library types: _static_ and _shared_ (or _dynamic_). The difference
+between these two is in [linking time][linking], which at a high level is the process of patching in compiled code
+in to a binary, static libraries are linked directly to the binary during compilation and shared libraries are linked
+and loaded at runtime.
+
+For this article, we'll be creating a _shared library_ that uses some [SIMD][simd] [intrinsics][intrinsics]. At some
+point in the future, we'll cover what SIMD is, but for now this is we'll use C as a simpler way to access some of
+these lower level functionalities in Go using Cgo.
+
+We can start with creating the C header file, `vector_simd.h`, which will define just a single function for us to use
+`vector_add`:
+
+```c
+#ifndef VECTOR_SIMD_H
+#define VECTOR_SIMD_H
+
+#include <stddef.h>
+
+void vector_add(float *A, float *B, float *R, size_t length);
+
+#endif
+
+```
+
+Next, we can write the implementation of the function inside of a C file `vector_simd.c`:
+
+```c
+#include <immintrin.h>
+#include <stddef.h>
+
+void vector_add(float *A, float *B, float *result, size_t length) {
+  size_t i;
+  for (i = 0; i < length; i += 4) {
+    __m128 a = _mm_loadu_ps(&A[i]);
+    __m128 b = _mm_loadu_ps(&B[i]);
+    __m128 r = _mm_add_ps(a, b);
+    _mm_storeu_ps(&result[i], r);
+  }
+}
+
+```
+
+In order to compile these files into a shared library, we can use `gcc` passing in some arguments to the compiler
+letting it know that we'd like a shared library to be produced `gcc -shared -o libvector_simd.so -fPIC vector_simd.c`.
+If the compilation is successful, we should see a `libvector_simd.so` file located in the directory where we ran the
+compilation command.
+
+_Wow Nick, we've got a shared library file, why do we even care?_
+
+Well, if this doesn't just get you excited, I'm not really sure what will. There is a lot of C code out there in the
+wild that we can interact with using Cgo, so learning this part isn't necessarily essential but it does expose you to
+the process a bit more than you might get elsewhere.
+
+## Cgo
+
+Alright, we've got our beautiful C shared library that can add two vectors together in our `libvector_simd.so` shared
+object file. Now, we'll write our Go code that utilizes Cgo functionality in order to be able to call our shared
+library:
+
+```go
+package main
+
+/*
+#cgo LDFLAGS: -L. ./libvector_simd.so
+#include "vector_simd.h"
+*/
+import "C"
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+func main() {
+	// Define two input vectors and a result vector
+	A := []float32{1.0, 2.0, 3.0, 4.0}
+	B := []float32{5.0, 6.0, 7.0, 8.0}
+	R := make([]float32, len(A))
+
+	// Call the C vector_add function
+	C.vector_add(
+		(*C.float)(unsafe.Pointer(&A[0])),
+		(*C.float)(unsafe.Pointer(&B[0])),
+		(*C.float)(unsafe.Pointer(&R[0])),
+		C.size_t(len(A)),
+	)
+
+	// Print the result
+	fmt.Printf("Result: %v\n", R)
+}
+
+```
+
+In our Go code, you'll noticed that we're importing a package named `"C"`; however, the Go standard library doesn't
+have a package named `C`. Instead, this is a pseudo-package that is a special name interpreted by Cgo as a reference to
+C's name space. The comment block above the `import "C"` statement, Gco recognizes these and interprets the `#cgo`
+comments as directives used to provide flags for the compiler and linker and the remaining lines are used as a header
+when compiling the C parts of the package. In our example, we're basically telling the linker to link our program with
+our `libvector_simd.so` shared library in the `#cgo LDFLAGS: -L ./libvector_simd.so` and to include our header file
+`vector_simd.h`. The path of these files will vary depending on where you've placed your files. For simplicity, I've
+just placed all of my files in a single directory.
+
+## The Red Pill
+
+_"You take the blue pill, the story ends. You wake up in your bed and believe whatever you want to believe. You take
+the red pill, you stay in Wonderland. And I show you how deep the rabbit hole goes."_
+
+So far, a lot of this stuff probably seems like a bit a black magic. How the f%!k did we end up with `C.vector_add`
+function that just works? We'll there is a bit of Cgo magic that is happening during the Go compilation process that
+does some code generation to create Go bindings for C functions. These tools are referred to as [foreign-function
+interfaces (FFIs)][ffi], and Cgo isn't the only tool that can do this kind of code generation. The code generation is
+typically hidden from the end user during the compilation process and stored away in a temporary directory never to be
+seen when just running the `go build` command.
+
+If we wanted to, we could invoke Cgo ourselves and see exactly what kind of mysterious output it generates by running
+the command `go tool cgo main.go`:
+
+```bash
+~/dev/go-book via C v11.4.0-gcc via 🐹 v1.22.5
+❯ go tool cgo main.go
+
+~/dev/go-book via C v11.4.0-gcc via 🐹 v1.22.5
+❯ l
+total 1.9M
+drwxr-xr-x  3 nkane nkane 4.0K Sep 28 10:06 .
+drwxr-xr-x 34 nkane nkane 4.0K Sep 28 10:08 ..
+drwxr-xr-x  2 nkane nkane 4.0K Sep 28 10:09 _obj
+-rw-r--r--  1 nkane nkane   23 Sep 20 15:05 go.mod
+-rw-r--r--  1 nkane nkane    0 Sep 20 15:05 go.sum
+-rwxr-xr-x  1 nkane nkane  15K Sep 28 09:24 libvector_simd.so
+-rwxr-xr-x  1 nkane nkane 1.9M Sep 28 09:35 main
+-rw-r--r--  1 nkane nkane  529 Sep 28 08:49 main.go
+-rw-r--r--  1 nkane nkane  305 Sep 28 08:43 vector_simd.c
+-rw-r--r--  1 nkane nkane  136 Sep 28 08:48 vector_simd.h
+
+~/dev/go-book via C v11.4.0-gcc via 🐹 v1.22.5
+❯ l _obj
+total 40K
+drwxr-xr-x 2 nkane nkane 4.0K Sep 28 10:09 .
+drwxr-xr-x 3 nkane nkane 4.0K Sep 28 10:06 ..
+-rw-r--r-- 1 nkane nkane 4.8K Sep 28 10:09 _cgo_.o
+-rw-r--r-- 1 nkane nkane  674 Sep 28 10:09 _cgo_export.c
+-rw-r--r-- 1 nkane nkane 1.6K Sep 28 10:09 _cgo_export.h
+-rw-r--r-- 1 nkane nkane 1.6K Sep 28 10:09 _cgo_gotypes.go
+-rw-r--r-- 1 nkane nkane  611 Sep 28 10:09 _cgo_main.c
+-rw-r--r-- 1 nkane nkane  801 Sep 28 10:09 main.cgo1.go
+-rw-r--r-- 1 nkane nkane 2.4K Sep 28 10:09 main.cgo2.c
+
+```
+
+A bunch of files were generated in to a `_obj` directory, in particular we can take a quick look at the
+`_cgo_gotypes.go` file:
+
+```go
+// Code generated by cmd/cgo; DO NOT EDIT.
+
+package main
+
+import "unsafe"
+
+import "syscall"
+
+import _cgopackage "runtime/cgo"
+
+type _ _cgopackage.Incomplete
+var _ syscall.Errno
+func _Cgo_ptr(ptr unsafe.Pointer) unsafe.Pointer { return ptr }
+
+//go:linkname _Cgo_always_false runtime.cgoAlwaysFalse
+var _Cgo_always_false bool
+//go:linkname _Cgo_use runtime.cgoUse
+func _Cgo_use(interface{})
+//go:linkname _Cgo_no_callback runtime.cgoNoCallback
+func _Cgo_no_callback(bool)
+type _Ctype_float float32
+
+type _Ctype_size_t = _Ctype_ulong
+
+type _Ctype_ulong uint64
+
+type _Ctype_void [0]byte
+
+//go:linkname _cgo_runtime_cgocall runtime.cgocall
+func _cgo_runtime_cgocall(unsafe.Pointer, uintptr) int32
+
+//go:linkname _cgoCheckPointer runtime.cgoCheckPointer
+//go:noescape
+func _cgoCheckPointer(interface{}, interface{})
+
+//go:linkname _cgoCheckResult runtime.cgoCheckResult
+//go:noescape
+func _cgoCheckResult(interface{})
+
+//go:cgo_import_static _cgo_64fa6394a200_Cfunc_vector_add
+//go:linkname __cgofn__cgo_64fa6394a200_Cfunc_vector_add _cgo_64fa6394a200_Cfunc_vector_add
+var __cgofn__cgo_64fa6394a200_Cfunc_vector_add byte
+var _cgo_64fa6394a200_Cfunc_vector_add = unsafe.Pointer(&__cgofn__cgo_64fa6394a200_Cfunc_vector_add)
+
+//go:cgo_unsafe_args
+func _Cfunc_vector_add(p0 *_Ctype_float, p1 *_Ctype_float, p2 *_Ctype_float, p3 _Ctype_size_t) (r1 _Ctype_void) {
+	_cgo_runtime_cgocall(_cgo_64fa6394a200_Cfunc_vector_add, uintptr(unsafe.Pointer(&p0)))
+	if _Cgo_always_false {
+		_Cgo_use(p0)
+		_Cgo_use(p1)
+		_Cgo_use(p2)
+		_Cgo_use(p3)
+	}
+	return
+}
+
+```
+
+There is a lot of interesting stuff going on here, in particular we can see that a function pointer is being created
+to point to our C function
+`var _cgo_64fa6394a200_Cfunc_vector_add = unsafe.Pointer(&__cgofn__cgo_64fa6394a200_Cfunc_vector_add)`. The comments
+above this variable declaration are pragma statements that some compiler hints to perform particular task. That
+function pointer is being invoked by using linking a runtime function named `runtime.cgocall` to a function pointer
+name `_cgo_runtime_cgocall`.
+
+In particular, I found [cgocall][cgocall] function a good place to start and just hop around looking at different code
+in this `runtime` package. I'll leave the rest up to you to explore.
+
+## SIGSEGV
+
+If you've got a topic that you would like me to cover in one of these post, please feel free to reach out to me for a
+request.
+
+_"There is no spoon."_
+
+## References
+
+- [cgo][cgo]
+- [cgo-wiki][cgo-wiki]
+- [shared-library][shared-library]
+- [nkane-creating-and-linking-libs][nkane-creating-and-linking-libs]
+- [linking][linking]
+- [simd][simd]
+- [intrinsics][intrinsics]
+- [ffi][ffi]
+- [cgocall][cgocall]
+
+[cgo]: https://go.dev/blog/cgo
+[cgo-wiki]: https://go.dev/wiki/cgo
+[shared-library]: https://en.wikipedia.org/wiki/Shared_library
+[nkane-creating-and-linking-libs]: https://www.youtube.com/watch?v=5cPIF6LLdVA
+[linking]: https://en.wikipedia.org/wiki/Linker_(computing)
+[simd]: https://en.wikipedia.org/wiki/Single_instruction,_multiple_data
+[intrinsics]: https://en.wikipedia.org/wiki/Intrinsic_function
+[ffi]: https://en.wikipedia.org/wiki/Foreign_function_interface
+[cgocall]: https://github.com/golang/go/blob/master/src/runtime/cgocall.go#L134
