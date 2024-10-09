@@ -139,15 +139,12 @@ func main() {
 	// create a reflect.Value from an instance of Person
 	s := Person{Name: "Nick", Age: 34}
 	v := reflect.ValueOf(s)
-
 	// access the type descriptor (reflect.Type) of the value
 	t := v.Type()
-
 	// Inspect the type descriptor
 	fmt.Println("Type Name:", t.Name())            // Person
 	fmt.Println("Kind:", t.Kind())                 // struct
 	fmt.Println("Number of Fields:", t.NumField()) // 2
-
 	// inspect each field in the struct
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
@@ -177,26 +174,92 @@ func main() {
 	// create a reflect.Value from an instance of MyStruct
 	s := Person{Name: "Nick", Age: 34}
 	v := reflect.ValueOf(s)
-
 	// access the type descriptor (reflect.Type) of the value
 	t := v.Type()
-
 	// inspect the type descriptor
 	fmt.Println("Type Name:", t.Name())            // Person
 	fmt.Println("Kind:", t.Kind())                 // struct
 	fmt.Println("Number of Fields:", t.NumField()) // 2
-
 	// inspect each field in the struct
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
 		fmt.Printf("Field Name: %s, Field Type: %s\n", field.Name, field.Type)
 	}
-
 	// return back an interface{}
 	fmt.Println("interface: ", v.Interface())
 }
 
 ```
+
+Mutation of reflection objects is possible, but the value must be settable. If we have a struct that has an unexported
+field, than that field will not be settable via reflection. Let's create an example of this.
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Person struct {
+	Name   string
+	Age    int
+	hidden bool // unexported field (not settable via reflection)
+}
+
+func main() {
+	// create an instance of Person
+	p := Person{Name: "Nick", Age: 30}
+	// call the reflection function to inspect and manipulate the struct
+	InspectAndSetStruct(&p)
+	// output the modified struct
+	fmt.Println("Modified Struct:", p)
+}
+
+func InspectAndSetStruct(s interface{}) {
+	// get the reflect.Value of the struct
+	v := reflect.ValueOf(s)
+	// ensure we're working with a pointer to the struct
+	if v.Kind() != reflect.Ptr || v.Elem().Kind() != reflect.Struct {
+		fmt.Println("Expected a pointer to a struct.")
+		return
+	}
+	// get the element that the pointer points to (the struct itself)
+	v = v.Elem()
+	// get the reflect.Type of the struct
+	t := v.Type()
+	fmt.Printf("Inspecting struct of type: %s\n", t.Name())
+	// iterate over the fields in the struct
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		fieldValue := v.Field(i)
+		fmt.Printf("Field Name: %s, Field Type: %s, Field Value: %v\n", field.Name, field.Type, fieldValue)
+		// check if the field is settable (exported fields only)
+		if fieldValue.CanSet() {
+			// Set new values dynamically
+			switch fieldValue.Kind() {
+			case reflect.String:
+				fieldValue.SetString("Updated Name")
+			case reflect.Int:
+				fieldValue.SetInt(100)
+			default:
+				fmt.Printf("Cannot set value for field: %s\n", field.Name)
+			}
+		} else {
+			fmt.Printf("Field %s is unexported or not settable.\n", field.Name)
+		}
+	}
+}
+
+```
+
+Now, this particular use case in our example isn't useful in general; however, we're just trying to expose ourselves
+to difference concepts that are available to use. For the last section of this article, let's take a look at the
+`encoding/json` package as a way to understand how the standard library uses reflection. I've said this before, but
+anytime that I'm looking for how to use a particular feature I'll always start at the Go standard library.
+
+## Reflection: encoding/json
 
 ## SIGABRT
 
