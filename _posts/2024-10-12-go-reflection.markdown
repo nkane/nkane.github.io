@@ -263,6 +263,15 @@ anytime that I'm looking for how to use a particular feature I'll always start a
 
 ## SIGABRT
 
+## References
+
+- [laws-of-reflection]:[laws-of-reflection]
+- [type-introspection]:[type-introspection]
+- [reflect-package]:[reflect-package]
+- [interfaces]:[interfaces]
+- [go-abi]:[go-abi]
+- [abi]:[abi]
+
 [laws-of-reflection]: https://go.dev/blog/laws-of-reflection
 [type-introspection]: https://en.wikipedia.org/wiki/Type_introspection
 [reflect-package]: https://pkg.go.dev/reflect
