@@ -3,7 +3,7 @@ layout: post
 title: "Go: Reflection"
 date: 2024-10-12
 categories: blog engineering go
-published: false
+published: true
 ---
 
 # Go: Reflection
@@ -256,21 +256,81 @@ func InspectAndSetStruct(s interface{}) {
 
 Now, this particular use case in our example isn't useful in general; however, we're just trying to expose ourselves
 to difference concepts that are available to use. For the last section of this article, let's take a look at the
-`encoding/json` package as a way to understand how the standard library uses reflection. I've said this before, but
-anytime that I'm looking for how to use a particular feature I'll always start at the Go standard library.
+`encoding/json` package as a way to understand how the standard library uses reflection.
 
-## Reflection: encoding/json
+## Reflection: Tags
+
+I've said this before, anytime that I'm looking for how to use a particular feature I'll always start at the Go
+standard library for examples. The `encoding/json` package uses reflection to handle the serialization and
+deserialization of Go types to and from JSON. In Go, this is referred to as marshalling and unmarshalling, which will
+be accomplished by iterating through structs fields and encoding or decoding values to or from JSON fields by
+evaluating meta-data that is attached as 'Tags'. I'll leave up the investigation of how the internals of this work for
+another day.
+
+Let's write an example program that defines a structure with fields that contain meta-data tags then uses the `reflect`
+package to evaluate the meta-data.
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+type Person struct {
+	Name   string `json:"name" validate:"required"`
+	Age    int    `json:"age" validate:"min=18"`
+	Gender string `json:"gender" validate:"optional"`
+}
+
+func main() {
+	p := Person{Name: "Nick", Age: 30, Gender: "Male"}
+	ReadStructTags(p)
+}
+
+func ReadStructTags(s interface{}) {
+	// use reflection to get the type of the struct
+	v := reflect.ValueOf(s)
+	t := v.Type()
+	// ensure the passed interface is a struct
+	if t.Kind() != reflect.Struct {
+		fmt.Println("Expected a struct")
+		return
+	}
+	// iterate over the fields of the struct
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		fieldValue := v.Field(i)
+		// print field name and its value
+		fmt.Printf("Field Name: %s, Field Value: %v\n", field.Name, fieldValue)
+		// read the JSON tag
+		jsonTag := field.Tag.Get("json")
+		if jsonTag != "" {
+			fmt.Printf("  JSON Tag: %s\n", jsonTag)
+		}
+		// read the validation tag
+		validateTag := field.Tag.Get("validate")
+		if validateTag != "" {
+			fmt.Printf("  Validation Tag: %s\n", validateTag)
+		}
+	}
+}
+
+```
 
 ## SIGABRT
 
+_What is “real”? How do you define “real”?_
+
 ## References
 
-- [laws-of-reflection]:[laws-of-reflection]
-- [type-introspection]:[type-introspection]
-- [reflect-package]:[reflect-package]
-- [interfaces]:[interfaces]
-- [go-abi]:[go-abi]
-- [abi]:[abi]
+- [laws-of-reflection][laws-of-reflection]
+- [type-introspection][type-introspection]
+- [reflect-package][reflect-package]
+- [interfaces][interfaces]
+- [go-abi][go-abi]
+- [abi][abi]
 
 [laws-of-reflection]: https://go.dev/blog/laws-of-reflection
 [type-introspection]: https://en.wikipedia.org/wiki/Type_introspection
