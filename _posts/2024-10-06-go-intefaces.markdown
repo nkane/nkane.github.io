@@ -280,7 +280,7 @@ func main() {
 
 ```
 
-I often find myself looking toward to Go standard library for influence on elegant and simple API design. Now, with
+I often find myself looking toward the Go standard library for influence on elegant and simple API design. Now, with
 that said, there are some rough edges of any language and standard library. For the most part, I find a lot of
 inspiration and influence in the standard library and the `io.Reader` and `io.Writer` interfaces are one of many great
 examples of how to compose power interfaces that allow for numerous concrete type implements.
