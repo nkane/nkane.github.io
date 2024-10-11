@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Go: Reflection"
-date: 2024-10-12
+date: 2024-10-11
 categories: blog engineering go
 published: true
 ---
