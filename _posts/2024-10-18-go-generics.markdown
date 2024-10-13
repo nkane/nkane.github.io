@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Go: Generics"
-date: 2024-10-18
+date: 2024-10-11
 categories: blog engineering go
-published: false
+published: true
 ---
 
 # Go: Generics
@@ -116,4 +116,18 @@ Out of all of the features introduced in `1.18`, _type sets_ are definitely the 
 In Go, when using generics the types we're passing to the generics are called _type constraints_. These
 _type constraints_ must be defined `interface` types; however, prior to the addition of generics interfaces in Go were
 just function signatures that a concrete type could implement to implicitly be consider a type of that interface. For
-more information, check out the post I did on [interfaces][/blog/engineering/go/2024/10/06/go-intefaces.html].
+more information, check out the post I did on [interfaces](/blog/engineering/go/2024/10/06/go-interfaces.html). In
+order to help group types together, interfaces in Go were looked at in a new way. This new way was that an interface
+can define a set of types with some added syntax.
+
+The newly added syntax looks like the bitwise operators `|` and `~`; however, in this particular use case the `|`
+token is used like union of the types and the `~` token means the set of all types whose underlying type is of that
+particular referred type. The `constraints` package actually wraps up some of the most common ones we might want to
+use. For instance in our previous code block, we used `constraints.Ordered` which is really defined as the following:
+
+```go
+type Ordered interface {
+	Integer | Float | ~string
+}
+
+```
