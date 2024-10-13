@@ -3,7 +3,7 @@ layout: post
 title: "Go: Generics"
 date: 2024-10-11
 categories: blog engineering go
-published: true
+published: false
 ---
 
 # Go: Generics
