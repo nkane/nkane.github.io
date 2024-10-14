@@ -131,3 +131,16 @@ type Ordered interface {
 }
 
 ```
+
+The above interface declaration defines `Ordered` to be the set of all `Integer`, `Float`, and `string` types. So far,
+everything looks pretty simple. Let's take a look at what kind of [Go assembly][go-asm] is produce by some simple
+examples.
+
+## Monomorphization and Boxing
+
+## References
+
+[go-asm]: https://go.dev/doc/asm
+[go-generics]: https://deepsource.com/blog/go-1-18-generics-implementation
+[monomorph]: https://en.wikipedia.org/wiki/Monomorphization
+[boxing]: https://en.wikipedia.org/wiki/Boxing_(computer_programming)
