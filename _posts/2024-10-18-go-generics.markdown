@@ -138,6 +138,188 @@ examples.
 
 ## Monomorphization and Boxing
 
+```go
+package main
+
+type Numbers interface {
+	int | float32
+}
+
+func main() {
+	var a int
+	var b int
+	a = 20
+	b = 25
+	_ = MinGeneric(a, b)
+
+	var c float32
+	var d float32
+	c = 3.14
+	d = 6.28
+	_ = MinGeneric(c, d)
+}
+
+//go:noinline
+func MinGeneric[T Numbers](x, y T) T {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+```
+
+```nasm
+main_main_pc0:
+        TEXT    main.main(SB), ABIInternal, $32-0
+        CMPQ    SP, 16(R14)
+        PCDATA  $0, $-2
+        JLS     main_main_pc75
+        PCDATA  $0, $-1
+        PUSHQ   BP
+        MOVQ    SP, BP
+        SUBQ    $24, SP
+        FUNCDATA        $0, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $1, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        LEAQ    main..dict.MinGeneric[int](SB), AX
+        MOVL    $20, BX
+        MOVL    $25, CX
+        PCDATA  $1, $0
+        NOP
+        CALL    main.MinGeneric[go.shape.int](SB)
+        LEAQ    main..dict.MinGeneric[float32](SB), AX
+        MOVSS   $f32.4048f5c3(SB), X0
+        MOVSS   $f32.40c8f5c3(SB), X1
+        NOP
+        CALL    main.MinGeneric[go.shape.float32](SB)
+        ADDQ    $24, SP
+        POPQ    BP
+        RET
+
+```
+
+```nasm
+main_main_pc75:
+        NOP
+        PCDATA  $1, $-1
+        PCDATA  $0, $-2
+        CALL    runtime.morestack_noctxt(SB)
+        PCDATA  $0, $-1
+        JMP     main_main_pc0
+        TEXT    main.MinGeneric[go.shape.float32](SB), DUPOK|NOSPLIT|NOFRAME|ABIInternal, $0-16
+        FUNCDATA        $0, gclocals·Plqv2ff52JtlYaDd2Rwxbg==(SB)
+        FUNCDATA        $1, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $5, main.MinGeneric[go.shape.float32].arginfo1(SB)
+        FUNCDATA        $6, main.MinGeneric[go.shape.float32].argliveinfo(SB)
+        PCDATA  $3, $1
+        UCOMISS X0, X1
+        JLS     main_MinGeneric[go_shape_float32]_pc6
+        RET
+main_MinGeneric[go_shape_float32]_pc6:
+        MOVUPS  X1, X0
+        RET
+main_MinGeneric[float32]_pc0:
+        TEXT    main.MinGeneric[float32](SB), DUPOK|WRAPPER|ABIInternal, $24-8
+        CMPQ    SP, 16(R14)
+        PCDATA  $0, $-2
+        JLS     main_MinGeneric[float32]_pc43
+        PCDATA  $0, $-1
+        PUSHQ   BP
+        MOVQ    SP, BP
+        SUBQ    $16, SP
+        MOVQ    32(R14), R12
+        TESTQ   R12, R12
+        JNE     main_MinGeneric[float32]_pc74
+main_MinGeneric[float32]_pc23:
+        NOP
+        FUNCDATA        $0, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $1, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $5, main.MinGeneric[float32].arginfo1(SB)
+        FUNCDATA        $6, main.MinGeneric[float32].argliveinfo(SB)
+        PCDATA  $3, $1
+        LEAQ    main..dict.MinGeneric[float32](SB), AX
+        PCDATA  $1, $0
+        NOP
+        CALL    main.MinGeneric[go.shape.float32](SB)
+        ADDQ    $16, SP
+        POPQ    BP
+        RET
+main_MinGeneric[float32]_pc43:
+        NOP
+        PCDATA  $1, $-1
+        PCDATA  $0, $-2
+        MOVSS   X0, 8(SP)
+        MOVSS   X1, 12(SP)
+        CALL    runtime.morestack_noctxt(SB)
+        PCDATA  $0, $-1
+        MOVSS   8(SP), X0
+        MOVSS   12(SP), X1
+        JMP     main_MinGeneric[float32]_pc0
+main_MinGeneric[float32]_pc74:
+        LEAQ    32(SP), R13
+        CMPQ    (R12), R13
+        JNE     main_MinGeneric[float32]_pc23
+        MOVQ    SP, (R12)
+        JMP     main_MinGeneric[float32]_pc23
+        TEXT    main.MinGeneric[go.shape.int](SB), DUPOK|NOSPLIT|NOFRAME|ABIInternal, $0-24
+        FUNCDATA        $0, gclocals·Plqv2ff52JtlYaDd2Rwxbg==(SB)
+        FUNCDATA        $1, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $5, main.MinGeneric[go.shape.int].arginfo1(SB)
+        FUNCDATA        $6, main.MinGeneric[go.shape.int].argliveinfo(SB)
+        PCDATA  $3, $1
+        CMPQ    CX, BX
+        JLE     main_MinGeneric[go_shape_int]_pc9
+        MOVQ    BX, AX
+        RET
+main_MinGeneric[go_shape_int]_pc9:
+        MOVQ    CX, AX
+        RET
+main_MinGeneric[int]_pc0:
+        TEXT    main.MinGeneric[int](SB), DUPOK|WRAPPER|ABIInternal, $32-16
+        CMPQ    SP, 16(R14)
+        PCDATA  $0, $-2
+        JLS     main_MinGeneric[int]_pc47
+        PCDATA  $0, $-1
+        PUSHQ   BP
+        MOVQ    SP, BP
+        SUBQ    $24, SP
+        MOVQ    32(R14), R12
+        TESTQ   R12, R12
+        JNE     main_MinGeneric[int]_pc74
+main_MinGeneric[int]_pc23:
+        NOP
+        FUNCDATA        $0, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $1, gclocals·g2BeySu+wFnoycgXfElmcg==(SB)
+        FUNCDATA        $5, main.MinGeneric[int].arginfo1(SB)
+        FUNCDATA        $6, main.MinGeneric[int].argliveinfo(SB)
+        PCDATA  $3, $1
+        MOVQ    BX, CX
+        MOVQ    AX, BX
+        LEAQ    main..dict.MinGeneric[int](SB), AX
+        PCDATA  $1, $0
+        CALL    main.MinGeneric[go.shape.int](SB)
+        ADDQ    $24, SP
+        POPQ    BP
+        RET
+main_MinGeneric[int]_pc47:
+        NOP
+        PCDATA  $1, $-1
+        PCDATA  $0, $-2
+        MOVQ    AX, 8(SP)
+        MOVQ    BX, 16(SP)
+        CALL    runtime.morestack_noctxt(SB)
+        PCDATA  $0, $-1
+        MOVQ    8(SP), AX
+        MOVQ    16(SP), BX
+        JMP     main_MinGeneric[int]_pc0
+main_MinGeneric[int]_pc74:
+        LEAQ    40(SP), R13
+        CMPQ    (R12), R13
+        JNE     main_MinGeneric[int]_pc23
+        MOVQ    SP, (R12)
+        JMP     main_MinGeneric[int]_pc23
+```
+
 ## References
 
 [go-asm]: https://go.dev/doc/asm
