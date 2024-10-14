@@ -136,7 +136,12 @@ The above interface declaration defines `Ordered` to be the set of all `Integer`
 everything looks pretty simple. Let's take a look at what kind of [Go assembly][go-asm] is produce by some simple
 examples.
 
-## Monomorphization and Boxing
+## Monomorphization and Dictionary Passing
+
+The process of [monomorphization][monomorph] is the generation of specialized version of generic functions or types
+at compile time based on the types used when calling a generic function; however, in the case of interfaces where the
+type information is not known at compile time, Go uses an approach called [dictionary passing][fgg2go] which type
+involves passing a type dictionary data structure to the function at runtime.
 
 ```go
 package main
@@ -325,4 +330,4 @@ main_MinGeneric[int]_pc74:
 [go-asm]: https://go.dev/doc/asm
 [go-generics]: https://deepsource.com/blog/go-1-18-generics-implementation
 [monomorph]: https://en.wikipedia.org/wiki/Monomorphization
-[boxing]: https://en.wikipedia.org/wiki/Boxing_(computer_programming)
+[fgg2go]: https://github.com/sfzhu93/fgg2go
