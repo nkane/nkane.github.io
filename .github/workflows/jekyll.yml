@@ -54,29 +54,18 @@ jobs:
       - name: Setup Ruby (Self-hosted)
         if: steps.runner-type.outputs.runner-type == 'self-hosted'
         run: |
-          # Check if Ruby is already installed with correct version
-          if ! ruby --version | grep -q "3.1"; then
-            # Install dependencies
-            sudo apt-get update
-            sudo apt-get install -y build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
-            
-            # Install rbenv
-            if [ ! -d "$HOME/.rbenv" ]; then
-              git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-              git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-            fi
-            
-            # Add rbenv to PATH
-            export PATH="$HOME/.rbenv/bin:$PATH"
-            eval "$(rbenv init -)"
-            
-            # Install Ruby 3.1.4
-            rbenv install -s 3.1.4
-            rbenv global 3.1.4
-            
-            # Install bundler
-            gem install bundler
-          fi
+          # Install Ruby and development tools
+          sudo apt-get update
+          sudo apt-get install -y ruby-full build-essential zlib1g-dev
+          
+          # Set up gem environment for user installation
+          echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
+          echo 'export PATH="$HOME/gems/bin:$PATH"' >> ~/.bashrc
+          export GEM_HOME="$HOME/gems"
+          export PATH="$HOME/gems/bin:$PATH"
+          
+          # Install bundler
+          gem install bundler
           
           # Install dependencies
           bundle install
@@ -85,7 +74,13 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        run: |
+          # Ensure Ruby environment is available for self-hosted runners
+          if [ "${{ steps.runner-type.outputs.runner-type }}" == "self-hosted" ]; then
+            export GEM_HOME="$HOME/gems"
+            export PATH="$HOME/gems/bin:$PATH"
+          fi
+          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: production
       - name: Upload artifact
