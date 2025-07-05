@@ -1,23 +1,24 @@
 ---
 layout: post
 title: "Go: Generics"
-date: 2024-10-11
+date: 2025-07-05
 categories: blog engineering go
-published: false
+published: true
 ---
 
 # Go: Generics
 
-Generics in programming come in a variety of different flavors, and for awhile Go did officially have generics in the
-language. Despite whether your for or against generics, they are part of the language since version `1.18`. If you're
-not familiar with generics, they're a way of writing code that is independent of the specific type being used. To be
-honest, when generics were first being talking about I was definitely against adding them to the language. My opinion
-hasn't changed much, but I do see how they can make some situations a little less verbose and repetitive. Either way,
-we'll explore what generics are in Go and how we can use them.
+Generics in programming come in a variety of different flavors, and for a while Go did not officially have generics in the
+language. Despite whether you're for or against generics, they are part of the language since version `1.18`. If you're
+not familiar with generics, they're a way of writing code that is independent of the specific type being used.
+
+To be honest, when generics were first being talked about I was definitely against adding them to the language. My opinion
+hasn't changed much, but I do see how they can make some situations a little less verbose and repetitive. In this post,
+we'll explore what generics are in Go, how to use them, and how they work under the hood.
 
 ## Type Parameters
 
-Functions and types now have the ability to have type parameters. At first glace, the syntax of this might look a bit
+Functions and types now have the ability to have type parameters. At first glance, the syntax of this might look a bit
 odd.
 
 ```go
@@ -32,7 +33,7 @@ func Min[T constraints.Ordered](x, y T) T {
 
 ```
 
-When calling a generic function, you can provide the type argument which would look something like the following:
+When calling a generic function, you can provide the type argument, which would look something like the following:
 
 ```go
 package main
@@ -68,10 +69,10 @@ func Min[T constraints.Ordered](x, y T) T {
 
 ```
 
-Some odd looking syntax, but I'm sure you can figure out what's going on here. We are just passing in the type prior
-to the arguments of the function letting the compiler know that we'll be using this generic with a particular type;
-however, the types can actually be implicitly inferred by the types that we are passing in to the function. This means,
-we don't actually need to pass in the type constraint.
+Some odd-looking syntax, but I'm sure you can figure out what's going on here. We are passing in the type prior
+to the arguments of the function, letting the compiler know that we'll be using this generic with a particular type.
+However, the types can actually be implicitly inferred by the types that we are passing to the function. This means
+we don't actually need to pass in the type constraint explicitly.
 
 ```go
 package main
@@ -114,33 +115,36 @@ Out of all of the features introduced in `1.18`, _type sets_ are definitely the 
 ## Type sets
 
 In Go, when using generics the types we're passing to the generics are called _type constraints_. These
-_type constraints_ must be defined `interface` types; however, prior to the addition of generics interfaces in Go were
-just function signatures that a concrete type could implement to implicitly be consider a type of that interface. For
+_type constraints_ must be defined as `interface` types; however, prior to the addition of generics, interfaces in Go were
+just function signatures that a concrete type could implement to implicitly be considered a type of that interface. For
 more information, check out the post I did on [interfaces](/blog/engineering/go/2024/10/06/go-interfaces.html). In
 order to help group types together, interfaces in Go were looked at in a new way. This new way was that an interface
 can define a set of types with some added syntax.
 
 The newly added syntax looks like the bitwise operators `|` and `~`; however, in this particular use case the `|`
-token is used like union of the types and the `~` token means the set of all types whose underlying type is of that
+token is used like a union of the types and the `~` token means the set of all types whose underlying type is of that
 particular referred type. The `constraints` package actually wraps up some of the most common ones we might want to
-use. For instance in our previous code block, we used `constraints.Ordered` which is really defined as the following:
+use. For instance, in our previous code block, we used `constraints.Ordered` which is really defined as the following:
 
 ```go
 type Ordered interface {
 	Integer | Float | ~string
 }
-
 ```
 
+The `Integer` and `Float` types are themselves interfaces that define unions of built-in numeric types. The `~string`
+means any type whose underlying type is `string`, so both `string` and custom types like `type Name string` would
+satisfy this constraint.
+
 The above interface declaration defines `Ordered` to be the set of all `Integer`, `Float`, and `string` types. So far,
-everything looks pretty simple. Let's take a look at what kind of [Go assembly][go-asm] is produce by some simple
+everything looks pretty simple. Let's take a look at what kind of [Go assembly][go-asm] is produced by some simple
 examples.
 
 ## Monomorphization and Dictionary Passing
 
-The process of [monomorphization][monomorph] is the generation of specialized version of generic functions or types
+The process of [monomorphization][monomorph] is the generation of specialized versions of generic functions or types
 at compile time based on the types used when calling a generic function; however, in the case of interfaces where the
-type information is not known at compile time, Go uses an approach called [dictionary passing][fgg2go] which type
+type information is not known at compile time, Go uses an approach called [dictionary passing][fgg2go] which
 involves passing a type dictionary data structure to the function at runtime.
 
 ```go
@@ -323,7 +327,94 @@ main_MinGeneric[int]_pc74:
         JNE     main_MinGeneric[int]_pc23
         MOVQ    SP, (R12)
         JMP     main_MinGeneric[int]_pc23
+
 ```
+
+Looking at the assembly output above, we can see that Go generates both wrapper functions and shape-based
+implementations. Let's break down what's happening:
+
+### Dictionary Loading and Function Calls
+
+In the `main` function, we can see how Go handles the generic function calls:
+
+```nasm
+LEAQ    main..dict.MinGeneric[int](SB), AX
+MOVL    $20, BX
+MOVL    $25, CX
+CALL    main.MinGeneric[go.shape.int](SB)
+
+```
+
+Here, `LEAQ main..dict.MinGeneric[int](SB), AX` loads the address of the type dictionary for the `int` instantiation
+into register `AX`. The values `20` and `25` (our function arguments) are loaded into registers `BX` and `CX`, then the
+shape-based function `main.MinGeneric[go.shape.int]` is called.
+
+Similarly, for the `float32` call:
+
+```nasm
+LEAQ    main..dict.MinGeneric[float32](SB), AX
+MOVSS   $f32.4048f5c3(SB), X0
+MOVSS   $f32.40c8f5c3(SB), X1
+CALL    main.MinGeneric[go.shape.float32](SB)
+```
+
+The dictionary for `float32` is loaded, and the floating-point values `3.14` and `6.28` are loaded into SSE registers
+`X0` and `X1` before calling the float32 shape function.
+
+### Shape-based Functions
+
+Go generates optimized shape-based functions that contain the actual logic. For integers:
+
+```nasm
+TEXT    main.MinGeneric[go.shape.int](SB), DUPOK|NOSPLIT|NOFRAME|ABIInternal, $0-24
+CMPQ    CX, BX          ; Compare y (CX) with x (BX)
+JLE     main_MinGeneric[go_shape_int]_pc9  ; Jump if y <= x
+MOVQ    BX, AX          ; Return x (BX) in AX
+RET
+main_MinGeneric[go_shape_int]_pc9:
+MOVQ    CX, AX          ; Return y (CX) in AX
+RET
+
+```
+
+This is a straightforward implementation of our `if x < y` logic using `CMPQ` (compare quad-word) and conditional
+jumps. Notice how the function directly operates on the values without any type dictionary overhead.
+
+For floating-point numbers, the shape function uses SSE instructions:
+
+```nasm
+TEXT    main.MinGeneric[go.shape.float32](SB), DUPOK|NOSPLIT|NOFRAME|ABIInternal, $0-16
+UCOMISS X0, X1          ; Unordered compare of single-precision floats
+JLS     main_MinGeneric[go_shape_float32]_pc6  ; Jump if X0 <= X1
+RET                     ; Return X0 (already in place)
+main_MinGeneric[go_shape_float32]_pc6:
+MOVUPS  X1, X0          ; Move X1 to X0 (return y)
+RET
+
+```
+
+The `UCOMISS` instruction performs an unordered comparison of single-precision floating-point values, and `MOVUPS`
+moves the result to the return register.
+
+### Wrapper Functions
+
+Go also generates wrapper functions that handle the dictionary passing protocol. These wrappers are responsible for:
+
+1. **Stack management**: Setting up the proper stack frame
+2. **Dictionary handling**: Loading and passing the type dictionary
+3. **Calling the shape function**: Delegating to the optimized implementation
+
+For example, the `main.MinGeneric[int]` wrapper loads the dictionary and calls the shape function:
+
+```nasm
+LEAQ    main..dict.MinGeneric[int](SB), AX  ; Load dictionary
+CALL    main.MinGeneric[go.shape.int](SB)   ; Call shape function
+
+```
+
+This hybrid approach allows Go to balance compilation speed with runtime performance. The wrapper functions handle the
+type dictionary passing, while the shape-based functions contain the actual optimized logic without any generic
+overhead.
 
 ## References
 
