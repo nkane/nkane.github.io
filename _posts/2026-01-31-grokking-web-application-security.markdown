@@ -43,14 +43,7 @@ Walks through browser architecture and the built-in constraints that keep users 
 sandbox, storage, and cookies into concrete security context. The details here explain why some browser behaviors feel
 annoying until you see the threat model behind them.
 
-Example (CSP header, simplified):
-
-```http
-Content-Security-Policy: default-src 'self'; script-src 'self'
-```
-
 Go example (CSP header):
-
 ```go
 func csp(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -58,12 +51,6 @@ func csp(next http.Handler) http.Handler {
         next.ServeHTTP(w, r)
     })
 }
-```
-
-Unsafe anti-pattern (no CSP at all):
-
-```text
-No CSP header, any inline script can run if injected
 ```
 
 ### 3. Encryption
@@ -92,13 +79,6 @@ func enforceTLS(next http.Handler) http.Handler {
 Focuses on the core defensive layers: validating input, escaping output, and guarding resources. It also reinforces
 defense-in-depth and least-privilege as non-negotiables. The key idea here is that input handling and output encoding are
 not optional if your app renders user data anywhere.
-
-Example (input validation + output escaping, simplified):
-
-```text
-Validate early: ensure user_id is a UUID before using it
-Escape late: encode output for the context (HTML, JS, URL)
-```
 
 Go example (validate UUID + escape HTML):
 
@@ -156,12 +136,6 @@ func setCSRFCookie(w http.ResponseWriter, token string) {
 }
 ```
 
-Unsafe anti-pattern (state change without CSRF check):
-
-```text
-POST /transfer without CSRF token validation
-```
-
 ### 7. Network vulnerabilities
 
 Focuses on attacks in the wire: MITM, misdirection, cert compromise, and stolen keys. It reinforces why transport
@@ -185,13 +159,6 @@ Explores where logins break in real life: brute force, weak storage, SSO edge ca
 hardening options like MFA and biometrics. The focus is on preventing guessability and reducing the blast radius when
 credentials inevitably leak.
 
-Example (rate limiting, simplified):
-
-```text
-If login attempts > N in 10 minutes, slow or block
-Do not leak whether a username exists
-```
-
 Go example (password hashing with bcrypt):
 
 ```go
@@ -203,7 +170,7 @@ if err != nil {
 
 Unsafe anti-pattern (storing plaintext passwords):
 
-```text
+```sql
 INSERT INTO users(email, password) VALUES(?, ?)
 ```
 
@@ -232,12 +199,6 @@ http.SetCookie(w, &http.Cookie{
 })
 ```
 
-Unsafe anti-pattern (missing HttpOnly/Secure):
-
-```text
-Set-Cookie: session_id=...; Path=/
-```
-
 ### 10. Authorization vulnerabilities
 
 Focuses on modeling and enforcing access control, not just authentication. The emphasis is on design-time clarity and
@@ -250,12 +211,6 @@ Go example (explicit authorization check):
 func canView(user User, resource Resource) bool {
     return user.ID == resource.OwnerID || user.IsAdmin
 }
-```
-
-Unsafe anti-pattern (IDOR, no check):
-
-```text
-GET /reports/{id} returns report without verifying ownership
 ```
 
 ### 11. Payload vulnerabilities
@@ -280,11 +235,6 @@ if !strings.HasPrefix(header.Header.Get("Content-Type"), "image/") {
 }
 ```
 
-Unsafe anti-pattern (store whatever name was uploaded):
-
-```text
-Save file to uploads/ + header.Filename
-```
 
 ### 12. Injection vulnerabilities
 
@@ -327,13 +277,6 @@ Focuses on attacks that turn your app into someone else's weapon: SSRF, email sp
 is that harm can happen even when the target isn't you. The pattern is usually a helpful feature that trusts untrusted
 inputs.
 
-Example (SSRF allowlist, simplified):
-
-```text
-Only allow outbound requests to known hostnames
-Reject IP literals and private ranges
-```
-
 Go example (simple allowlist check):
 
 ```go
@@ -342,12 +285,6 @@ u, _ := url.Parse(target)
 if !allowed[u.Hostname()] {
     return errors.New("blocked host")
 }
-```
-
-Unsafe anti-pattern (open fetch from user input):
-
-```text
-Fetch URL directly from query param and proxy the response
 ```
 
 ### 15. What to do when you get hacked
