@@ -1,0 +1,34 @@
+{
+  "name": "nkane.dev",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Nick Kane's personal site and blog",
+  "license": "MIT",
+  "author": "Nick Kane",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkane/nkane.github.io"
+  },
+  "keywords": [
+    "astro",
+    "blog",
+    "terminal",
+    "personal-site"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "check": "astro check",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
+    "typescript": "^5.9.3"
+  }
+}
