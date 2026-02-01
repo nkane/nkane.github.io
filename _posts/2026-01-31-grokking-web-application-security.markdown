@@ -182,7 +182,7 @@ expect.
 
 Example (session cookie flags, simplified):
 
-```http
+```text
 Set-Cookie: session_id=...; HttpOnly; Secure; SameSite=Lax
 ```
 
