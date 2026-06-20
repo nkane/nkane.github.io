@@ -1,8 +1,8 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import { getPublishedPosts } from '../utils/posts';
 
 export async function GET(context) {
-  const posts = await getCollection('posts');
+  const posts = await getPublishedPosts();
   return rss({
     title: "Nick Kane's Website",
     description: 'Rants, ramblings, and ideas straight from my internal CPU.',
