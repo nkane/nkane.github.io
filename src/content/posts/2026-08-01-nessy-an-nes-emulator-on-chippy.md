@@ -77,6 +77,10 @@ a fixed number of frames, framebuffer-SHA-asserted against a pinned value. The d
 playfield, driven by the `$FFFA` NMI vector). Three demos, three layers of the stack, three regression gates
 that need no external assets.
 
+<img src="/assets/nessy-demos/nessy-vblank-bounce.gif" alt="nessy vblank-bounce demo: NMI-driven tile animation" class="center-small-img" />
+
+<img src="/assets/nessy-demos/nessy-input-echo.gif" alt="nessy input-echo demo: joypad-driven indicator boxes" class="center-small-img" />
+
 What v0.1.0 doesn't do: scroll mid-frame, sprite-0 hit, audio, anything past NROM.
 
 ## v0.2.0 — Super Mario Bros. 1 boots (2026-05-20, with v0.2.1 hardening folded in)
@@ -187,6 +191,12 @@ This *replaced* the v0.2 linear mixer outright. Cartridge expansion-audio chips 
 onto the post-DAC sample, not through `mixSample` — on real hardware those chips live on the cart and mix with
 console audio on the cart's analog out, outside the 2A03's DAC. The per-chip scale constants are tuned for
 plausible relative level; tightening the balance is deferred to the v1.0 audio epic.
+
+<video src="/assets/nessy-demos/nessy-all-channels.mp4" controls muted loop class="center-small-img" style="max-width:480px;"></video>
+
+The clip above is the `all-channels` demo from this release: pulse 1, pulse 2, triangle, and noise running
+together under the non-linear DAC mixer. Captured headlessly via the `cmd/nessy-record` recorder so the
+audio is byte-identical to what comes out of the game window.
 
 **MMC1 — the first serial-shift-register mapper.** Mapper 1, behind Zelda 1, Final Fantasy, Metroid,
 Castlevania II, Dragon Warrior. Unlike NROM and the parallel-register families, MMC1 assembles a 5-bit value
@@ -385,6 +395,11 @@ non-contended run, re-runs with `pending=100`, asserts the per-fetch stall went 
 Directionally correct and bounded — most shipping ROMs sit outside the contention envelope. A sample-perfect
 model needs per-cycle DMA accounting nessy doesn't yet have. That accounting arrives in v0.8 with the Mesen2
 `ProcessPendingDma` port, which subsumes this approximation.
+
+<img src="/assets/nessy-demos/nessy-oam-grid.gif" alt="nessy oam-grid demo: 64-sprite OAMDMA stress" class="center-small-img" />
+
+The `oam-grid` demo above stresses all 64 hardware sprites at once via `$4014` OAMDMA. By v0.6 the
+single-DMA-controller contention model from D4 above kicks in when DMC fetches collide with this DMA window.
 
 **Daily-driver CLI: recent-ROMs list + controller rebinding.** A recent-ROMs list at `~/.nessy/recent` (up to
 5 absolute paths, newest first, deduped). `nessy` with no args prints the numbered list; `nessy N` (1..5)
