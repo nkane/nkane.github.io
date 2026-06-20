@@ -77,6 +77,19 @@
   padding: 20px;
 }
 
+.center-small-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 24px auto;
+  border: 2px solid var(--accent);
+  background: transparent;
+}
+
+video.center-small-img {
+  width: 100%;
+}
+
 .post ul {
   list-style: none;
 }
