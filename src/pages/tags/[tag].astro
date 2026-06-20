@@ -1,16 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import { getPublishedPosts } from '../../utils/posts';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('posts');
+  const allPosts = await getPublishedPosts();
   const uniqueTags = [...new Set(allPosts.map(post => post.data.tags).flat())];
-  
+
   return uniqueTags.map(tag => {
-    const filteredPosts = allPosts
-      .filter(post => post.data.tags?.includes(tag) && !post.data.draft)
-      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    const filteredPosts = allPosts.filter(post => post.data.tags?.includes(tag));
     return {
       params: { tag },
       props: { posts: filteredPosts }
